@@ -22,3 +22,7 @@ This frontend is built using;
 - React
 - Redux
 - Bootstrap
+
+### Backend
+
+Check out the [backend repository](https://github.com/annoinspace/architrave-backend) for this project.
