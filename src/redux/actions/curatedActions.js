@@ -1,0 +1,1 @@
+export const SET_CURATED_COLORS = "SET_CURATED_COLORS"

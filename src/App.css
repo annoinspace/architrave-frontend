@@ -1,5 +1,6 @@
 :root {
   --small-font: 14px;
+  --accent: #a9693d;
 }
 
 * {
@@ -10,13 +11,56 @@
   height: 100vh;
   width: 100vw;
 }
+.con {
+  border: 1px solid red;
+}
+.row {
+  border: 1px solid pink;
+}
+.col {
+  border: 1px solid orange;
+}
 
+.page-header {
+  text-align: center;
+}
 /*  ------------navbar------------- */
 #navbar {
-  border: 1px solid red;
+  border-bottom: 1.5px solid var(--accent);
   width: 100vw;
-  height: 40px;
+  height: 50px;
   display: flex;
   align-items: center;
+  justify-content: space-around;
   padding-inline: 30px;
+}
+.nav-link {
+  cursor: pointer;
+}
+
+/*  ------------my library page------------- */
+
+.swatch {
+  width: 50px;
+  height: 90px;
+  border-radius: 30px;
+  border: 1px solid black;
+  z-index: 9;
+  transition: all 1s ease;
+}
+
+.swatch:hover {
+  width: 150px;
+  height: 90px;
+  border-radius: 30px;
+  border: 1px solid rgb(152, 38, 38);
+  background-color: aquamarine;
+  z-index: 10;
+}
+
+.swatch-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
 }

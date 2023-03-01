@@ -1,13 +1,13 @@
 import "./App.css"
 import "bootstrap/dist/css/bootstrap.min.css"
-import MyLibrary from "./components/MyLibrary.jsx"
+import Curated from "./components/Curated.jsx"
 import Navbar from "./components/Navbar.jsx"
 function App() {
   return (
     <>
       <div className="App">
         <Navbar />
-        <MyLibrary />
+        <Curated />
       </div>
     </>
   )
