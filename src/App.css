@@ -1,6 +1,6 @@
 :root {
   --small-font: 14px;
-  --accent: #a9693d;
+  --accent: #714222;
 }
 
 * {
@@ -14,9 +14,7 @@
 .con {
   border: 1px solid red;
 }
-.row {
-  border: 1px solid pink;
-}
+
 .col {
   border: 1px solid orange;
 }
@@ -31,13 +29,43 @@
   height: 50px;
   display: flex;
   align-items: center;
-  justify-content: space-around;
+
   padding-inline: 30px;
 }
 .nav-link {
   cursor: pointer;
 }
-
+#architrave-nav {
+}
+#sign-up-nav {
+  margin-left: auto;
+}
+/*  ---------------login---------------- */
+#login-wrapper {
+  border: none;
+  max-width: 100%;
+  display: flex;
+  position: relative;
+}
+#login-oval-wrapper {
+  border: 5px solid var(--accent);
+  height: 500px;
+  width: 350px;
+  border-radius: 50%;
+  position: absolute;
+  z-index: 10;
+  right: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: rotate(20deg);
+}
+#login-oval-wrapper h4 {
+  transform: rotate(-20deg);
+}
+#architrave-info {
+  max-width: 600px;
+}
 /*  ------------my library page------------- */
 
 .swatch {
