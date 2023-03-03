@@ -5,6 +5,8 @@ import Navbar from "./components/Navbar.jsx"
 import Login from "./components/Login"
 import { useSelector } from "react-redux"
 import { useEffect } from "react"
+import { BrowserRouter, Routes, Route } from "react-router-dom"
+import SignUp from "./components/SignUp"
 function App() {
   const currentUser = useSelector((state) => state.currentUser.currentUser)
   useEffect(() => {
@@ -17,18 +19,22 @@ function App() {
   return (
     <>
       <div className="App">
-        {currentUser === null && (
-          <>
-            <Navbar />
-            <Login />
-          </>
-        )}
-        {currentUser && (
-          <>
-            <Navbar />
-            <Curated />
-          </>
-        )}
+        <BrowserRouter>
+          <Navbar />
+          <Routes>
+            {currentUser === null && (
+              <>
+                <Route path="/login" element={<Login />} />
+                <Route path="/signup" element={<SignUp />} />
+              </>
+            )}
+            {currentUser && (
+              <>
+                <Route path="/home" element={<Curated />} />
+              </>
+            )}
+          </Routes>
+        </BrowserRouter>
       </div>
     </>
   )

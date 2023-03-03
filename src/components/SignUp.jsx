@@ -5,7 +5,7 @@ import { Button, Form, Container } from "react-bootstrap"
 import { getAccessToken } from "../redux/actions/userActions"
 import { useLocation, useParams } from "react-router-dom"
 
-export default function Login() {
+export default function SignUp() {
   //   const navigate = useNavigate()
   const location = useLocation()
   const params = useParams()
@@ -25,7 +25,7 @@ export default function Login() {
       email: email,
       password: password
     }
-    console.log("logging in")
+    console.log("signing up")
     dispatch(getAccessToken(credentials))
   }
   useEffect(() => {
@@ -47,7 +47,7 @@ export default function Login() {
       <div id="login-form-wrapper">
         <div id="login-oval-wrapper"></div>
         <div id="login-form">
-          <h4>login</h4>
+          <h4>Signup</h4>
           <Form onSubmit={handleSubmit}>
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Email address</Form.Label>

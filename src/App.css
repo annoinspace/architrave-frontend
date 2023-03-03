@@ -1,6 +1,17 @@
+@import url("https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Lora:ital@0;1&family=Murecho:wght@300;400&family=Playfair+Display+SC&display=swap");
+
+/* font-family: 'Libre Caslon Text', serif;
+font-family: 'Lora', serif;
+font-family: 'Murecho', sans-serif;
+font-family: 'Playfair Display SC', serif; */
+
 :root {
   --small-font: 14px;
   --accent: #714222;
+  --fancy-title: "Libre Caslon Text", serif;
+  --caps-font: "Playfair Display SC", serif;
+  --lora: "Lora", serif;
+  --simple-font: "Murecho", sans-serif;
 }
 
 * {
@@ -45,7 +56,26 @@
   border: none;
   max-width: 100%;
   display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+}
+#architrave-info {
+  max-width: 600px;
+
+  font-family: var(--fancy-title);
+}
+#architrave-info div {
+  font-family: var(--lora);
+}
+
+#login-form-wrapper {
+  width: 400px;
+  height: 600px;
   position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 #login-oval-wrapper {
   border: 5px solid var(--accent);
@@ -53,19 +83,35 @@
   width: 350px;
   border-radius: 50%;
   position: absolute;
-  z-index: 10;
-  right: 200px;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  transform: rotate(20deg);
+  transform: rotate(15deg);
 }
 #login-oval-wrapper h4 {
-  transform: rotate(-20deg);
 }
-#architrave-info {
-  max-width: 600px;
+
+#login-form {
+  z-index: 10;
+  padding: 50px;
+  height: 400px;
+  width: 300px;
+  justify-content: center;
 }
+#login-form h4 {
+  text-align: center;
+  margin-bottom: 2 0px;
+}
+
+#password-input {
+  background-color: pink;
+}
+
+/* #login-form input[type="email"],
+#login-form input[type="password"] {
+  background-color: #f0f0f0; 
+} */
 /*  ------------my library page------------- */
 
 .swatch {
