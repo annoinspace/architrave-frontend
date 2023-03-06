@@ -3,11 +3,13 @@ import {
   SET_ACCESS_TOKEN,
   LOGOUT_USER,
   DELETE_ACCESS_TOKEN,
-  SIGN_UP_USER_STATUS
+  SIGN_UP_USER_STATUS,
+  USER_LOCATION
 } from "../actions/userActions"
 
 const initialState = {
   signUpStatus: null,
+  userLocation: "/",
   accessToken: null,
   currentUser: null
 }
@@ -17,6 +19,11 @@ const profileReducer = (state = initialState, action) => {
       return {
         ...state,
         signUpStatus: action.payload
+      }
+    case USER_LOCATION:
+      return {
+        ...state,
+        userLocation: action.payload
       }
     case SET_ACCESS_TOKEN: // add a new case to handle setting the accessToken
       return {

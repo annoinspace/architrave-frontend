@@ -3,12 +3,9 @@ import { useDispatch } from "react-redux"
 // import { useNavigate } from "react-router-dom"
 import { Button, Form, Container } from "react-bootstrap"
 import { getAccessToken } from "../redux/actions/userActions"
-import { useLocation, useParams } from "react-router-dom"
 
 export default function Login() {
   //   const navigate = useNavigate()
-  const location = useLocation()
-  const params = useParams()
 
   const dispatch = useDispatch()
   const [email, setEmail] = useState("")
@@ -28,9 +25,6 @@ export default function Login() {
     console.log("logging in")
     dispatch(getAccessToken(credentials))
   }
-  useEffect(() => {
-    console.log("location", location.pathname)
-  }, [location])
 
   return (
     <Container id="login-wrapper" className="p-5">

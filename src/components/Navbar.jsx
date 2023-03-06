@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { logoutUser } from "../redux/actions/userActions"
-import { Link, useNavigate } from "react-router-dom"
+import { logoutUser, updateUserLocation } from "../redux/actions/userActions"
+import { Link, useNavigate, useLocation } from "react-router-dom"
 
 export default function Navbar() {
-  const navigate = useNavigate
+  const navigate = useNavigate()
+  const location = useLocation()
   const currentUser = useSelector((state) => state.currentUser.currentUser)
+  const userLocation = useSelector((state) => state.currentUser.userLocation)
+
   const [loggedInNav, setLoggedInNav] = useState(false)
   const dispatch = useDispatch()
   const logoutHandler = () => {
@@ -23,15 +26,29 @@ export default function Navbar() {
     }
   }, [currentUser])
 
+  useEffect(() => {
+    console.log("location from useLocation()", location.pathname)
+    console.log("current location from state", userLocation)
+    dispatch(updateUserLocation(location.pathname))
+  }, [userLocation, location])
+
   return (
     <div id="navbar">
       <div className="nav-link" id="architrave-nav">
         Architrave
       </div>
-      {loggedInNav === false && (
+
+      {userLocation === "/signup" && (
+        <Link to="/">
+          <div className="nav-link" id="login-nav">
+            Login
+          </div>
+        </Link>
+      )}
+      {userLocation === "/" && (
         <Link to="/signup">
           <div className="nav-link" id="sign-up-nav">
-            Sign Up
+            Signup
           </div>
         </Link>
       )}

@@ -4,6 +4,7 @@ export const SET_USER_INFO = "SET_USER_INFO"
 export const DELETE_ACCESS_TOKEN = "DELETE_ACCESS_TOKEN"
 export const LOGOUT_USER = "LOGOUT_USER"
 export const SIGN_UP_USER_STATUS = "SIGN_UP_USER_STATUS"
+export const USER_LOCATION = "USER_LOCATION"
 
 const baseEndpoint = process.env.REACT_APP_BE_URL
 
@@ -105,8 +106,6 @@ export const signupUser = (credentials) => {
       console.log("---------inside the signup action----------")
       const response = await fetch(baseEndpoint + "/users/register", options)
       if (response.ok) {
-        const savedUser = await response.json()
-        console.log("savedUser", savedUser)
         dispatch(signUpUserStatus({ status: "success", message: "Signup Success" }))
       } else {
         const errorResponse = await response.json()
@@ -118,3 +117,8 @@ export const signupUser = (credentials) => {
     }
   }
 }
+
+export const updateUserLocation = (payload) => ({
+  type: USER_LOCATION,
+  payload: payload
+})
