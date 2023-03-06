@@ -50,7 +50,7 @@ export const getAccessToken = (loggingInAuthor) => {
             const userResponse = await fetch(baseEndpoint + "/users/me", opts)
             if (userResponse.ok) {
               const user = await userResponse.json()
-              console.log("response of /users/me user", user)
+
               dispatch({
                 type: SET_USER_INFO,
                 payload: user

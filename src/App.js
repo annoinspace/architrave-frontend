@@ -8,6 +8,7 @@ import { useEffect } from "react"
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import SignUp from "./components/SignUp"
 import Homepage from "./components/Homepage"
+import MyLibrary from "./components/MyLibrary"
 function App() {
   const currentUser = useSelector((state) => state.currentUser.currentUser)
   const loginStatus = useSelector((state) => state.currentUser.loginStatus)
@@ -39,6 +40,7 @@ function App() {
             {currentUser && (
               <>
                 <Route path="/home" element={<Homepage />} />
+                <Route path="/my-library" element={<MyLibrary />} />
               </>
             )}
           </Routes>

@@ -57,9 +57,11 @@ export default function Navbar() {
       {loggedInNav && (
         <>
           <div className="nav-link">Curated</div>
-          <div className="nav-link">My Library</div>
+          <Link to="/my-library">
+            <div className="nav-link">My Library</div>
+          </Link>
           <div className="nav-link">Profile</div>
-          <div className="nav-link border" onClick={logoutHandler}>
+          <div className="nav-link r" onClick={logoutHandler}>
             {" "}
             Logout
           </div>

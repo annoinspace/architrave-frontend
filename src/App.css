@@ -135,6 +135,11 @@ font-family: 'Playfair Display SC', serif; */
 } */
 /*  ------------my library page------------- */
 
+#image-swatch-upload {
+  max-height: 300px;
+  margin-right: 40px;
+}
+
 .swatch {
   width: 50px;
   height: 90px;
