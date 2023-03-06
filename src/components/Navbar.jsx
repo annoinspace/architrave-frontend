@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { logoutUser, updateUserLocation } from "../redux/actions/userActions"
-import { Link, useNavigate, useLocation } from "react-router-dom"
+import { Link, useLocation, useNavigate } from "react-router-dom"
 
 export default function Navbar() {
-  const navigate = useNavigate()
   const location = useLocation()
+  const navigate = useNavigate()
   const currentUser = useSelector((state) => state.currentUser.currentUser)
   const userLocation = useSelector((state) => state.currentUser.userLocation)
 
@@ -14,6 +14,7 @@ export default function Navbar() {
   const logoutHandler = () => {
     console.log("logout clicked")
     dispatch(logoutUser())
+    navigate("/")
   }
   const signUpHandler = () => {
     console.log("sign up clicked")
@@ -38,14 +39,14 @@ export default function Navbar() {
         Architrave
       </div>
 
-      {userLocation === "/signup" && (
+      {currentUser === null && userLocation === "/signup" && (
         <Link to="/">
           <div className="nav-link" id="login-nav">
             Login
           </div>
         </Link>
       )}
-      {userLocation === "/" && (
+      {currentUser === null && userLocation === "/" && (
         <Link to="/signup">
           <div className="nav-link" id="sign-up-nav">
             Signup

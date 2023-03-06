@@ -87,8 +87,8 @@ font-family: 'Playfair Display SC', serif; */
 }
 #login-oval-wrapper {
   border: 5px solid var(--accent);
-  height: 500px;
-  width: 350px;
+  height: 550px;
+  width: 400px;
   border-radius: 50%;
   position: absolute;
   display: flex;
@@ -102,13 +102,12 @@ font-family: 'Playfair Display SC', serif; */
 
 #login-form {
   z-index: 10;
-  padding: 50px;
+  padding: 30px;
   height: 400px;
   width: 300px;
   justify-content: center;
 }
 #signup-form {
-  border: 1px solid green;
   z-index: 10;
   padding: 50px;
   height: 650px;
@@ -126,7 +125,10 @@ font-family: 'Playfair Display SC', serif; */
 #password-input {
   background-color: pink;
 }
-
+#login-fail {
+  font-size: 12px;
+  text-align: center;
+}
 /* #login-form input[type="email"],
 #login-form input[type="password"] {
   background-color: #f0f0f0; 

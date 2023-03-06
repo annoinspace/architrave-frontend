@@ -4,9 +4,15 @@ export const SET_USER_INFO = "SET_USER_INFO"
 export const DELETE_ACCESS_TOKEN = "DELETE_ACCESS_TOKEN"
 export const LOGOUT_USER = "LOGOUT_USER"
 export const SIGN_UP_USER_STATUS = "SIGN_UP_USER_STATUS"
+export const LOGIN_USER_STATUS = "LOGIN_USER_STATUS"
 export const USER_LOCATION = "USER_LOCATION"
 
 const baseEndpoint = process.env.REACT_APP_BE_URL
+
+export const loginUserStatus = (payload) => ({
+  type: LOGIN_USER_STATUS,
+  payload: payload
+})
 
 export const getAccessToken = (loggingInAuthor) => {
   console.log(baseEndpoint)
@@ -23,10 +29,8 @@ export const getAccessToken = (loggingInAuthor) => {
       console.log("---------inside the getAccessToken action----------")
       const response = await fetch(baseEndpoint + "/users/login", options)
       if (response.ok) {
-        console.log("response", response)
         const tokens = await response.json()
         const accessToken = await tokens.accessToken
-        console.log("dispatching accessToken", accessToken)
 
         if (accessToken) {
           console.log("---------access token created----------")
@@ -51,6 +55,10 @@ export const getAccessToken = (loggingInAuthor) => {
                 type: SET_USER_INFO,
                 payload: user
               })
+              dispatch({
+                type: LOGIN_USER_STATUS,
+                payload: { status: "success", message: "user successfully logged in" }
+              })
             } else {
               console.log("error getting the user")
             }
@@ -61,7 +69,12 @@ export const getAccessToken = (loggingInAuthor) => {
           console.log("access token not created")
         }
       } else {
-        console.log("-------error with getting a response ----------")
+        const errorResponse = await response.json()
+        console.log("error logging in user", errorResponse.message)
+        dispatch({
+          type: LOGIN_USER_STATUS,
+          payload: { status: "fail", message: errorResponse.message }
+        })
       }
     } catch (error) {
       console.log(error)
@@ -73,11 +86,23 @@ export const logoutUser = () => {
   return (dispatch) => {
     try {
       dispatch({
-        type: "LOGOUT_USER",
+        type: LOGOUT_USER,
         payload: null
       })
       dispatch({
-        type: "DELETE_ACCESS_TOKEN",
+        type: DELETE_ACCESS_TOKEN,
+        payload: null
+      })
+      dispatch({
+        type: LOGIN_USER_STATUS,
+        payload: null
+      })
+      dispatch({
+        type: USER_LOCATION,
+        payload: "/"
+      })
+      dispatch({
+        type: SET_USER_INFO,
         payload: null
       })
       localStorage.removeItem("accessToken")

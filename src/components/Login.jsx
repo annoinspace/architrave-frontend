@@ -1,12 +1,17 @@
 import React, { useState, useEffect } from "react"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 // import { useNavigate } from "react-router-dom"
-import { Button, Form, Container } from "react-bootstrap"
+import { Button, Form, Container, Alert } from "react-bootstrap"
 import { getAccessToken } from "../redux/actions/userActions"
+import { useNavigate } from "react-router-dom"
 
 export default function Login() {
-  //   const navigate = useNavigate()
+  const navigate = useNavigate()
 
+  const currentUser = useSelector((state) => state.currentUser.currentUser)
+  const accessToken = useSelector((state) => state.currentUser.accessToken)
+  const loginStatus = useSelector((state) => state.currentUser.loginStatus)
+  const loginStatusMessage = loginStatus?.status
   const dispatch = useDispatch()
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
@@ -25,6 +30,12 @@ export default function Login() {
     console.log("logging in")
     dispatch(getAccessToken(credentials))
   }
+  useEffect(() => {
+    console.log("-------checking the login status", loginStatus)
+    if (loginStatusMessage === "success") {
+      navigate("/home")
+    }
+  }, [loginStatus])
 
   return (
     <Container id="login-wrapper" className="p-5">
@@ -42,6 +53,11 @@ export default function Login() {
         <div id="login-oval-wrapper"></div>
         <div id="login-form">
           <h4>login</h4>
+          {loginStatus?.status === "fail" && (
+            <Alert variant="danger" id="login-fail">
+              {loginStatus.message}
+            </Alert>
+          )}
           <Form onSubmit={handleSubmit}>
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Email address</Form.Label>
