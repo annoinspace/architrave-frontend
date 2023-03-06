@@ -1,11 +1,23 @@
-import { SET_USER_INFO, SET_ACCESS_TOKEN, LOGOUT_USER, DELETE_ACCESS_TOKEN } from "../actions/userActions"
+import {
+  SET_USER_INFO,
+  SET_ACCESS_TOKEN,
+  LOGOUT_USER,
+  DELETE_ACCESS_TOKEN,
+  SIGN_UP_USER_STATUS
+} from "../actions/userActions"
 
 const initialState = {
+  signUpStatus: null,
   accessToken: null,
   currentUser: null
 }
 const profileReducer = (state = initialState, action) => {
   switch (action.type) {
+    case SIGN_UP_USER_STATUS:
+      return {
+        ...state,
+        signUpStatus: action.payload
+      }
     case SET_ACCESS_TOKEN: // add a new case to handle setting the accessToken
       return {
         ...state,

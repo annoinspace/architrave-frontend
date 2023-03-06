@@ -1,36 +1,43 @@
 import React, { useState, useEffect } from "react"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 // import { useNavigate } from "react-router-dom"
-import { Button, Form, Container } from "react-bootstrap"
-import { getAccessToken } from "../redux/actions/userActions"
+import { Button, Form, Container, Alert } from "react-bootstrap"
+import { getAccessToken, signupUser } from "../redux/actions/userActions"
 import { useLocation, useParams } from "react-router-dom"
 
 export default function SignUp() {
   //   const navigate = useNavigate()
+  const status = useSelector((state) => state.currentUser.signUpStatus)
   const location = useLocation()
   const params = useParams()
 
   const dispatch = useDispatch()
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-
+  const [username, setUsername] = useState("")
+  const [displayName, setDisplayName] = useState("")
+  const isFormIncomplete = !email || !password || !username || !displayName
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log(email, password)
-    loginUser()
-  }
+    console.log(username, displayName, email, password)
 
-  const loginUser = () => {
     const credentials = {
+      displayName: displayName,
+      username: username,
       email: email,
       password: password
     }
     console.log("signing up")
-    dispatch(getAccessToken(credentials))
+    dispatch(signupUser(credentials))
+    setEmail("")
+    setPassword("")
+    setUsername("")
+    setDisplayName("")
   }
   useEffect(() => {
     console.log("location", location.pathname)
-  }, [location])
+    console.log("status", status)
+  }, [status])
 
   return (
     <Container id="login-wrapper" className="p-5">
@@ -44,12 +51,25 @@ export default function SignUp() {
           like to use in your project, create a moodboard and fill in the necessary budget information
         </div>
       </div>
-      <div id="login-form-wrapper">
-        <div id="login-oval-wrapper"></div>
-        <div id="login-form">
+      <div id="signup-form-wrapper">
+        <div id="signup-form">
           <h4>Signup</h4>
+          {status?.status === "fail" && <Alert variant="danger">{status.message}</Alert>}
+          {status?.status === "success" && <Alert variant="success">{status.message}</Alert>}
           <Form onSubmit={handleSubmit}>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Group className="mb-4" controlId="l">
+              <Form.Label>First Name</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Enter first name"
+                value={displayName}
+                onChange={(e) => {
+                  setDisplayName(e.target.value)
+                }}
+              />
+              <Form.Text className="text-muted"></Form.Text>
+            </Form.Group>
+            <Form.Group className="mb-4" controlId="formBasicEmail">
               <Form.Label>Email address</Form.Label>
               <Form.Control
                 type="email"
@@ -61,8 +81,20 @@ export default function SignUp() {
               />
               <Form.Text className="text-muted">We'll never share your email with anyone else.</Form.Text>
             </Form.Group>
+            <Form.Group className="mb-4" controlId="">
+              <Form.Label>Username</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Enter username"
+                value={username}
+                onChange={(e) => {
+                  setUsername(e.target.value)
+                }}
+              />
+              <Form.Text className="text-muted mb-4">Usernames are case-sensitive</Form.Text>
+            </Form.Group>
 
-            <Form.Group className="mb-3" controlId="formBasicPassword">
+            <Form.Group className="mb-4" controlId="formBasicPassword">
               <Form.Label>Password</Form.Label>
               <Form.Control
                 type="password"
@@ -74,7 +106,7 @@ export default function SignUp() {
               />
             </Form.Group>
 
-            <Button variant="primary" type="submit">
+            <Button variant="primary" type="submit" disabled={isFormIncomplete}>
               Submit
             </Button>
           </Form>{" "}

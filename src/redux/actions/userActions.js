@@ -3,6 +3,7 @@ export const SET_ACCESS_TOKEN = "SET_ACCESS_TOKEN"
 export const SET_USER_INFO = "SET_USER_INFO"
 export const DELETE_ACCESS_TOKEN = "DELETE_ACCESS_TOKEN"
 export const LOGOUT_USER = "LOGOUT_USER"
+export const SIGN_UP_USER_STATUS = "SIGN_UP_USER_STATUS"
 
 const baseEndpoint = process.env.REACT_APP_BE_URL
 
@@ -80,6 +81,38 @@ export const logoutUser = () => {
       })
       localStorage.removeItem("accessToken")
       console.log("logged out successfully")
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
+export const signUpUserStatus = (payload) => ({
+  type: SIGN_UP_USER_STATUS,
+  payload: payload
+})
+
+export const signupUser = (credentials) => {
+  return async (dispatch) => {
+    const options = {
+      method: "POST",
+      body: JSON.stringify(credentials),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    }
+    try {
+      console.log("---------inside the signup action----------")
+      const response = await fetch(baseEndpoint + "/users/register", options)
+      if (response.ok) {
+        const savedUser = await response.json()
+        console.log("savedUser", savedUser)
+        dispatch(signUpUserStatus({ status: "success", message: "Signup Success" }))
+      } else {
+        const errorResponse = await response.json()
+        console.log("error registering user", errorResponse.message)
+        dispatch(signUpUserStatus({ status: "fail", message: errorResponse.message }))
+      }
     } catch (error) {
       console.log(error)
     }

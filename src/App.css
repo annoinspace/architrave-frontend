@@ -77,6 +77,14 @@ font-family: 'Playfair Display SC', serif; */
   justify-content: center;
   align-items: center;
 }
+#signup-form-wrapper {
+  width: 400px;
+  height: 600px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 #login-oval-wrapper {
   border: 5px solid var(--accent);
   height: 500px;
@@ -99,9 +107,20 @@ font-family: 'Playfair Display SC', serif; */
   width: 300px;
   justify-content: center;
 }
+#signup-form {
+  border: 1px solid green;
+  z-index: 10;
+  padding: 50px;
+  height: 650px;
+  width: 400px;
+  justify-content: center;
+}
 #login-form h4 {
   text-align: center;
-  margin-bottom: 2 0px;
+  margin-bottom: 20px;
+}
+#signup-form h4 {
+  margin-bottom: 20px;
 }
 
 #password-input {
