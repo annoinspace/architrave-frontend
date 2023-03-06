@@ -33,6 +33,13 @@ font-family: 'Playfair Display SC', serif; */
 .page-header {
   text-align: center;
 }
+
+.icon-button {
+  font-size: 30px;
+  float: right;
+  z-index: 3;
+  cursor: pointer;
+}
 /*  ------------navbar------------- */
 #navbar {
   border-bottom: 1.5px solid var(--accent);
@@ -134,10 +141,26 @@ font-family: 'Playfair Display SC', serif; */
   background-color: #f0f0f0; 
 } */
 /*  ------------my library page------------- */
+#image-swatch-modal {
+  min-width: 900px;
+  display: flex;
+  justify-content: center;
+}
 
 #image-swatch-upload {
-  max-height: 300px;
-  margin-right: 40px;
+  max-height: 250px;
+  margin: auto;
+  align-self: center;
+}
+
+#image-swatch-modal h2 {
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+#swatch-modal-inner-wrapper {
+  padding: 50px;
 }
 
 .swatch {
@@ -163,4 +186,10 @@ font-family: 'Playfair Display SC', serif; */
   flex-wrap: wrap;
   justify-content: center;
   gap: 15px;
+}
+
+#selected-swatches-in-modal {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
 }

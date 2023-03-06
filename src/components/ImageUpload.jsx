@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react"
-import Modal from "react-modal"
-import { Button } from "react-bootstrap"
+import { AiOutlineCloseCircle } from "react-icons/ai"
+import { Button, Form, Modal } from "react-bootstrap"
 
 const ImageUpload = ({ numberOfColors = 49 }) => {
   const [image, setImage] = useState(null)
   const [colors, setColors] = useState([])
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const [imageSource, setImageSource] = useState("")
-  const [swatches, setSwatches] = useState([])
   const [selectedColors, setSelectedColors] = useState([])
+  const [paletteName, setPaletteName] = useState("")
+  const [colorPalette, setColorPalette] = useState("")
 
   useEffect(() => {
     if (!image) {
@@ -106,71 +107,110 @@ const ImageUpload = ({ numberOfColors = 49 }) => {
 
   // let shuffledSwatches = [...filteredColors].sort(() => Math.random() - 0.5)
   let shuffledSwatches = filteredColors
-  console.log("shuffledSwatches", shuffledSwatches)
 
   const handleImageChange = (event) => {
     const file = event.target.files[0]
     setImage(URL.createObjectURL(file))
     setImageSource("file")
+    setSelectedColors([])
   }
 
   const closeModal = () => {
     setModalIsOpen(false)
     setSelectedColors([])
+    setColors([])
+    setImage(null)
   }
   const addToMySwatches = (color) => {
     console.log("color", color)
-    setSelectedColors([...selectedColors, color])
+    if (!selectedColors.includes(color)) {
+      setSelectedColors([...selectedColors, color])
+    }
   }
+  const saveColorPalette = (e) => {
+    e.preventDefault()
+    const newPalette = {
+      paletteName: paletteName,
+      colors: selectedColors
+    }
+    console.log(newPalette)
+  }
+
   return (
     <div>
-      <Button onClick={() => setModalIsOpen(true)}>Upload Image</Button>
+      <Button onClick={() => setModalIsOpen(true)}>New Palette</Button>
 
-      <Modal isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)}>
-        <h2>Upload Image</h2>
-        <input type="file" onChange={handleImageChange} />
-        <br />
-        <br />
-        <div className="d-flex justify-content-center">
-          {image && <img src={imageSource === "file" ? image : image} alt="" id="image-swatch-upload" />}
-          <div style={{ display: "flex", flexWrap: "wrap", maxWidth: "600px" }}>
-            {image && (
-              <div className="w-100 text-center">
-                Select the extracted Colours and save to create your custom palette
-              </div>
-            )}
-            {shuffledSwatches.map((color, index) => (
-              <div className="d-flex flex-column">
+      <Modal show={modalIsOpen} onHide={closeModal} id="image-swatch-modal">
+        <div id="swatch-modal-inner-wrapper">
+          <div className="d-flex justify-content-center mb-5">
+            <h2 style={{ flexGrow: 1, marginLeft: "30px" }}>Extract Colour Palette</h2>
+            <AiOutlineCloseCircle onClick={closeModal} className="icon-button" />
+          </div>
+
+          <div className="d-flex justify-content-center">
+            {image && <img src={imageSource === "file" ? image : image} alt="" id="image-swatch-upload" />}
+            <div style={{ display: "flex", flexWrap: "wrap", maxWidth: "600px", justifyContent: "center" }}>
+              {image && (
+                <div className="w-100 text-center mb-3">
+                  Select the extracted Colours and save to create your custom palette
+                </div>
+              )}
+              {shuffledSwatches.map((color, index) => (
+                <div className="d-flex flex-column justify-content-center p-1">
+                  <div
+                    onClick={() => addToMySwatches(color)}
+                    key={color}
+                    value={color}
+                    style={{
+                      backgroundColor: color,
+                      width: "75px",
+                      height: "75px",
+                      marginInline: "15px",
+                      borderRadius: "50%",
+                      cursor: "pointer"
+                    }}
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="mt-5 mb-5 text-center">
+            {selectedColors.length > 0 && <h5 className="mt-3">Selected Swatches</h5>}
+            <div className=" m-5" id="selected-swatches-in-modal">
+              {selectedColors.map((color) => (
                 <div
-                  onClick={() => addToMySwatches(color)}
                   key={color}
                   value={color}
                   style={{
                     backgroundColor: color,
                     width: "90px",
                     height: "90px",
-                    marginInline: "15px"
+                    marginInline: "15px",
+                    borderRadius: "50%"
                   }}
                 />
-                <div style={{ fontSize: "10px" }}>{color}</div>{" "}
-              </div>
-            ))}
+              ))}{" "}
+            </div>
+            {selectedColors.length > 0 && (
+              <Form>
+                <Form.Group className="mb-3 mt-3 d-flex  justify-content-center" controlId="paletteName">
+                  <Form.Control
+                    type="text"
+                    placeholder="Name Your Palette"
+                    className="w-50"
+                    onChange={(e) => {
+                      setPaletteName(e.target.value)
+                    }}
+                  />
+                  <Button className="ml-2" onClick={saveColorPalette}>
+                    Save
+                  </Button>
+                </Form.Group>
+              </Form>
+            )}
           </div>
+          <input type="file" onChange={handleImageChange} className="mt-2" />
         </div>
-
-        {selectedColors.map((color) => (
-          <div
-            key={color}
-            value={color}
-            style={{
-              backgroundColor: color,
-              width: "90px",
-              height: "90px",
-              marginInline: "15px"
-            }}
-          />
-        ))}
-        <Button onClick={closeModal}>Close</Button>
       </Modal>
     </div>
   )
