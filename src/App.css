@@ -247,4 +247,21 @@ font-family: 'Playfair Display SC', serif; */
 
 #image-upload-section {
   margin: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+#product-info {
+  display: flex;
+
+  align-items: center;
+  margin: 20px;
+}
+#uploaded-image {
+  max-height: 350px;
+  margin: 20px;
+}
+
+#product-details-form {
+  flex-grow: 1;
 }

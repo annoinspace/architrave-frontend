@@ -46,7 +46,7 @@ export default function UploadProducts() {
           <Button>upload from device</Button>
         </div>
         <div id="image-upload-section">
-          <div className="d-flex flex-row">
+          <div className="d-flex flex-row justify-content-center">
             {showUrlInput && (
               <>
                 <Form onSubmit={(e) => handleUrlSubmit(e)} className="d-flex w-75">
@@ -62,15 +62,10 @@ export default function UploadProducts() {
             )}
           </div>
           {image && (
-            <>
-              <Image
-                src={image}
-                alt="image-upload"
-                style={{ maxWidth: "100px", objectFit: "cover", cursor: "pointer" }}
-              />
-              <div>{image}</div>
-              <Form onSubmit={saveProductDetails}>
-                <Form.Group className="mb-4" controlId="l">
+            <div id="product-info">
+              <Image id="uploaded-image" src={image} alt="image-upload" />
+              <Form onSubmit={saveProductDetails} id="product-details-form">
+                <Form.Group className="mb-3" controlId="l">
                   <Form.Label>Product Title</Form.Label>
                   <Form.Control
                     type="text"
@@ -82,7 +77,7 @@ export default function UploadProducts() {
                   />
                   <Form.Text className="text-muted"></Form.Text>
                 </Form.Group>
-                <Form.Group className="mb-4" controlId="l">
+                <Form.Group className="mb-3" controlId="l">
                   <Form.Label>Product Price</Form.Label>
                   <Form.Control
                     type="number"
@@ -94,7 +89,7 @@ export default function UploadProducts() {
                   />
                   <Form.Text className="text-muted"></Form.Text>
                 </Form.Group>
-                <Form.Group className="mb-4" controlId="l">
+                <Form.Group className="mb-3" controlId="l">
                   <Form.Label>Product Link</Form.Label>
                   <Form.Control
                     type="text"
@@ -106,7 +101,7 @@ export default function UploadProducts() {
                   />
                   <Form.Text className="text-muted"></Form.Text>
                 </Form.Group>
-                <Form.Group className="mb-4" controlId="l">
+                <Form.Group className="mb-3" controlId="l">
                   <Form.Label>Product Category</Form.Label>
                   <Form.Control
                     as="select"
@@ -134,7 +129,7 @@ export default function UploadProducts() {
                   Submit
                 </Button>
               </Form>{" "}
-            </>
+            </div>
           )}
         </div>
       </Modal>{" "}
