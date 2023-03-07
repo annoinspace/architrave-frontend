@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react"
+
 import { AiOutlineCloseCircle } from "react-icons/ai"
 import { Button, Form, Modal } from "react-bootstrap"
+import { useDispatch } from "react-redux"
+import { saveColorPalette } from "../redux/actions/userActions"
 
 const ImageUpload = ({ numberOfColors = 49 }) => {
   const [image, setImage] = useState(null)
@@ -10,6 +13,7 @@ const ImageUpload = ({ numberOfColors = 49 }) => {
   const [selectedColors, setSelectedColors] = useState([])
   const [paletteName, setPaletteName] = useState("")
   const [colorPalette, setColorPalette] = useState("")
+  const dispatch = useDispatch()
 
   useEffect(() => {
     if (!image) {
@@ -127,13 +131,14 @@ const ImageUpload = ({ numberOfColors = 49 }) => {
       setSelectedColors([...selectedColors, color])
     }
   }
-  const saveColorPalette = (e) => {
-    e.preventDefault()
+  const savePalette = () => {
     const newPalette = {
       paletteName: paletteName,
       colors: selectedColors
     }
     console.log(newPalette)
+    dispatch(saveColorPalette(newPalette))
+    closeModal()
   }
 
   return (
@@ -160,7 +165,7 @@ const ImageUpload = ({ numberOfColors = 49 }) => {
                   <div
                     onClick={() => addToMySwatches(color)}
                     key={color}
-                    value={color}
+                    value={color + "swatch"}
                     style={{
                       backgroundColor: color,
                       width: "75px",
@@ -202,7 +207,7 @@ const ImageUpload = ({ numberOfColors = 49 }) => {
                       setPaletteName(e.target.value)
                     }}
                   />
-                  <Button className="ml-2" onClick={saveColorPalette}>
+                  <Button className="ml-2" onClick={savePalette}>
                     Save
                   </Button>
                 </Form.Group>

@@ -6,6 +6,7 @@ export const LOGOUT_USER = "LOGOUT_USER"
 export const SIGN_UP_USER_STATUS = "SIGN_UP_USER_STATUS"
 export const LOGIN_USER_STATUS = "LOGIN_USER_STATUS"
 export const USER_LOCATION = "USER_LOCATION"
+export const SAVE_COLOR_PALETTE = "SAVE_COLOR_PALETTE"
 
 const baseEndpoint = process.env.REACT_APP_BE_URL
 
@@ -147,3 +148,33 @@ export const updateUserLocation = (payload) => ({
   type: USER_LOCATION,
   payload: payload
 })
+
+export const saveColorPalette = (newPalette) => {
+  return async (dispatch) => {
+    const options = {
+      method: "POST",
+      body: JSON.stringify(newPalette),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`
+      }
+    }
+    try {
+      console.log("---------inside save color plaette action----------")
+      const response = await fetch(baseEndpoint + "/users/me/colorLibrary", options)
+      if (response.ok) {
+        const palettes = await response.json()
+        console.log(palettes)
+        console.log("new palette created successfully")
+        dispatch({
+          type: SAVE_COLOR_PALETTE,
+          payload: newPalette
+        })
+      } else {
+        console.log("error creating new palette")
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}

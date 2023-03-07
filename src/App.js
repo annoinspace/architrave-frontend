@@ -17,7 +17,6 @@ function App() {
   useEffect(() => {
     if (currentUser) {
       console.log("User has logged in.")
-      console.log("current user", currentUser)
     } else {
       console.log("User has logged out.")
     }
