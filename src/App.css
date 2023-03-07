@@ -236,3 +236,15 @@ font-family: 'Playfair Display SC', serif; */
 .user-palette-wrapper-swatch {
   display: flex;
 }
+
+/*  ------------my library page product upload------------- */
+#upload-product-wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 20px;
+}
+
+#image-upload-section {
+  margin: 20px;
+}
