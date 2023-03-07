@@ -59,7 +59,7 @@ const profileReducer = (state = initialState, action) => {
         ...state,
         currentUser: {
           ...state.currentUser,
-          colorLibrary: [...state.currentUser.colorLibrary, action.payload]
+          colorLibrary: action.payload
         }
       }
     case DELETE_COLOR_PALETTE:
@@ -67,7 +67,7 @@ const profileReducer = (state = initialState, action) => {
         ...state,
         currentUser: {
           ...state.currentUser,
-          colorLibrary: state.currentUser.colorLibrary.filter((palette) => palette._id !== action.payload)
+          colorLibrary: action.payload
         }
       }
 

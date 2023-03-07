@@ -35,27 +35,39 @@ export default function Navbar() {
 
   return (
     <div id="navbar">
-      <div className="nav-link" id="architrave-nav">
-        Architrave
-      </div>
-
       {currentUser === null && userLocation === "/signup" && (
-        <Link to="/">
-          <div className="nav-link" id="login-nav">
-            Login
+        <>
+          <div className="nav-link" id="architrave-nav">
+            Architrave
           </div>
-        </Link>
+
+          <Link to="/">
+            <div className="nav-link" id="login-nav">
+              Login
+            </div>
+          </Link>
+        </>
       )}
       {currentUser === null && userLocation === "/" && (
-        <Link to="/signup">
-          <div className="nav-link" id="sign-up-nav">
-            Signup
+        <>
+          <div className="nav-link" id="architrave-nav">
+            Architrave
           </div>
-        </Link>
+          <Link to="/signup">
+            <div className="nav-link" id="sign-up-nav">
+              Signup
+            </div>
+          </Link>
+        </>
       )}
 
       {loggedInNav && (
         <>
+          <Link to="/home">
+            <div className="nav-link" id="architrave-nav">
+              Architrave
+            </div>
+          </Link>
           <div className="nav-link">Curated</div>
           <Link to="/my-library">
             <div className="nav-link">My Library</div>

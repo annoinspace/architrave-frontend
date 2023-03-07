@@ -207,11 +207,13 @@ font-family: 'Playfair Display SC', serif; */
   justify-content: space-between;
   margin-left: 15px;
   margin-right: 15px;
+  margin-bottom: 15px;
 }
 
-.trash-icon {
+.small-icon {
   cursor: pointer;
   font-size: var(--icon-small);
+  margin-right: 5px;
 }
 
 .user-palette-wrapper-swatch {

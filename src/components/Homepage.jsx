@@ -7,6 +7,7 @@ export default function Homepage() {
       <div className="header-top">
         <h1 className="text-center">My Projects</h1>
         <div>create project</div>
+        <div>display active projects here</div>
       </div>
       <div id="project-preview-wrapper"></div>
     </Container>

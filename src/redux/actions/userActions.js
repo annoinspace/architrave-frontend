@@ -107,6 +107,10 @@ export const logoutUser = () => {
         type: SET_USER_INFO,
         payload: null
       })
+      dispatch({
+        type: SIGN_UP_USER_STATUS,
+        payload: null
+      })
       localStorage.removeItem("accessToken")
       console.log("logged out successfully")
     } catch (error) {
@@ -169,7 +173,7 @@ export const saveColorPalette = (newPalette) => {
         console.log("new palette created successfully")
         dispatch({
           type: SAVE_COLOR_PALETTE,
-          payload: newPalette
+          payload: palettes
         })
       } else {
         console.log("error creating new palette")
@@ -197,7 +201,7 @@ export const deleteColorPalette = (paletteId) => {
         console.log("palette deleted successfully")
         dispatch({
           type: DELETE_COLOR_PALETTE,
-          payload: paletteId
+          payload: palettes
         })
       } else {
         console.log("error deleting palette")
