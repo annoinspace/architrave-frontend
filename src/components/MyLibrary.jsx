@@ -3,13 +3,15 @@ import { useDispatch, useSelector } from "react-redux"
 import { Button, Container } from "react-bootstrap"
 import { FaTrashAlt } from "react-icons/fa"
 import { FiEdit2 } from "react-icons/fi"
-import ImageUpload from "./ImageUpload"
+import ImageUploadPalette from "./ImageUploadPalette"
 import { deleteColorPalette } from "../redux/actions/userActions"
+import UploadProducts from "./UploadProducts"
 
 export default function MyLibrary() {
   const dispatch = useDispatch()
   const currentUser = useSelector((state) => state.currentUser.currentUser)
   const colorPalettes = currentUser?.colorLibrary
+  const userProducts = currentUser?.productLibrary
 
   useEffect(() => {
     console.log("colorPalettes", colorPalettes)
@@ -28,9 +30,12 @@ export default function MyLibrary() {
         <h1 className="text-center">My Library</h1>
       </div>
       <div>
-        <div className="d-flex justify-content-between">
-          <h3>colour palettes</h3>
-          <ImageUpload />
+        <div>
+          <div className="d-flex justify-content-between">
+            <h3>colour palettes</h3>
+            <ImageUploadPalette />
+          </div>
+          {colorPalettes.length === 0 && <div>No saved colour palettes</div>}
         </div>
         <br />
         <div>
@@ -64,8 +69,11 @@ export default function MyLibrary() {
       </div>
 
       <div>
-        <h3>images</h3>
-        <div>images</div>
+        <div className="d-flex justify-content-between">
+          <h3>Products</h3>
+          <UploadProducts />
+        </div>
+        {userProducts.length === 0 && <div>No saved products</div>}
       </div>
       <div id="my-swatches"></div>
     </Container>

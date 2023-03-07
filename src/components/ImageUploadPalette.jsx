@@ -5,7 +5,7 @@ import { Button, Form, Modal, Alert } from "react-bootstrap"
 import { useDispatch } from "react-redux"
 import { saveColorPalette } from "../redux/actions/userActions"
 
-const ImageUpload = ({ numberOfColors = 49 }) => {
+const ImageUploadPalette = ({ numberOfColors = 100 }) => {
   const [image, setImage] = useState(null)
   const [colors, setColors] = useState([])
   const [modalIsOpen, setModalIsOpen] = useState(false)
@@ -24,7 +24,7 @@ const ImageUpload = ({ numberOfColors = 49 }) => {
     const canvas = document.createElement("canvas")
     const ctx = canvas.getContext("2d")
     const img = new Image()
-    const divisionNumber = 7
+    const divisionNumber = 10
     img.src = image
     img.onload = () => {
       const partWidth = img.width / divisionNumber
@@ -69,7 +69,7 @@ const ImageUpload = ({ numberOfColors = 49 }) => {
             const [dr, dg, db] = dominantColor.split(",").map((x) => parseInt(x.trim().split("(")[1]))
 
             const distance = Math.sqrt((r - dr) ** 2 + (g - dg) ** 2 + (b - db) ** 2)
-            if (distance < 100) {
+            if (distance < 30) {
               isClose = true
               break
             }
@@ -102,9 +102,10 @@ const ImageUpload = ({ numberOfColors = 49 }) => {
       const [r2, g2, b2] = self[i].slice(4, -1).split(",").map(Number)
       // Calculate the color difference between the two colors
       const diff = Math.sqrt((r1 - r2) ** 2 + (g1 - g2) ** 2 + (b1 - b2) ** 2)
-      if (diff < 30) {
-        // If the difference is less than 50, the colors are considered too similar and are filtered out
-        return false
+      if (diff < 35) {
+        // If the difference is less than 30, the second color is filtered out
+        self.splice(i, 1)
+        i-- // Reset the loop index so it doesn't skip over the next color
       }
     }
     return true
@@ -233,4 +234,4 @@ const ImageUpload = ({ numberOfColors = 49 }) => {
   )
 }
 
-export default ImageUpload
+export default ImageUploadPalette
