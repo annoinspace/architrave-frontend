@@ -195,7 +195,24 @@ font-family: 'Playfair Display SC', serif; */
   justify-content: center;
   flex-wrap: wrap;
 }
+.individual-selected-swatches-in-modal {
+  width: 80px;
+  height: 80px;
+  margin-inline: 15px;
+  margin-bottom: 15px;
 
+  border-radius: 50%;
+}
+.individual-selected-swatches-in-modal-overlay {
+  width: 80px;
+  height: 80px;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+}
+.individual-selected-swatches-in-modal-overlay:hover {
+  opacity: 1;
+}
 .user-palette-wrapper {
   padding: 10px;
   margin-bottom: 20px;

@@ -148,6 +148,10 @@ const ImageUploadPalette = ({ numberOfColors = 100 }) => {
       closeModal()
     }
   }
+  const deleteSwatch = (color) => {
+    console.log("swatch clicked")
+    setSelectedColors(selectedColors.filter((selectedColor) => selectedColor !== color))
+  }
 
   return (
     <div>
@@ -176,8 +180,8 @@ const ImageUploadPalette = ({ numberOfColors = 100 }) => {
                     value={color + "swatch"}
                     style={{
                       backgroundColor: color,
-                      width: "75px",
-                      height: "75px",
+                      width: "60px",
+                      height: "60px",
                       marginInline: "15px",
                       borderRadius: "50%",
                       cursor: "pointer"
@@ -191,17 +195,22 @@ const ImageUploadPalette = ({ numberOfColors = 100 }) => {
             {selectedColors.length > 0 && <h5 className="mt-3">Selected Swatches</h5>}
             <div className=" m-5" id="selected-swatches-in-modal">
               {selectedColors.map((color) => (
-                <div
-                  key={color}
-                  value={color}
-                  style={{
-                    backgroundColor: color,
-                    width: "90px",
-                    height: "90px",
-                    marginInline: "15px",
-                    borderRadius: "50%"
-                  }}
-                />
+                <>
+                  <div
+                    className="individual-selected-swatches-in-modal"
+                    key={color}
+                    value={color}
+                    style={{
+                      backgroundColor: color
+                    }}
+                  >
+                    {" "}
+                    <div className="individual-selected-swatches-in-modal-overlay">
+                      {" "}
+                      <AiOutlineCloseCircle onClick={() => deleteSwatch(color)} className="icon-button " />
+                    </div>
+                  </div>
+                </>
               ))}{" "}
             </div>
             {selectedColors.length > 0 && (
