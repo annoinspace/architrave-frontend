@@ -7,6 +7,7 @@ export const SIGN_UP_USER_STATUS = "SIGN_UP_USER_STATUS"
 export const LOGIN_USER_STATUS = "LOGIN_USER_STATUS"
 export const USER_LOCATION = "USER_LOCATION"
 export const SAVE_COLOR_PALETTE = "SAVE_COLOR_PALETTE"
+export const DELETE_COLOR_PALETTE = "DELETE_COLOR_PALETTE"
 
 const baseEndpoint = process.env.REACT_APP_BE_URL
 
@@ -172,6 +173,34 @@ export const saveColorPalette = (newPalette) => {
         })
       } else {
         console.log("error creating new palette")
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+export const deleteColorPalette = (paletteId) => {
+  return async (dispatch) => {
+    const options = {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`
+      }
+    }
+    try {
+      console.log("---------inside delete color palette action----------")
+      const response = await fetch(baseEndpoint + `/users/me/colorLibrary/${paletteId}`, options)
+      if (response.ok) {
+        const palettes = await response.json()
+        console.log(palettes)
+        console.log("palette deleted successfully")
+        dispatch({
+          type: DELETE_COLOR_PALETTE,
+          payload: paletteId
+        })
+      } else {
+        console.log("error deleting palette")
       }
     } catch (error) {
       console.log(error)

@@ -6,7 +6,8 @@ import {
   SIGN_UP_USER_STATUS,
   USER_LOCATION,
   LOGIN_USER_STATUS,
-  SAVE_COLOR_PALETTE
+  SAVE_COLOR_PALETTE,
+  DELETE_COLOR_PALETTE
 } from "../actions/userActions"
 
 const initialState = {
@@ -59,6 +60,14 @@ const profileReducer = (state = initialState, action) => {
         currentUser: {
           ...state.currentUser,
           colorLibrary: [...state.currentUser.colorLibrary, action.payload]
+        }
+      }
+    case DELETE_COLOR_PALETTE:
+      return {
+        ...state,
+        currentUser: {
+          ...state.currentUser,
+          colorLibrary: state.currentUser.colorLibrary.filter((palette) => palette._id !== action.payload)
         }
       }
 

@@ -1,17 +1,23 @@
-import React, { useEffect } from "react"
-import { useSelector } from "react-redux"
+import React, { useEffect, useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
 import { Button, Container } from "react-bootstrap"
+import { FaTrashAlt } from "react-icons/fa"
 import ImageUpload from "./ImageUpload"
+import { deleteColorPalette } from "../redux/actions/userActions"
 
 export default function MyLibrary() {
+  const dispatch = useDispatch()
   const currentUser = useSelector((state) => state.currentUser.currentUser)
   const colorPalettes = currentUser?.colorLibrary
-  console.log(colorPalettes)
 
   useEffect(() => {
     console.log("colorPalettes", colorPalettes)
   }, [colorPalettes])
 
+  const trashClickHandler = (paletteId) => {
+    console.log("trash clicked", paletteId)
+    dispatch(deleteColorPalette(paletteId))
+  }
   return (
     <Container className="p-5">
       <div className="header-top">
@@ -26,9 +32,12 @@ export default function MyLibrary() {
         <div>
           {colorPalettes &&
             colorPalettes.map((palette) => (
-              <div key={palette._id}>
-                <h5>{palette.paletteName}</h5>
-                <div className="d-flex">
+              <div key={palette._id} className="user-palette-wrapper">
+                <div className="palette-header">
+                  <h5>{palette.paletteName}</h5>
+                  <FaTrashAlt className="trash-icon" onClick={() => trashClickHandler(palette._id)} />
+                </div>
+                <div className="user-palette-wrapper-swatch">
                   {palette.colors.map((color) => (
                     <div
                       key={color}
