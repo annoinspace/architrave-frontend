@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
 
 import { AiOutlineCloseCircle } from "react-icons/ai"
-import { Button, Form, Modal } from "react-bootstrap"
+import { Button, Form, Modal, Alert } from "react-bootstrap"
 import { useDispatch } from "react-redux"
 import { saveColorPalette } from "../redux/actions/userActions"
 
@@ -11,8 +11,9 @@ const ImageUpload = ({ numberOfColors = 49 }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const [imageSource, setImageSource] = useState("")
   const [selectedColors, setSelectedColors] = useState([])
-  const [paletteName, setPaletteName] = useState("")
+  const [paletteName, setPaletteName] = useState(null)
   const [colorPalette, setColorPalette] = useState("")
+  const [alert, setAlert] = useState(false)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -124,6 +125,8 @@ const ImageUpload = ({ numberOfColors = 49 }) => {
     setSelectedColors([])
     setColors([])
     setImage(null)
+    setPaletteName(null)
+    setAlert(false)
   }
   const addToMySwatches = (color) => {
     console.log("color", color)
@@ -132,13 +135,17 @@ const ImageUpload = ({ numberOfColors = 49 }) => {
     }
   }
   const savePalette = () => {
-    const newPalette = {
-      paletteName: paletteName,
-      colors: selectedColors
+    if (!paletteName) {
+      setAlert(true)
+    } else {
+      const newPalette = {
+        paletteName: paletteName,
+        colors: selectedColors
+      }
+      console.log(newPalette)
+      dispatch(saveColorPalette(newPalette))
+      closeModal()
     }
-    console.log(newPalette)
-    dispatch(saveColorPalette(newPalette))
-    closeModal()
   }
 
   return (
@@ -197,12 +204,17 @@ const ImageUpload = ({ numberOfColors = 49 }) => {
               ))}{" "}
             </div>
             {selectedColors.length > 0 && (
-              <Form>
-                <Form.Group className="mb-3 mt-3 d-flex  justify-content-center" controlId="paletteName">
+              <Form className="d-flex flex-column justify-content-center align-items-center">
+                {alert && (
+                  <Alert variant="danger" className="w-50 m-0">
+                    name your palette before saving
+                  </Alert>
+                )}
+                <Form.Group className="mb-3 mt-3 d-flex justify-content-center w-50" controlId="paletteName">
                   <Form.Control
                     type="text"
                     placeholder="Name Your Palette"
-                    className="w-50"
+                    className="w-100"
                     onChange={(e) => {
                       setPaletteName(e.target.value)
                     }}
