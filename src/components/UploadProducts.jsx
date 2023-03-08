@@ -68,6 +68,10 @@ export default function UploadProducts() {
   const submitProductFromUploadHandler = () => {
     const formData = new FormData()
     formData.append("image", imageFile, "image.jpeg") // add the filename as the third parameter
+    formData.append("name", name)
+    formData.append("price", price)
+    formData.append("link", link)
+    formData.append("category", category)
 
     // const newProduct = {
     //   name: name,
