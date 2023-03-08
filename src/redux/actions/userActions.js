@@ -244,6 +244,35 @@ export const saveNewProduct = (newProduct) => {
     }
   }
 }
+export const saveNewProductFromImageUpload = (formData) => {
+  return async (dispatch) => {
+    const options = {
+      method: "POST",
+      body: formData,
+      headers: {
+        // "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`
+      }
+    }
+    try {
+      console.log("---------inside save product action----------")
+      const response = await fetch(baseEndpoint + "/users/me/products/imageUpload", options)
+      if (response.ok) {
+        const products = await response.json()
+        console.log(products)
+        console.log("new product created successfully")
+        dispatch({
+          type: SAVE_NEW_PRODUCT,
+          payload: products
+        })
+      } else {
+        console.log("error creating new product")
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
 
 export const deleteProduct = (productId) => {
   return async (dispatch) => {
