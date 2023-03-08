@@ -1,17 +1,20 @@
 import React, { useState, useEffect } from "react"
 import { Button, Form, Modal, Alert, Image } from "react-bootstrap"
 import { AiOutlineCloseCircle } from "react-icons/ai"
+import { useDispatch } from "react-redux"
+import { saveNewProduct } from "../redux/actions/userActions"
 
 export default function UploadProducts() {
+  const dispatch = useDispatch()
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const [showUrlInput, setShowUrlInput] = useState(false)
   const [showDragDrop, setShowDragDrop] = useState(false)
   const [showDeviceUpload, setShowDeviceUpload] = useState(false)
   const [image, setImage] = useState("")
-  const [price, setPrice] = useState(null)
-  const [name, setName] = useState(null)
-  const [link, setLink] = useState(null)
-  const [category, setCategory] = useState(null)
+  const [price, setPrice] = useState("")
+  const [name, setName] = useState("")
+  const [link, setLink] = useState("")
+  const [category, setCategory] = useState("")
 
   const closeModal = () => {
     setModalIsOpen(false)
@@ -39,11 +42,12 @@ export default function UploadProducts() {
       image: image
     }
     console.log("newProduct", newProduct)
+    dispatch(saveNewProduct(newProduct))
     setImage("")
-    setPrice(null)
-    setName(null)
-    setLink(null)
-    setCategory(null)
+    setPrice("")
+    setName("")
+    setLink("")
+    setCategory("")
   }
   const isFormIncomplete = !price || !name || !link || !category
 

@@ -7,7 +7,8 @@ import {
   USER_LOCATION,
   LOGIN_USER_STATUS,
   SAVE_COLOR_PALETTE,
-  DELETE_COLOR_PALETTE
+  DELETE_COLOR_PALETTE,
+  SAVE_NEW_PRODUCT
 } from "../actions/userActions"
 
 const initialState = {
@@ -60,6 +61,14 @@ const profileReducer = (state = initialState, action) => {
         currentUser: {
           ...state.currentUser,
           colorLibrary: action.payload
+        }
+      }
+    case SAVE_NEW_PRODUCT:
+      return {
+        ...state,
+        currentUser: {
+          ...state.currentUser,
+          productLibrary: action.payload
         }
       }
     case DELETE_COLOR_PALETTE:

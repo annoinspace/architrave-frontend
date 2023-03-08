@@ -266,16 +266,60 @@ font-family: 'Playfair Display SC', serif; */
   flex-grow: 1;
 }
 
-.product-display-list {
+.product-display-list-item {
   height: 200px;
   width: 200px;
-  border: 1px solid green;
+  cursor: pointer;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+}
+.product-display-list-item:hover {
+  box-shadow: rgba(88, 56, 63, 0.25) 0px 50px 100px -20px, rgba(82, 43, 43, 0.3) 0px 20px 50px -20px;
 }
 
 .product-display-list-image {
-  height: 90px;
-  width: 190px;
+  height: 200px;
+  width: 200px;
   object-fit: cover;
-  overflow: hidden;
-  border-radius: 10%;
+}
+
+#all-products-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  margin: 20px;
+}
+
+.product-details-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.product-link-icon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: var(--icon-small);
+  color: rgb(132, 112, 112);
+  text-decoration: none;
+}
+.product-link-icon:hover {
+  color: rgb(79, 67, 67);
+}
+.product-name {
+  color: rgb(132, 112, 112);
+  background-color: rgba(255, 249, 251, 0.5);
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-inline: 10px;
+  font-size: 20px;
+  font-weight: 500;
+  box-shadow: rgba(88, 56, 63, 0.9) 0px 10px 10px -10px, rgba(82, 43, 43, 0.3) 0px 10px 10px -10px;
 }

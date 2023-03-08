@@ -8,6 +8,7 @@ export const LOGIN_USER_STATUS = "LOGIN_USER_STATUS"
 export const USER_LOCATION = "USER_LOCATION"
 export const SAVE_COLOR_PALETTE = "SAVE_COLOR_PALETTE"
 export const DELETE_COLOR_PALETTE = "DELETE_COLOR_PALETTE"
+export const SAVE_NEW_PRODUCT = "SAVE_NEW_PRODUCT"
 
 const baseEndpoint = process.env.REACT_APP_BE_URL
 
@@ -183,6 +184,7 @@ export const saveColorPalette = (newPalette) => {
     }
   }
 }
+
 export const deleteColorPalette = (paletteId) => {
   return async (dispatch) => {
     const options = {
@@ -205,6 +207,36 @@ export const deleteColorPalette = (paletteId) => {
         })
       } else {
         console.log("error deleting palette")
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
+export const saveNewProduct = (newProduct) => {
+  return async (dispatch) => {
+    const options = {
+      method: "POST",
+      body: JSON.stringify(newProduct),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`
+      }
+    }
+    try {
+      console.log("---------inside save color plaette action----------")
+      const response = await fetch(baseEndpoint + "/users/me/products", options)
+      if (response.ok) {
+        const products = await response.json()
+        console.log(products)
+        console.log("new product created successfully")
+        dispatch({
+          type: SAVE_NEW_PRODUCT,
+          payload: products
+        })
+      } else {
+        console.log("error creating new product")
       }
     } catch (error) {
       console.log(error)
