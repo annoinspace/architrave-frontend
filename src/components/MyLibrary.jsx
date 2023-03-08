@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { Button, Container } from "react-bootstrap"
+import { Button, Container, Image } from "react-bootstrap"
 import { FaTrashAlt } from "react-icons/fa"
 import { FiEdit2 } from "react-icons/fi"
 import ImageUploadPalette from "./ImageUploadPalette"
@@ -74,6 +74,14 @@ export default function MyLibrary() {
           <UploadProducts />
         </div>
         {userProducts.length === 0 && <div>No saved products</div>}
+        {userProducts.map((product) => (
+          <div key={product._id} className="product-display-list">
+            <Image src={product.image} className="product-display-list-image" />
+            <div>{product.name} </div>
+            <div>{product.category} </div>
+            <div>{product.price} </div>
+          </div>
+        ))}
       </div>
       <div id="my-swatches"></div>
     </Container>

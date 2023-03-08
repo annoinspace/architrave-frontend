@@ -7,8 +7,7 @@ export default function UploadProducts() {
   const [showUrlInput, setShowUrlInput] = useState(false)
   const [showDragDrop, setShowDragDrop] = useState(false)
   const [showDeviceUpload, setShowDeviceUpload] = useState(false)
-  const [image, setImage] = useState(null)
-  const [imgUrl, setImgUrl] = useState(null)
+  const [image, setImage] = useState("")
   const [price, setPrice] = useState(null)
   const [name, setName] = useState(null)
   const [link, setLink] = useState(null)
@@ -30,7 +29,24 @@ export default function UploadProducts() {
       console.log("imageUrl", imageUrl)
     }
   }
+
+  const submitProductHandler = () => {
+    const newProduct = {
+      name: name,
+      price: price,
+      link: link,
+      category: category,
+      image: image
+    }
+    console.log("newProduct", newProduct)
+    setImage("")
+    setPrice(null)
+    setName(null)
+    setLink(null)
+    setCategory(null)
+  }
   const isFormIncomplete = !price || !name || !link || !category
+
   const saveProductDetails = () => {}
   return (
     <div>
@@ -72,7 +88,7 @@ export default function UploadProducts() {
                     placeholder="Enter name"
                     value={name}
                     onChange={(e) => {
-                      setPrice(e.target.value)
+                      setName(e.target.value)
                     }}
                   />
                   <Form.Text className="text-muted"></Form.Text>
@@ -96,7 +112,7 @@ export default function UploadProducts() {
                     placeholder="Enter product link"
                     value={link}
                     onChange={(e) => {
-                      setPrice(e.target.value)
+                      setLink(e.target.value)
                     }}
                   />
                   <Form.Text className="text-muted"></Form.Text>
@@ -107,11 +123,13 @@ export default function UploadProducts() {
                     as="select"
                     value={category}
                     onChange={(e) => {
-                      setPrice(e.target.value)
+                      setCategory(e.target.value)
                     }}
                   >
                     <option value="">Select Category</option>
                     <option value="wall">Wall</option>
+                    <option value="textiles">Textiles</option>
+                    <option value="flooring">Flooring</option>
                     <option value="lighting">Lighting</option>
                     <option value="kitchen">Kitchen</option>
                     <option value="bedroom">Bedroom</option>
@@ -125,7 +143,7 @@ export default function UploadProducts() {
                   <Form.Text className="text-muted"></Form.Text>
                 </Form.Group>
 
-                <Button variant="primary" type="submit" disabled={isFormIncomplete}>
+                <Button variant="primary" disabled={isFormIncomplete} onClick={submitProductHandler}>
                   Submit
                 </Button>
               </Form>{" "}

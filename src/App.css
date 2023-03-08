@@ -265,3 +265,17 @@ font-family: 'Playfair Display SC', serif; */
 #product-details-form {
   flex-grow: 1;
 }
+
+.product-display-list {
+  height: 200px;
+  width: 200px;
+  border: 1px solid green;
+}
+
+.product-display-list-image {
+  height: 90px;
+  width: 190px;
+  object-fit: cover;
+  overflow: hidden;
+  border-radius: 10%;
+}
