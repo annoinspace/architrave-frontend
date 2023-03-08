@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { Button, Container, Image } from "react-bootstrap"
+import { Button, Container, Image, Modal } from "react-bootstrap"
 import { FaTrashAlt } from "react-icons/fa"
+import { AiOutlineCloseCircle } from "react-icons/ai"
 import { FiEdit2 } from "react-icons/fi"
 import { HiExternalLink } from "react-icons/hi"
 import ImageUploadPalette from "./ImageUploadPalette"
-import { deleteColorPalette } from "../redux/actions/userActions"
+import { deleteColorPalette, deleteProduct } from "../redux/actions/userActions"
 import UploadProducts from "./UploadProducts"
 
 export default function MyLibrary() {
@@ -13,7 +14,13 @@ export default function MyLibrary() {
   const currentUser = useSelector((state) => state.currentUser.currentUser)
   const colorPalettes = currentUser?.colorLibrary
   const userProducts = currentUser?.productLibrary
+  const [selectedProduct, setSelectedProduct] = useState(null)
+  const [modalIsOpen, setModalIsOpen] = useState(false)
 
+  const closeModal = () => {
+    setModalIsOpen(false)
+    setSelectedProduct(null)
+  }
   useEffect(() => {
     console.log("colorPalettes", colorPalettes)
   }, [colorPalettes, userProducts])
@@ -27,7 +34,17 @@ export default function MyLibrary() {
   }
   const productClickedHandler = (product) => {
     console.log("product clicked", product._id)
+    setSelectedProduct(product)
+    setModalIsOpen(true)
   }
+
+  const deleteProductHandler = (productId) => {
+    console.log("product to delete", productId)
+    dispatch(deleteProduct(productId))
+    setModalIsOpen(false)
+    setSelectedProduct(null)
+  }
+
   return (
     <Container className="p-5">
       <div className="header-top">
@@ -91,6 +108,27 @@ export default function MyLibrary() {
             </div>
           ))}
         </div>
+        {selectedProduct && (
+          <Modal show={modalIsOpen} onHide={closeModal} id="">
+            <div className="modal-display-list-header">
+              <h2 style={{ flexGrow: 1, marginLeft: "30px", marginRight: "30px" }}>{selectedProduct.name}</h2>
+              <AiOutlineCloseCircle onClick={closeModal} className="icon-button close-position" />
+            </div>
+            <div className="modal-display-list-image-wrapper">
+              <Image src={selectedProduct.image} className="modal-display-list-image" />
+              <div>Price: {selectedProduct.price}</div>
+              <div>Category: {selectedProduct.category}</div>
+              <a href={selectedProduct.link} target="_blank" rel="noopener noreferrer" className="no-style">
+                <div>
+                  Product Link <HiExternalLink className="product-link-icon-modal" />
+                </div>{" "}
+              </a>
+            </div>
+            <Button variant="danger" onClick={() => deleteProductHandler(selectedProduct._id)}>
+              Delete From Saved Products
+            </Button>
+          </Modal>
+        )}
       </div>
       <div id="my-swatches"></div>
     </Container>

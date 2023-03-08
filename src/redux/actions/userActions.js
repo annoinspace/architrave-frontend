@@ -9,6 +9,7 @@ export const USER_LOCATION = "USER_LOCATION"
 export const SAVE_COLOR_PALETTE = "SAVE_COLOR_PALETTE"
 export const DELETE_COLOR_PALETTE = "DELETE_COLOR_PALETTE"
 export const SAVE_NEW_PRODUCT = "SAVE_NEW_PRODUCT"
+export const DELETE_PRODUCT = "DELETE_PRODUCT"
 
 const baseEndpoint = process.env.REACT_APP_BE_URL
 
@@ -225,7 +226,7 @@ export const saveNewProduct = (newProduct) => {
       }
     }
     try {
-      console.log("---------inside save color plaette action----------")
+      console.log("---------inside save product action----------")
       const response = await fetch(baseEndpoint + "/users/me/products", options)
       if (response.ok) {
         const products = await response.json()
@@ -237,6 +238,35 @@ export const saveNewProduct = (newProduct) => {
         })
       } else {
         console.log("error creating new product")
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
+export const deleteProduct = (productId) => {
+  return async (dispatch) => {
+    const options = {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`
+      }
+    }
+    try {
+      console.log("---------inside delete product action----------")
+      const response = await fetch(baseEndpoint + `/users/me/products/${productId}`, options)
+      if (response.ok) {
+        const products = await response.json()
+        console.log(products)
+        console.log("product deleted successfully")
+        dispatch({
+          type: DELETE_PRODUCT,
+          payload: products
+        })
+      } else {
+        console.log("error deleting product")
       }
     } catch (error) {
       console.log(error)

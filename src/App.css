@@ -267,8 +267,8 @@ font-family: 'Playfair Display SC', serif; */
 }
 
 .product-display-list-item {
-  height: 200px;
-  width: 200px;
+  height: 175px;
+  width: 175px;
   cursor: pointer;
   border-radius: 10px;
   overflow: hidden;
@@ -279,8 +279,8 @@ font-family: 'Playfair Display SC', serif; */
 }
 
 .product-display-list-image {
-  height: 200px;
-  width: 200px;
+  height: 175px;
+  width: 175px;
   object-fit: cover;
 }
 
@@ -319,7 +319,46 @@ font-family: 'Playfair Display SC', serif; */
   padding-top: 5px;
   padding-bottom: 5px;
   padding-inline: 10px;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 500;
   box-shadow: rgba(88, 56, 63, 0.9) 0px 10px 10px -10px, rgba(82, 43, 43, 0.3) 0px 10px 10px -10px;
+}
+
+.modal-display-list-image-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.modal-display-list-image {
+  max-width: 300px;
+  display: flex;
+  justify-content: center;
+  object-fit: cover;
+  margin-bottom: 15px;
+}
+.modal-display-list-header {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.modal-display-list-header h2 {
+  text-align: center;
+}
+
+.close-position {
+  position: absolute;
+  top: 0px;
+  right: 10px;
+}
+
+.no-style {
+  text-decoration: none;
+  color: black;
 }
