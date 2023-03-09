@@ -436,10 +436,31 @@ Button:active {
 .inspo-display-list-item {
   max-height: 200px;
   width: auto;
+  position: relative;
 }
+
 .inspo-display-list-image {
   max-height: 200px;
   display: flex;
   justify-content: center;
   object-fit: cover;
+}
+.trash-wrapper {
+  background-color: rgba(255, 255, 255, 0);
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+}
+.trash-wrapper:hover {
+  background-color: rgba(88, 56, 63, 0.1);
+  opacity: 1;
+}
+.inspo-trash {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  margin: 10px;
 }

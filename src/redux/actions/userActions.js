@@ -11,6 +11,7 @@ export const DELETE_COLOR_PALETTE = "DELETE_COLOR_PALETTE"
 export const SAVE_NEW_PRODUCT = "SAVE_NEW_PRODUCT"
 export const DELETE_PRODUCT = "DELETE_PRODUCT"
 export const ADD_INSPO_IMAGES = "ADD_INSPO_IMAGES"
+export const DELETE_INSPO = "DELETE_INSPO"
 
 const baseEndpoint = process.env.REACT_APP_BE_URL
 
@@ -328,6 +329,35 @@ export const saveInspoImagesFromDragDrop = (formData) => {
         })
       } else {
         console.log("error adding inspo images")
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
+export const deleteInspo = (inspoId) => {
+  return async (dispatch) => {
+    const options = {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`
+      }
+    }
+    try {
+      console.log("---------inside delete inspo action----------")
+      const response = await fetch(baseEndpoint + `/users/me/inspo/${inspoId}`, options)
+      if (response.ok) {
+        const inspo = await response.json()
+        console.log(inspo)
+        console.log("inspo deleted successfully")
+        dispatch({
+          type: DELETE_INSPO,
+          payload: inspo
+        })
+      } else {
+        console.log("error deleting inspo")
       }
     } catch (error) {
       console.log(error)

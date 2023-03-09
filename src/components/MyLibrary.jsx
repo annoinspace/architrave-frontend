@@ -6,7 +6,7 @@ import { AiOutlineCloseCircle } from "react-icons/ai"
 import { FiEdit2 } from "react-icons/fi"
 import { HiExternalLink } from "react-icons/hi"
 import ImageUploadPalette from "./ImageUploadPalette"
-import { deleteColorPalette, deleteProduct } from "../redux/actions/userActions"
+import { deleteColorPalette, deleteInspo, deleteProduct } from "../redux/actions/userActions"
 import UploadProducts from "./UploadProducts"
 import UploadInspoImages from "./UploadInspoImages"
 
@@ -46,6 +46,11 @@ export default function MyLibrary() {
     dispatch(deleteProduct(productId))
     setModalIsOpen(false)
     setSelectedProduct(null)
+  }
+
+  const trashInspoClickHandler = (inspoId) => {
+    console.log("inspoId", inspoId)
+    dispatch(deleteInspo(inspoId))
   }
 
   return (
@@ -144,8 +149,11 @@ export default function MyLibrary() {
         <div id="inspo-images-wrapper">
           {userInspo.length > 0 &&
             userInspo.map((image) => (
-              <div key={image._id} className="inspo-display-list-item" onClick={() => productClickedHandler(image)}>
+              <div key={image._id} className="inspo-display-list-item">
                 <Image src={image.url} className="inspo-display-list-image" />
+                <div className="trash-wrapper">
+                  <FaTrashAlt className="small-icon inspo-trash" onClick={() => trashInspoClickHandler(image._id)} />
+                </div>
               </div>
             ))}
         </div>

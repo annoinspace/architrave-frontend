@@ -10,7 +10,8 @@ import {
   DELETE_COLOR_PALETTE,
   SAVE_NEW_PRODUCT,
   DELETE_PRODUCT,
-  ADD_INSPO_IMAGES
+  ADD_INSPO_IMAGES,
+  DELETE_INSPO
 } from "../actions/userActions"
 
 const initialState = {
@@ -95,6 +96,14 @@ const profileReducer = (state = initialState, action) => {
         currentUser: {
           ...state.currentUser,
           productLibrary: action.payload
+        }
+      }
+    case DELETE_INSPO:
+      return {
+        ...state,
+        currentUser: {
+          ...state.currentUser,
+          inspo: action.payload
         }
       }
 
