@@ -84,7 +84,7 @@ export default function Login() {
               />
             </Form.Group>
 
-            <Button variant="primary" type="submit">
+            <Button style={{ backgroundColor: "rgb(132, 112, 112)", border: "none" }} type="submit">
               Submit
             </Button>
           </Form>{" "}

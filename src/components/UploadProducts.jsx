@@ -17,6 +17,7 @@ export default function UploadProducts() {
   const [price, setPrice] = useState("")
   const [name, setName] = useState("")
   const [link, setLink] = useState("")
+  const [invalidLink, setInvalidLink] = useState(false)
   const [category, setCategory] = useState("")
 
   const closeModal = () => {
@@ -73,13 +74,6 @@ export default function UploadProducts() {
     formData.append("link", link)
     formData.append("category", category)
 
-    // const newProduct = {
-    //   name: name,
-    //   price: price,
-    //   link: link,
-    //   category: category,
-    //   image: formData // pass the FormData object as the value of the image field
-    // }
     if (formData) {
       console.log("newProduct", formData)
       dispatch(saveNewProductFromImageUpload(formData))
@@ -103,18 +97,38 @@ export default function UploadProducts() {
     console.log("file", file)
   }
 
+  const checkLink = (e) => {
+    const url = e.target.value
+
+    try {
+      const urlObj = new URL(url)
+      console.log("Valid URL:", urlObj.href)
+      setLink(urlObj.href)
+      setInvalidLink(false)
+    } catch (error) {
+      setInvalidLink(true)
+      console.log("Invalid URL:", url)
+    }
+  }
+
   return (
     <div>
-      <Button onClick={() => setModalIsOpen(true)}>Add Product</Button>
+      <Button style={{ backgroundColor: "rgb(132, 112, 112)", border: "none" }} onClick={() => setModalIsOpen(true)}>
+        Add Product
+      </Button>
       <Modal show={modalIsOpen} onHide={closeModal} id="image-swatch-modal">
-        <div className="d-flex justify-content-center ">
+        <AiOutlineCloseCircle onClick={closeModal} className="icon-button close-position " />
+        <div className="upload-product-header">
           <h2 style={{ flexGrow: 1, marginLeft: "30px" }}>Upload Products</h2>
-          <AiOutlineCloseCircle onClick={closeModal} className="icon-button" />
+          <p>Save the products you wish to use in your projects, so you never lose them again!</p>
         </div>
         <div id="upload-product-wrapper">
-          <Button onClick={showUrlUploadSection}>enter url</Button>
-          <Button>drag and drop</Button>
-          <Button onClick={showFileUploadSection}>upload from device</Button>
+          <Button style={{ backgroundColor: "rgb(132, 112, 112)", border: "none" }} onClick={showUrlUploadSection}>
+            enter url
+          </Button>
+          <Button style={{ backgroundColor: "rgb(132, 112, 112)", border: "none" }} onClick={showFileUploadSection}>
+            upload from device
+          </Button>
         </div>
         <div id="image-upload-section">
           <div className="d-flex flex-row justify-content-center">
@@ -131,13 +145,14 @@ export default function UploadProducts() {
                     }}
                     onKeyUp={(e) => e.key === "Enter" && handleUrlSubmit(e)}
                   />
-                  <Button type="submit">Add</Button>{" "}
+                  <Button variant="outline-success">Add</Button>{" "}
                 </Form>
               </>
             )}
             {showDeviceUpload && (
               <Form.Group controlId="formFile" className="mb-3">
                 <Form.File
+                  className="image-file-upload-button"
                   name="image"
                   accept="image/jpg, image/jpeg, image/png, image/gif"
                   onChange={(e) => handleImageUpload(e)}
@@ -149,6 +164,13 @@ export default function UploadProducts() {
             <div id="product-info">
               <Image id="uploaded-image" src={image} alt="image-upload" />
               <Form onSubmit={saveProductDetails} id="product-details-form">
+                <Form.Group>
+                  {invalidLink && (
+                    <Alert variant="danger" id="invalid-product-link">
+                      Invalid Product Link
+                    </Alert>
+                  )}
+                </Form.Group>
                 <Form.Group className="mb-3" controlId="l">
                   <Form.Label>Product Title*</Form.Label>
                   <Form.Control
@@ -180,7 +202,7 @@ export default function UploadProducts() {
                     placeholder="Enter product link"
                     value={link}
                     onChange={(e) => {
-                      setLink(e.target.value)
+                      checkLink(e)
                     }}
                   />
                   <Form.Text className="text-muted"></Form.Text>
@@ -212,14 +234,18 @@ export default function UploadProducts() {
                   <Form.Text className="text-muted"></Form.Text>
                 </Form.Group>
                 {urlInput && (
-                  <Button variant="primary" disabled={isFormIncomplete} onClick={submitProductHandler}>
+                  <Button variant="outline-success" disabled={isFormIncomplete} onClick={submitProductHandler}>
                     Submit
                   </Button>
                 )}
 
                 {showDeviceUpload && (
-                  <Button variant="primary" disabled={isFormIncomplete} onClick={submitProductFromUploadHandler}>
-                    Submit 2
+                  <Button
+                    variant="outline-success"
+                    disabled={isFormIncomplete}
+                    onClick={submitProductFromUploadHandler}
+                  >
+                    Submit
                   </Button>
                 )}
               </Form>{" "}

@@ -155,13 +155,16 @@ const ImageUploadPalette = ({ numberOfColors = 100 }) => {
 
   return (
     <div>
-      <Button onClick={() => setModalIsOpen(true)}>New Palette</Button>
+      <Button style={{ backgroundColor: "rgb(132, 112, 112)", border: "none" }} onClick={() => setModalIsOpen(true)}>
+        New Palette
+      </Button>
 
       <Modal show={modalIsOpen} onHide={closeModal} id="image-swatch-modal">
         <div id="swatch-modal-inner-wrapper">
-          <div className="d-flex justify-content-center mb-5">
+          <AiOutlineCloseCircle onClick={closeModal} className="icon-button" />
+          <div className="d-flex flex-column text-center justify-content-center mb-5">
             <h2 style={{ flexGrow: 1, marginLeft: "30px" }}>Extract Colour Palette</h2>
-            <AiOutlineCloseCircle onClick={closeModal} className="icon-button" />
+            <p>Quickly create a beautiful colour palette from a reference image!</p>
           </div>
 
           <div className="d-flex justify-content-center">
@@ -229,14 +232,14 @@ const ImageUploadPalette = ({ numberOfColors = 100 }) => {
                       setPaletteName(e.target.value)
                     }}
                   />
-                  <Button className="ml-2" onClick={savePalette}>
+                  <Button className="ml-2" variant="outline-success" onClick={savePalette}>
                     Save
                   </Button>
                 </Form.Group>
               </Form>
             )}
           </div>
-          <input type="file" onChange={handleImageChange} className="mt-2" />
+          <input className="image-file-upload-button mt-2" type="file" onChange={handleImageChange} />
         </div>
       </Modal>
     </div>

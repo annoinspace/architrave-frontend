@@ -14,6 +14,7 @@ export default function MyLibrary() {
   const currentUser = useSelector((state) => state.currentUser.currentUser)
   const colorPalettes = currentUser?.colorLibrary
   const userProducts = currentUser?.productLibrary
+  const userInspo = currentUser?.inspo
   const [selectedProduct, setSelectedProduct] = useState(null)
   const [modalIsOpen, setModalIsOpen] = useState(false)
 
@@ -52,7 +53,7 @@ export default function MyLibrary() {
       </div>
       <div>
         <div>
-          <div className="d-flex justify-content-between">
+          <div className="d-flex justify-content-between mt-5">
             <h3>colour palettes</h3>
             <ImageUploadPalette />
           </div>
@@ -76,8 +77,8 @@ export default function MyLibrary() {
                       key={color}
                       style={{
                         backgroundColor: color,
-                        width: "90px",
-                        height: "90px",
+                        width: "80px",
+                        height: "80px",
                         marginInline: "15px",
                         borderRadius: "50%"
                       }}
@@ -90,7 +91,7 @@ export default function MyLibrary() {
       </div>
 
       <div>
-        <div className="d-flex justify-content-between">
+        <div className="d-flex justify-content-between mt-5">
           <h3>saved products</h3>
           <UploadProducts />
         </div>
@@ -129,6 +130,12 @@ export default function MyLibrary() {
             </Button>
           </Modal>
         )}
+      </div>
+      <div className="mt-5">
+        <div className="d-flex justify-content-between">
+          <h3>inspo wall</h3>
+        </div>
+        {userInspo.length === 0 && <div>No saved images</div>}
       </div>
       <div id="my-swatches"></div>
     </Container>

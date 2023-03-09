@@ -106,7 +106,11 @@ export default function SignUp() {
               />
             </Form.Group>
 
-            <Button variant="primary" type="submit" disabled={isFormIncomplete}>
+            <Button
+              style={{ backgroundColor: "rgb(132, 112, 112)", border: "none" }}
+              type="submit"
+              disabled={isFormIncomplete}
+            >
               Submit
             </Button>
           </Form>{" "}
