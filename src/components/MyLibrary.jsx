@@ -8,6 +8,7 @@ import { HiExternalLink } from "react-icons/hi"
 import ImageUploadPalette from "./ImageUploadPalette"
 import { deleteColorPalette, deleteProduct } from "../redux/actions/userActions"
 import UploadProducts from "./UploadProducts"
+import UploadInspoImages from "./UploadInspoImages"
 
 export default function MyLibrary() {
   const dispatch = useDispatch()
@@ -24,7 +25,8 @@ export default function MyLibrary() {
   }
   useEffect(() => {
     console.log("colorPalettes", colorPalettes)
-  }, [colorPalettes, userProducts])
+    console.log("user inspo", userInspo)
+  }, [colorPalettes, userProducts, userInspo])
 
   const trashClickHandler = (paletteId) => {
     console.log("trash clicked", paletteId)
@@ -57,7 +59,7 @@ export default function MyLibrary() {
             <h3>colour palettes</h3>
             <ImageUploadPalette />
           </div>
-          {colorPalettes.length === 0 && <div>No saved colour palettes</div>}
+          {colorPalettes.length === 0 && <div>What are you waiting for? Create your palettes!</div>}
         </div>
         <br />
         <div>
@@ -88,6 +90,7 @@ export default function MyLibrary() {
               </div>
             ))}
         </div>
+        <hr className="library-divider" />
       </div>
 
       <div>
@@ -130,14 +133,23 @@ export default function MyLibrary() {
             </Button>
           </Modal>
         )}
+        <hr className="library-divider" />
       </div>
       <div className="mt-5">
         <div className="d-flex justify-content-between">
           <h3>inspo wall</h3>
+          <UploadInspoImages />
         </div>
-        {userInspo.length === 0 && <div>No saved images</div>}
+        {userInspo.length === 0 && <div>Your inspo wall is currently empty!</div>}
+        <div id="inspo-images-wrapper">
+          {userInspo.length > 0 &&
+            userInspo.map((image) => (
+              <div key={image._id} className="inspo-display-list-item" onClick={() => productClickedHandler(image)}>
+                <Image src={image.url} className="inspo-display-list-image" />
+              </div>
+            ))}
+        </div>
       </div>
-      <div id="my-swatches"></div>
     </Container>
   )
 }

@@ -49,16 +49,24 @@ h1,
 h2,
 h3,
 h4,
-h5 {
+h5,
+p,
+div {
   color: var(--dark-brown);
+}
+Button:active {
+  border-color: none;
 }
 
 .image-file-upload-button {
   width: 300px;
 
-  background-color: rgba(132, 112, 112, 0.3);
+  background-color: rgba(40, 167, 69, 0.2);
   border-radius: 5px;
   padding: 10px;
+}
+.library-divider {
+  margin: 50px;
 }
 /*  ------------navbar------------- */
 #navbar {
@@ -337,11 +345,12 @@ h5 {
 }
 .product-link-icon {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 0px;
+  right: 0px;
   font-size: var(--icon-small);
   color: var(--light-brown);
   text-decoration: none;
+  margin: 15px;
 }
 .product-link-icon:hover {
   color: var(--dark-brown);
@@ -400,4 +409,37 @@ h5 {
 #invalid-product-link {
   width: 50%;
   padding: 10px;
+}
+
+/* -------------------my library inspo wall */
+
+#inspo-upload-modal {
+  min-width: 900px;
+  min-height: 300px;
+  display: flex;
+  justify-content: center;
+}
+
+#inspo-upload-modal h2 {
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+#inspo-images-wrapper {
+  display: flex;
+
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 20px;
+}
+.inspo-display-list-item {
+  max-height: 200px;
+  width: auto;
+}
+.inspo-display-list-image {
+  max-height: 200px;
+  display: flex;
+  justify-content: center;
+  object-fit: cover;
 }
