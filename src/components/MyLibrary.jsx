@@ -81,13 +81,10 @@ export default function MyLibrary() {
                 <div className="user-palette-wrapper-swatch">
                   {palette.colors.map((color) => (
                     <div
+                      className="swatch-style-library"
                       key={color}
                       style={{
-                        backgroundColor: color,
-                        width: "80px",
-                        height: "80px",
-                        marginInline: "15px",
-                        borderRadius: "50%"
+                        backgroundColor: color
                       }}
                     ></div>
                   ))}{" "}

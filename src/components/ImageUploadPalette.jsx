@@ -196,7 +196,7 @@ const ImageUploadPalette = ({ numberOfColors = 100 }) => {
           </div>
           <div className="mt-5 mb-5 text-center">
             {selectedColors.length > 0 && <h5 className="mt-3">Selected Swatches</h5>}
-            <div className=" m-5" id="selected-swatches-in-modal">
+            <div className="m-5 selected-swatches-in-modal">
               {selectedColors.map((color) => (
                 <>
                   <div

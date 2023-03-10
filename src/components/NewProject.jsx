@@ -1,9 +1,10 @@
-import React, { useState } from "react"
-import { Container, Button, Form } from "react-bootstrap"
+import React, { useEffect, useState } from "react"
+import { Container, Button, Form, Image } from "react-bootstrap"
 import { useSelector } from "react-redux"
 
 export default function NewProject() {
   const currentUser = useSelector((state) => state.currentUser.currentUser)
+  const productLibrary = currentUser?.productLibrary
   const colorLibrary = currentUser?.colorLibrary
 
   const [title, setTitle] = useState("Project Title")
@@ -16,12 +17,16 @@ export default function NewProject() {
   const [selectedPalette, setSelectedPalette] = useState(null)
   const [selectedPaletteStyle, setSelectedPaletteStyle] = useState("")
 
-  const incompleteForm = !currency || !budget || !cushion
+  const [selectedProducts, setSelectedProducts] = useState([])
 
   const setPalette = (palette) => {
     setSelectedPalette(palette._id)
     setSelectedPaletteStyle("user-palette-wrapper-new-project-selected")
   }
+
+  useEffect(() => {
+    console.log("selected products", selectedProducts)
+  }, [selectedProducts])
 
   return (
     <Container className="p-5">
@@ -116,12 +121,22 @@ export default function NewProject() {
       </div>
 
       <div id="initialise-moodboard">
-        <div>
-          <div>Select products for moodboard</div>
-          <div>display products by category or all</div>
+        <div id="new-project-images-wrapper">
+          <h6>Select products for moodboard</h6>
+          <div className="all-products-new-project">
+            {productLibrary.map((product) => (
+              <div
+                key={product._id}
+                className="single-product-new-project"
+                onClick={() => setSelectedProducts([...selectedProducts, product])}
+              >
+                <Image src={product.image} className="single-product-new-project-image" />
+              </div>
+            ))}
+          </div>
         </div>
-        <div>
-          <div>Select a color palette from your library</div>
+        <div id="new-project-swatch-wrapper">
+          <h6>Select a color palette from your library</h6>
           {colorLibrary.map((palette) => (
             <div
               key={palette._id}
@@ -144,6 +159,15 @@ export default function NewProject() {
           ))}
         </div>
       </div>
+      <div id="selected-wrapper">
+        {selectedProducts.length > 0 &&
+          selectedProducts.map((product) => (
+            <div key={product._id}>
+              <Image src={product.image} className="single-product-selected" />
+            </div>
+          ))}
+      </div>
+      <Button>Create Moodboard</Button>
     </Container>
   )
 }

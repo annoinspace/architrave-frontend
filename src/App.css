@@ -16,6 +16,8 @@ font-family: 'Playfair Display SC', serif; */
   --icon-small: 20px;
   --dark-brown: rgb(79, 67, 67);
   --light-brown: rgb(132, 112, 112);
+  --light-brown-opacity: rgba(132, 112, 112, 0.5);
+  --light-cream-opacity: rgba(236, 215, 206, 0.25);
 }
 
 * {
@@ -225,18 +227,25 @@ Button:active {
   gap: 15px;
 }
 
-#selected-swatches-in-modal {
+.selected-swatches-in-modal {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+  align-items: center;
+  border-radius: 30px;
+  padding: 10px;
+  gap: 10px;
+  background-color: var(--light-cream-opacity);
 }
+
 .individual-selected-swatches-in-modal {
   width: 80px;
   height: 80px;
-  margin-inline: 15px;
-  margin-bottom: 15px;
-
   border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid rgba(255, 255, 255, 0.9);
 }
 .individual-selected-swatches-in-modal-overlay {
   width: 80px;
@@ -250,7 +259,7 @@ Button:active {
 }
 .user-palette-wrapper {
   padding: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .palette-header {
@@ -259,7 +268,7 @@ Button:active {
   justify-content: space-between;
   margin-left: 15px;
   margin-right: 15px;
-  margin-bottom: 15px;
+  margin-bottom: 5px;
 }
 
 .small-icon {
@@ -271,6 +280,23 @@ Button:active {
 
 .user-palette-wrapper-swatch {
   display: flex;
+  gap: 15px;
+  padding: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-radius: 40px;
+  width: fit-content;
+}
+.user-palette-wrapper-swatch:hover {
+  background: #f2eeee;
+  box-shadow: inset 10px 10px 30px rgba(223, 221, 221, 0.35), inset -10px -10px 30px #ffffff;
+}
+
+.swatch-style-library {
+  width: 70px;
+  height: 70px;
+
+  border-radius: 50%;
 }
 
 /*  ------------my library page product upload------------- */
@@ -489,8 +515,12 @@ Button:active {
 
 #initialise-moodboard {
   margin-top: 40px;
+  margin-bottom: 40px;
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
+  width: 100%;
+  height: 350px;
+  border: 1px solid green;
 }
 
 #create-project-section-one {
@@ -498,8 +528,7 @@ Button:active {
   padding: 30px 0px 30px 0px;
   border-radius: 30px;
 }
-#create-project-section-one:hover {
-}
+
 .title-form-header {
   display: flex;
   justify-content: center;
@@ -508,10 +537,6 @@ Button:active {
   height: 90px;
 }
 
-/* .title-form {
-  width: 400px;
-  margin-bottom: 0 !important;
-} */
 .title-form-header .form-group {
   width: 400px;
   margin-bottom: 0;
@@ -551,4 +576,56 @@ Button:active {
   border-radius: 50px;
   background: #f1eded;
   box-shadow: inset 5px 5px 15px rgba(223, 221, 221, 0.25), inset -5px -5px 15px #ffffff;
+}
+
+#new-project-swatch-wrapper {
+  width: 300px;
+  flex-wrap: wrap;
+}
+
+#new-project-images-wrapper {
+  flex-grow: 1;
+}
+
+.all-products-new-project {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  padding: 15px;
+}
+
+.single-product-new-project {
+  max-width: 120px;
+  max-height: 120px;
+  object-fit: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  border-radius: 30px;
+}
+
+.single-product-new-project-image {
+  max-width: 120px;
+}
+
+#selected-wrapper {
+  background-color: var(--light-brown-opacity);
+  width: 100%;
+  display: flex;
+  gap: 10px;
+  border-radius: 30px;
+  padding: 30px;
+}
+
+.single-product-selected {
+  max-width: 120px;
+  max-height: 120px;
+  object-fit: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  border: 2px solid white;
+  border-radius: 30px;
 }

@@ -223,12 +223,14 @@ export default function UploadProducts() {
                     <option value="Bedroom">Bedroom</option>
                     <option value="Decor">Decor</option>
                     <option value="Flooring">Flooring</option>
+                    <option value="Furniture">Furniture</option>
                     <option value="Kitchen">Kitchen</option>
                     <option value="Lighting">Lighting</option>
                     <option value="Living">Living</option>
                     <option value="Outdoor">Outdoor</option>
                     <option value="Seating">Seating</option>
                     <option value="Soft furnishings">Soft Furnishings</option>
+                    <option value="Tables">Tables & Standing Furniture</option>
                     <option value="Textiles">Textiles</option>
                     <option value="Wall">Wall</option>
                   </Form.Control>
