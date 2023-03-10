@@ -57,7 +57,9 @@ div {
 Button:active {
   border-color: none;
 }
-
+.cursor-pointer {
+  cursor: pointer;
+}
 .image-file-upload-button {
   width: 300px;
 
@@ -428,9 +430,9 @@ Button:active {
 
 #inspo-images-wrapper {
   display: flex;
-
+  justify-content: center;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 25px;
   margin: 20px;
 }
 .inspo-display-list-item {
@@ -463,4 +465,24 @@ Button:active {
   top: 0px;
   right: 0px;
   margin: 10px;
+}
+
+/* -------------- my projects-------------- */
+
+#project-preview-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+#create-project-button {
+  width: 150px;
+  background-color: rgb(132, 112, 112);
+  border: none;
+  align-self: end;
+}
+
+.money-info-wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 100px;
 }

@@ -63,15 +63,16 @@ export default function Navbar() {
 
       {loggedInNav && (
         <>
-          <Link to="/home">
-            <div className="nav-link" id="architrave-nav">
-              Architrave
-            </div>
-          </Link>
+          <div className="nav-link" id="architrave-nav" onClick={() => navigate("/home")}>
+            My Architrave
+          </div>
+
           <div className="nav-link">Curated</div>
-          <Link to="/my-library">
-            <div className="nav-link">My Library</div>
-          </Link>
+
+          <div className="nav-link" onClick={() => navigate("/my-library")}>
+            My Library
+          </div>
+
           <div className="nav-link">Profile</div>
           <div className="nav-link r" onClick={logoutHandler}>
             {" "}

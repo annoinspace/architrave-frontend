@@ -9,6 +9,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom"
 import SignUp from "./components/SignUp"
 import Homepage from "./components/Homepage"
 import MyLibrary from "./components/MyLibrary"
+import NewProject from "./components/NewProject"
 function App() {
   const currentUser = useSelector((state) => state.currentUser.currentUser)
   const loginStatus = useSelector((state) => state.currentUser.loginStatus)
@@ -27,12 +28,6 @@ function App() {
         <BrowserRouter>
           <Navbar />
           <Routes>
-            {/* {currentUser === null && (
-              <>
-                <Route path="/" element={<Login />} />
-                <Route path="/signup" element={<SignUp />} />
-              </>
-            )} */}
             <Route path="/" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />
 
@@ -40,6 +35,7 @@ function App() {
               <>
                 <Route path="/home" element={<Homepage />} />
                 <Route path="/my-library" element={<MyLibrary />} />
+                <Route path="/new-project" element={<NewProject />} />
               </>
             )}
           </Routes>
