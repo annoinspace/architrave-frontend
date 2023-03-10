@@ -11,10 +11,10 @@ export default function NewProject() {
   const [editTitle, setEditTitle] = useState(false)
   const [summary, setSummary] = useState("Here is a section where you can add a project summary")
   const [editSummary, setEditSummary] = useState(false)
-  const [currency, setCurrency] = useState(null)
-  const [budget, setBudget] = useState(null)
-  const [cushion, setCushion] = useState(null)
-  const [selectedPalette, setSelectedPalette] = useState(null)
+  const [currency, setCurrency] = useState("")
+  const [budget, setBudget] = useState("")
+  const [cushion, setCushion] = useState("")
+  const [selectedPalette, setSelectedPalette] = useState("")
   const [selectedPaletteStyle, setSelectedPaletteStyle] = useState("")
 
   const [selectedProducts, setSelectedProducts] = useState([])
@@ -22,6 +22,22 @@ export default function NewProject() {
   const setPalette = (palette) => {
     setSelectedPalette(palette._id)
     setSelectedPaletteStyle("user-palette-wrapper-new-project-selected")
+  }
+
+  const setSelectedProductsHandler = (product) => {
+    // checking if the product is on the list already
+    if (!selectedProducts.includes(product)) {
+      setSelectedProducts([...selectedProducts, product])
+    } else {
+      return
+    }
+  }
+
+  const removeProductHandler = (productId) => {
+    console.log("product to remove", productId)
+    const filtered = selectedProducts.filter((allproducts) => allproducts._id !== productId)
+    console.log(filtered)
+    setSelectedProducts(filtered)
   }
 
   useEffect(() => {
@@ -128,7 +144,7 @@ export default function NewProject() {
               <div
                 key={product._id}
                 className="single-product-new-project"
-                onClick={() => setSelectedProducts([...selectedProducts, product])}
+                onClick={() => setSelectedProductsHandler(product)}
               >
                 <Image src={product.image} className="single-product-new-project-image" />
               </div>
@@ -136,38 +152,44 @@ export default function NewProject() {
           </div>
         </div>
         <div id="new-project-swatch-wrapper">
-          <h6>Select a color palette from your library</h6>
-          {colorLibrary.map((palette) => (
-            <div
-              key={palette._id}
-              className={palette._id === selectedPalette ? selectedPaletteStyle : "user-palette-wrapper-new-project"}
-              onClick={() => setPalette(palette)}
-            >
-              {palette.colors.map((color) => (
-                <div
-                  key={color}
-                  style={{
-                    backgroundColor: color,
-                    width: "30px",
-                    height: "30px",
-                    marginInline: "5px",
-                    borderRadius: "50%"
-                  }}
-                ></div>
-              ))}{" "}
-            </div>
-          ))}
+          <h6 className="text-right mr-4">Select a color palette from your library</h6>
+          <div id="swatches-wrapper-scroll">
+            {colorLibrary.map((palette) => (
+              <div
+                key={palette._id}
+                className={palette._id === selectedPalette ? selectedPaletteStyle : "user-palette-wrapper-new-project"}
+                onClick={() => setPalette(palette)}
+              >
+                {palette.colors.map((color) => (
+                  <div
+                    key={color}
+                    style={{
+                      backgroundColor: color,
+                      width: "30px",
+                      height: "30px",
+                      marginInline: "5px",
+                      borderRadius: "50%"
+                    }}
+                  ></div>
+                ))}{" "}
+              </div>
+            ))}{" "}
+          </div>
         </div>
       </div>
-      <div id="selected-wrapper">
-        {selectedProducts.length > 0 &&
-          selectedProducts.map((product) => (
-            <div key={product._id}>
+      {selectedProducts.length > 0 && (
+        <div id="selected-wrapper">
+          {selectedProducts.map((product) => (
+            <div key={product._id} onClick={(e) => removeProductHandler(product._id)}>
               <Image src={product.image} className="single-product-selected" />
             </div>
           ))}
+        </div>
+      )}
+      <div id="start-moodboard">
+        <h6>Once we get started, we can add some inspo images ... </h6>
+        <Button style={{ backgroundColor: "rgb(132, 112, 112)", border: "none" }}>Create Moodboard</Button>
       </div>
-      <Button>Create Moodboard</Button>
     </Container>
   )
 }
