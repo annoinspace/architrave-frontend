@@ -41,7 +41,7 @@ export default function UploadProducts() {
 
   const handleUrlSubmit = (e) => {
     e.preventDefault()
-    const imageUrl = e.target.elements.imageUrl.value.trim()
+    const imageUrl = urlInput.trim()
     if (imageUrl) {
       setImage(imageUrl)
       console.log("imageUrl", imageUrl)
@@ -134,7 +134,7 @@ export default function UploadProducts() {
           <div className="d-flex flex-row justify-content-center">
             {showUrlInput && (
               <>
-                <Form onSubmit={(e) => handleUrlSubmit(e)} className="d-flex w-75">
+                <Form onSubmit={handleUrlSubmit} className="d-flex w-75">
                   <Form.Control
                     type="text"
                     name="imageUrl"
@@ -143,9 +143,11 @@ export default function UploadProducts() {
                     onChange={(e) => {
                       setUrlInput(e.target.value)
                     }}
-                    onKeyUp={(e) => e.key === "Enter" && handleUrlSubmit(e)}
+                    onKeyUp={(e) => e.key === "Enter" && handleUrlSubmit}
                   />
-                  <Button variant="outline-success">Add</Button>{" "}
+                  <Button onClick={handleUrlSubmit} variant="outline-success">
+                    Add
+                  </Button>{" "}
                 </Form>
               </>
             )}

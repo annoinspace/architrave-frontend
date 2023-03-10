@@ -318,7 +318,7 @@ Button:active {
   position: relative;
 }
 .product-display-list-item:hover {
-  box-shadow: rgba(88, 56, 63, 0.25) 0px 50px 100px -20px, rgba(82, 43, 43, 0.3) 0px 20px 50px -20px;
+  box-shadow: rgba(117, 101, 104, 0.25) 0px 50px 100px -20px, rgba(87, 65, 65, 0.3) 0px 20px 50px -20px;
 }
 
 .product-display-list-image {
@@ -485,4 +485,70 @@ Button:active {
   display: flex;
   justify-content: center;
   gap: 100px;
+}
+
+#initialise-moodboard {
+  margin-top: 40px;
+  display: flex;
+  justify-content: space-around;
+}
+
+#create-project-section-one {
+  border: 1px solid var(--light-brown);
+  padding: 30px 0px 30px 0px;
+  border-radius: 30px;
+}
+#create-project-section-one:hover {
+}
+.title-form-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  height: 90px;
+}
+
+/* .title-form {
+  width: 400px;
+  margin-bottom: 0 !important;
+} */
+.title-form-header .form-group {
+  width: 400px;
+  margin-bottom: 0;
+}
+
+.summary-text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  height: 60px;
+}
+.summary-text .form-group {
+  width: 800px;
+  margin-bottom: 0;
+}
+
+.user-palette-wrapper-new-project {
+  display: flex;
+  padding: 10px;
+  margin-top: 10px;
+  width: fit-content;
+  cursor: pointer;
+}
+
+.user-palette-wrapper-new-project:hover {
+  border-radius: 50px;
+  background: #f1eded;
+  box-shadow: inset 5px 5px 15px rgba(223, 221, 221, 0.25), inset -5px -5px 15px #ffffff;
+}
+.user-palette-wrapper-new-project-selected {
+  display: flex;
+  padding: 10px;
+  margin-top: 10px;
+  width: fit-content;
+  cursor: pointer;
+  border-radius: 50px;
+  background: #f1eded;
+  box-shadow: inset 5px 5px 15px rgba(223, 221, 221, 0.25), inset -5px -5px 15px #ffffff;
 }
