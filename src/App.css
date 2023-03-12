@@ -16,7 +16,7 @@ font-family: 'Playfair Display SC', serif; */
   --icon-small: 20px;
   --dark-brown: rgb(79, 67, 67);
   --light-brown: rgb(132, 112, 112);
-  --light-brown-opacity: rgba(132, 112, 112, 0.5);
+  --light-brown-opacity: rgba(132, 112, 112, 0.3);
   --light-cream-opacity: rgba(236, 215, 206, 0.25);
 }
 
@@ -33,14 +33,9 @@ font-family: 'Playfair Display SC', serif; */
   width: 12px;
 }
 
-::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0 0 6px rgba(125, 125, 125, 0.3);
-  border-radius: 10px;
-}
-
 ::-webkit-scrollbar-thumb {
   border-radius: 10px;
-  -webkit-box-shadow: inset 0 0 6px rgba(90, 89, 89, 0.3);
+  -webkit-box-shadow: inset 0 0 6px rgba(90, 89, 89, 0.4);
 }
 .con {
   border: 1px solid red;
@@ -617,7 +612,7 @@ Button:active {
   flex-wrap: wrap;
   gap: 22px;
   padding: 15px;
-  height: 300px;
+  height: 310px;
   overflow: hidden;
   overflow-y: scroll;
   margin-right: 30px;
@@ -661,9 +656,105 @@ Button:active {
 }
 
 #start-moodboard {
-  margin-top: 30px;
+  margin-bottom: 20px;
   display: flex;
   justify-content: flex-end;
   align-items: flex-end;
   gap: 20px;
+}
+
+/* ----------- in the moodboard page--------- */
+
+#moodboard-background {
+  display: flex;
+  justify-content: space-around;
+}
+
+#moodboard-section {
+  border: 1px solid green;
+  height: 650px;
+  width: 800px;
+
+  align-self: center;
+}
+
+#available-images-wrapper {
+  min-height: calc(100vh - 50px);
+
+  padding-top: 30px;
+  padding-bottom: 30px;
+  height: 300px;
+  width: 170px;
+}
+
+#available-images-inner {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: linear-gradient(
+    0deg,
+    rgba(132, 112, 112, 0.35) 0%,
+    rgba(255, 255, 255, 0) 20%,
+    rgba(255, 255, 255, 0) 100%
+  );
+}
+
+#available-images-inner::-webkit-scrollbar {
+  width: 9px;
+  z-index: 100;
+}
+
+#available-images-inner::-webkit-scrollbar-thumb {
+  z-index: 100;
+  border-radius: 10px;
+  background-color: white;
+  -webkit-box-shadow: inset 0 0 3px rgba(90, 89, 89, 0.4);
+}
+.available-images {
+  height: 100px;
+  width: 100px;
+  margin-bottom: 15px;
+  border-radius: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.available-images-image {
+  max-width: 100px;
+  max-height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  object-fit: cover;
+  overflow: hidden;
+  cursor: pointer;
+  border-radius: 30px;
+}
+
+#moodboard-settings-section {
+  min-height: calc(100vh - 50px);
+  width: 250px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+#moodboard-settings-section-inner {
+  height: 100%;
+  width: 100%;
+  border: 1px solid green;
+  border-radius: 30px;
+}
+
+#image-1 {
+  height: 200px;
+  width: 200px;
+  border: 1px solid black;
+}
+#image-2 {
+  height: 200px;
+  width: 200px;
+  border: 1px solid black;
 }

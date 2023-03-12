@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react"
 import { Container, Button, Form, Image } from "react-bootstrap"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
+import { saveProductsForMoodboard, saveSelectedColorPalette } from "../redux/actions/moodboardActions"
+import { useNavigate } from "react-router-dom"
 
 export default function NewProject() {
   const currentUser = useSelector((state) => state.currentUser.currentUser)
@@ -15,13 +17,32 @@ export default function NewProject() {
   const [budget, setBudget] = useState("")
   const [cushion, setCushion] = useState("")
   const [selectedPalette, setSelectedPalette] = useState("")
+  const [fullPalette, setFullPalette] = useState("")
   const [selectedPaletteStyle, setSelectedPaletteStyle] = useState("")
 
   const [selectedProducts, setSelectedProducts] = useState([])
 
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
+  const saveSelectedProducts = () => {
+    dispatch(saveProductsForMoodboard(selectedProducts))
+    dispatch(saveSelectedColorPalette(fullPalette))
+    setSelectedProducts([])
+    setSelectedPalette("")
+    setFullPalette("")
+    setSelectedPaletteStyle("")
+    startMoodboard()
+  }
+
+  const startMoodboard = () => {
+    navigate("/new-moodboard")
+  }
   const setPalette = (palette) => {
     setSelectedPalette(palette._id)
     setSelectedPaletteStyle("user-palette-wrapper-new-project-selected")
+
+    setFullPalette(palette)
   }
 
   const setSelectedProductsHandler = (product) => {
@@ -178,18 +199,22 @@ export default function NewProject() {
         </div>
       </div>
       {selectedProducts.length > 0 && (
-        <div id="selected-wrapper">
-          {selectedProducts.map((product) => (
-            <div key={product._id} onClick={(e) => removeProductHandler(product._id)}>
-              <Image src={product.image} className="single-product-selected" />
-            </div>
-          ))}
-        </div>
+        <>
+          <div id="start-moodboard">
+            <h6>Once we get started, we can add some inspo images ... </h6>
+            <Button style={{ backgroundColor: "rgb(132, 112, 112)", border: "none" }} onClick={saveSelectedProducts}>
+              Create Moodboard
+            </Button>
+          </div>
+          <div id="selected-wrapper">
+            {selectedProducts.map((product) => (
+              <div key={product._id} onClick={(e) => removeProductHandler(product._id)}>
+                <Image src={product.image} className="single-product-selected" />
+              </div>
+            ))}
+          </div>
+        </>
       )}
-      <div id="start-moodboard">
-        <h6>Once we get started, we can add some inspo images ... </h6>
-        <Button style={{ backgroundColor: "rgb(132, 112, 112)", border: "none" }}>Create Moodboard</Button>
-      </div>
     </Container>
   )
 }

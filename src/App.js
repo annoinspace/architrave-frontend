@@ -10,6 +10,7 @@ import SignUp from "./components/SignUp"
 import Homepage from "./components/Homepage"
 import MyLibrary from "./components/MyLibrary"
 import NewProject from "./components/NewProject"
+import NewMoodboard from "./components/NewMoodboard"
 function App() {
   const currentUser = useSelector((state) => state.currentUser.currentUser)
   const loginStatus = useSelector((state) => state.currentUser.loginStatus)
@@ -36,6 +37,7 @@ function App() {
                 <Route path="/home" element={<Homepage />} />
                 <Route path="/my-library" element={<MyLibrary />} />
                 <Route path="/new-project" element={<NewProject />} />
+                <Route path="/new-moodboard" element={<NewMoodboard />} />
               </>
             )}
           </Routes>

@@ -2,9 +2,11 @@ import { configureStore, combineReducers } from "@reduxjs/toolkit"
 import { persistStore, persistReducer } from "redux-persist"
 import localStorage from "redux-persist/es/storage"
 import profileReducer from "../reducers/profileReducer"
+import moodboardReducer from "../reducers/moodboardReducer"
 
 const bigReducer = combineReducers({
-  currentUser: profileReducer
+  currentUser: profileReducer,
+  moodboard: moodboardReducer
 })
 
 const persistConfig = {
