@@ -672,15 +672,194 @@ Button:active {
 
 #moodboard-section {
   border: 1px solid green;
+
   height: 650px;
   width: 800px;
-
   align-self: center;
+  position: relative;
+}
+#swatch-buttons-wrapper {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+#moodboard-swatches {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: absolute;
+  bottom: 60px;
+  right: 60px;
+  z-index: 10;
+}
+.swatch-square {
+  width: 70px;
+  height: 70px;
+}
+.swatch-circle {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+}
+.swatch-stroke {
+  width: 110px;
+  height: 60px;
+  border-top-left-radius: 35px;
+  border-bottom-right-radius: 35px;
+}
+.swatch-pill {
+  width: 110px;
+  height: 60px;
+  border-top-right-radius: 35px;
+  border-bottom-right-radius: 35px;
+  border-top-left-radius: 35px;
+  border-bottom-left-radius: 35px;
+}
+.swatch-rectangle {
+  width: 140px;
+  height: 40px;
+}
+
+#image-1 {
+  height: 300px;
+  width: 200px;
+  border: 1px solid black;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  overflow: hidden;
+}
+#image-1-image {
+  height: 300px;
+  width: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  object-fit: cover;
+}
+#image-2 {
+  height: 200px;
+  width: 200px;
+  border: 1px solid black;
+  position: absolute;
+  top: 250px;
+  left: 100px;
+  border-radius: 50%;
+  overflow: hidden;
+  z-index: 10;
+}
+
+#image-2-image {
+  height: 200px;
+  width: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  object-fit: cover;
+}
+#image-3 {
+  height: 200px;
+  width: 200px;
+  border: 1px solid black;
+  position: absolute;
+  top: 20px;
+  left: 250px;
+  overflow: hidden;
+}
+
+#image-3-image {
+  height: 200px;
+  width: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  object-fit: cover;
+}
+#image-4 {
+  height: 250px;
+  width: 250px;
+  border: 1px solid black;
+  position: absolute;
+  top: 80px;
+  left: 475px;
+  overflow: hidden;
+}
+
+#image-4-image {
+  height: 250px;
+  width: 250px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  object-fit: cover;
+}
+#image-5 {
+  height: 130px;
+  width: 130px;
+  border: 1px solid black;
+  position: absolute;
+  top: 25px;
+  left: 625px;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+#image-5-image {
+  height: 130px;
+  width: 130px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  object-fit: cover;
+}
+
+#image-6 {
+  height: 130px;
+  width: 130px;
+  border: 1px solid black;
+  position: absolute;
+  bottom: 160px;
+  left: 20px;
+  overflow: hidden;
+}
+#image-6-image {
+  height: 130px;
+  width: 130px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  object-fit: cover;
+}
+#image-7 {
+  height: 130px;
+  width: 130px;
+  border: 1px solid black;
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  overflow: hidden;
+}
+#image-7-image {
+  height: 130px;
+  width: 130px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  object-fit: cover;
 }
 
 #available-images-wrapper {
   min-height: calc(100vh - 50px);
-
   padding-top: 30px;
   padding-bottom: 30px;
   height: 300px;
@@ -746,15 +925,4 @@ Button:active {
   width: 100%;
   border: 1px solid green;
   border-radius: 30px;
-}
-
-#image-1 {
-  height: 200px;
-  width: 200px;
-  border: 1px solid black;
-}
-#image-2 {
-  height: 200px;
-  width: 200px;
-  border: 1px solid black;
 }
