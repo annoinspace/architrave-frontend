@@ -1027,3 +1027,8 @@ Button:active {
   align-items: center;
   flex-direction: column;
 }
+/* ---------- new project details------- */
+
+#moodboard-jpeg {
+  height: 400px;
+}

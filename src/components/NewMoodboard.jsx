@@ -4,10 +4,11 @@ import { useSelector, useDispatch } from "react-redux"
 import * as htmlToImage from "html-to-image"
 import { toJpeg } from "html-to-image"
 import { useNavigate } from "react-router-dom"
+import { saveNewMoodboardAction } from "../redux/actions/moodboardActions"
 
 export default function NewMoodboard() {
-  const products = useSelector((state) => state.moodboard.products)
-  const palette = useSelector((state) => state.moodboard.palette?.colors)
+  const products = useSelector((state) => state.moodboard.moodboardComponents.products)
+  const palette = useSelector((state) => state.moodboard.moodboardComponents.palette?.colors)
   const inspo = useSelector((state) => state.currentUser.currentUser.inspo)
 
   const [draggedProduct1, setDraggedProduct1] = useState(null)
@@ -166,11 +167,12 @@ export default function NewMoodboard() {
         image10: draggedProduct10,
         image11: draggedProduct11,
         image12: draggedProduct12,
-        moodboardImage: moodboardJpeg
+        moodboardImage: imageurl
       }
 
       console.log("moodboard", moodboard)
       if (moodboard) {
+        dispatch(saveNewMoodboardAction(moodboard))
         setShowSpinner(false)
 
         setTimeout(() => {

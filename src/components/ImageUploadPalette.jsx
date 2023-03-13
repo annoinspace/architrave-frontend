@@ -12,7 +12,6 @@ const ImageUploadPalette = ({ numberOfColors = 100 }) => {
   const [imageSource, setImageSource] = useState("")
   const [selectedColors, setSelectedColors] = useState([])
   const [paletteName, setPaletteName] = useState(null)
-  const [colorPalette, setColorPalette] = useState("")
   const [alert, setAlert] = useState(false)
   const dispatch = useDispatch()
 

@@ -5,10 +5,7 @@ import {
 } from "../actions/moodboardActions"
 
 const initialState = {
-  products: null,
-  palette: null,
-  moodboard: null,
-  moodboardImage: null
+  moodboardComponents: null
 }
 
 const moodboardReducer = (state = initialState, action) => {
@@ -16,18 +13,28 @@ const moodboardReducer = (state = initialState, action) => {
     case SAVE_PRODUCTS_FOR_MOODBOARD:
       return {
         ...state,
-        products: action.payload
+        moodboardComponents: {
+          ...state.moodboardComponents,
+          products: action.payload
+        }
       }
     case SAVE_COLOR_PALETTE_FOR_MOODBOARD:
       return {
         ...state,
-        palette: action.payload
+        moodboardComponents: {
+          ...state.moodboardComponents,
+          palette: action.payload
+        }
       }
     case SAVE_NEW_MOODBOARD:
       return {
         ...state,
-        moodboard: action.payload
+        moodboardComponents: {
+          ...state.moodboardComponents,
+          moodboard: action.payload
+        }
       }
+
     default:
       return state
   }
