@@ -1,7 +1,14 @@
-import { SAVE_COLOR_PALETTE_FOR_MOODBOARD, SAVE_PRODUCTS_FOR_MOODBOARD } from "../actions/moodboardActions"
+import {
+  SAVE_COLOR_PALETTE_FOR_MOODBOARD,
+  SAVE_PRODUCTS_FOR_MOODBOARD,
+  SAVE_NEW_MOODBOARD
+} from "../actions/moodboardActions"
 
 const initialState = {
-  products: null
+  products: null,
+  palette: null,
+  moodboard: null,
+  moodboardImage: null
 }
 
 const moodboardReducer = (state = initialState, action) => {
@@ -15,6 +22,11 @@ const moodboardReducer = (state = initialState, action) => {
       return {
         ...state,
         palette: action.payload
+      }
+    case SAVE_NEW_MOODBOARD:
+      return {
+        ...state,
+        moodboard: action.payload
       }
     default:
       return state

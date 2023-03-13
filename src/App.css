@@ -671,7 +671,7 @@ Button:active {
 }
 
 #moodboard-section {
-  border: 1px solid green;
+  border: 1px solid var(--light-brown);
 
   height: 650px;
   width: 800px;
@@ -691,8 +691,8 @@ Button:active {
   flex-direction: column;
   gap: 10px;
   position: absolute;
-  bottom: 60px;
-  right: 60px;
+  bottom: 70px;
+  right: 25px;
   z-index: 10;
 }
 .swatch-square {
@@ -706,13 +706,19 @@ Button:active {
 }
 .swatch-stroke {
   width: 110px;
-  height: 60px;
-  border-top-left-radius: 35px;
+  height: 50px;
+  border-top-left-radius: 55px;
+  border-bottom-right-radius: 55px;
+}
+.swatch-arch {
+  width: 120px;
+  height: 50px;
+  border-top-right-radius: 35px;
   border-bottom-right-radius: 35px;
 }
 .swatch-pill {
-  width: 110px;
-  height: 60px;
+  width: 130px;
+  height: 40px;
   border-top-right-radius: 35px;
   border-bottom-right-radius: 35px;
   border-top-left-radius: 35px;
@@ -726,7 +732,7 @@ Button:active {
 #image-1 {
   height: 300px;
   width: 200px;
-  border: 1px solid black;
+
   position: absolute;
   top: 20px;
   left: 20px;
@@ -742,20 +748,20 @@ Button:active {
   object-fit: cover;
 }
 #image-2 {
-  height: 200px;
-  width: 200px;
-  border: 1px solid black;
+  height: 220px;
+  width: 220px;
+
   position: absolute;
   top: 250px;
-  left: 100px;
+  left: 120px;
   border-radius: 50%;
   overflow: hidden;
   z-index: 10;
 }
 
 #image-2-image {
-  height: 200px;
-  width: 200px;
+  height: 220px;
+  width: 220px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -763,17 +769,16 @@ Button:active {
   object-fit: cover;
 }
 #image-3 {
-  height: 200px;
+  height: 300px;
   width: 200px;
-  border: 1px solid black;
   position: absolute;
-  top: 20px;
+  top: 60px;
   left: 250px;
   overflow: hidden;
 }
 
 #image-3-image {
-  height: 200px;
+  height: 300px;
   width: 200px;
   display: flex;
   justify-content: center;
@@ -782,18 +787,18 @@ Button:active {
   object-fit: cover;
 }
 #image-4 {
-  height: 250px;
-  width: 250px;
-  border: 1px solid black;
+  height: 220px;
+  width: 200px;
   position: absolute;
-  top: 80px;
-  left: 475px;
+  bottom: 20px;
+  right: 50px;
   overflow: hidden;
+  z-index: 9;
 }
 
 #image-4-image {
-  height: 250px;
-  width: 250px;
+  height: 220px;
+  width: 200px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -801,19 +806,19 @@ Button:active {
   object-fit: cover;
 }
 #image-5 {
-  height: 130px;
-  width: 130px;
-  border: 1px solid black;
+  height: 150px;
+  width: 150px;
   position: absolute;
-  top: 25px;
-  left: 625px;
+  top: 65px;
+  left: 415px;
   overflow: hidden;
   border-radius: 50%;
+  z-index: 9;
 }
 
 #image-5-image {
-  height: 130px;
-  width: 130px;
+  height: 150px;
+  width: 150px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -824,7 +829,6 @@ Button:active {
 #image-6 {
   height: 130px;
   width: 130px;
-  border: 1px solid black;
   position: absolute;
   bottom: 160px;
   left: 20px;
@@ -842,7 +846,6 @@ Button:active {
 #image-7 {
   height: 130px;
   width: 130px;
-  border: 1px solid black;
   position: absolute;
   bottom: 20px;
   left: 20px;
@@ -851,6 +854,95 @@ Button:active {
 #image-7-image {
   height: 130px;
   width: 130px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  object-fit: cover;
+}
+#image-8 {
+  height: 130px;
+  width: 130px;
+
+  position: absolute;
+  bottom: 20px;
+  left: 160px;
+  overflow: hidden;
+}
+#image-8-image {
+  height: 130px;
+  width: 130px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  object-fit: cover;
+}
+#image-9 {
+  height: 210px;
+  width: 210px;
+  position: absolute;
+  bottom: 50px;
+  left: 320px;
+  overflow: hidden;
+}
+#image-9-image {
+  height: 210px;
+  width: 210px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  object-fit: cover;
+}
+#image-10 {
+  height: 130px;
+  width: 130px;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  overflow: hidden;
+  z-index: 1;
+}
+#image-10-image {
+  height: 130px;
+  width: 130px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  object-fit: cover;
+}
+#image-11 {
+  height: 130px;
+  width: 130px;
+  position: absolute;
+  top: 20px;
+  right: 160px;
+  overflow: hidden;
+  z-index: 1;
+}
+#image-11-image {
+  height: 130px;
+  width: 130px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  object-fit: cover;
+}
+#image-12 {
+  height: 200px;
+  width: 210px;
+  position: absolute;
+  top: 170px;
+  right: 110px;
+  overflow: hidden;
+  z-index: 1;
+}
+#image-12-image {
+  height: 200px;
+  width: 210px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -919,10 +1011,19 @@ Button:active {
   width: 250px;
   padding-top: 30px;
   padding-bottom: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  align-items: center;
 }
 #moodboard-settings-section-inner {
-  height: 100%;
+  height: 90%;
   width: 100%;
-  border: 1px solid green;
+  border: 1px solid var(--light-brown);
   border-radius: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }

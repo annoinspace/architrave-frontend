@@ -19,6 +19,7 @@ export default function NewProject() {
   const [selectedPalette, setSelectedPalette] = useState("")
   const [fullPalette, setFullPalette] = useState("")
   const [selectedPaletteStyle, setSelectedPaletteStyle] = useState("")
+  const [createMoodboardStartText, setCreateMoodboardStartText] = useState("")
 
   const [selectedProducts, setSelectedProducts] = useState([])
 
@@ -63,7 +64,12 @@ export default function NewProject() {
 
   useEffect(() => {
     console.log("selected products", selectedProducts)
-  }, [selectedProducts])
+    if (!selectedPalette) {
+      setCreateMoodboardStartText("Select a color palette to continue ...")
+    } else {
+      setCreateMoodboardStartText("Let's create your moodboard!")
+    }
+  }, [selectedProducts, selectedPalette])
 
   return (
     <Container className="p-5">
@@ -201,10 +207,12 @@ export default function NewProject() {
       {selectedProducts.length > 0 && (
         <>
           <div id="start-moodboard">
-            <h6>Once we get started, we can add some inspo images ... </h6>
-            <Button style={{ backgroundColor: "rgb(132, 112, 112)", border: "none" }} onClick={saveSelectedProducts}>
-              Create Moodboard
-            </Button>
+            <h6>{createMoodboardStartText}</h6>
+            {selectedPalette && (
+              <Button style={{ backgroundColor: "rgb(132, 112, 112)", border: "none" }} onClick={saveSelectedProducts}>
+                Create Moodboard
+              </Button>
+            )}
           </div>
           <div id="selected-wrapper">
             {selectedProducts.map((product) => (
