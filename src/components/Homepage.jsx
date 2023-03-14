@@ -1,6 +1,6 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { useSelector } from "react-redux"
-import { Container, Button } from "react-bootstrap"
+import { Container, Button, Image } from "react-bootstrap"
 import { useNavigate } from "react-router-dom"
 
 export default function Homepage() {
@@ -10,6 +10,14 @@ export default function Homepage() {
   const handleCreateProjectClick = () => {
     navigate("/new-project")
   }
+
+  const projectClickedHandler = (projectId) => {
+    navigate(`/new-project-details/${projectId}`)
+  }
+
+  useEffect(() => {
+    console.log("allProjects", allProjects)
+  }, [allProjects])
 
   return (
     <Container className="p-5">
@@ -22,6 +30,16 @@ export default function Homepage() {
         </Button>
 
         {allProjects.length === 0 && <div>create your first project!</div>}
+        {allProjects.length > 0 && (
+          <div id="projects-thumbnail-wrapper">
+            {allProjects.map((project) => (
+              <div key={project._id} onClick={() => projectClickedHandler(project._id)}>
+                <div>{project.title}</div>
+                <Image src={project.moodboardImage} id="projects-thumbnail-image" />
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </Container>
   )

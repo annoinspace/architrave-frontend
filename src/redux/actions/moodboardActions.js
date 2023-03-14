@@ -1,3 +1,4 @@
+import { SET_USER_INFO } from "./userActions"
 export const SAVE_PRODUCTS_FOR_MOODBOARD = "SAVE_PRODUCTS_FOR_MOODBOARD"
 export const SAVE_COLOR_PALETTE_FOR_MOODBOARD = "SAVE_COLOR_PALETTE_FOR_MOODBOARD"
 export const SAVE_NEW_MOODBOARD = "SAVE_NEW_MOODBOARD"
@@ -92,37 +93,45 @@ export const addMoodboardImage = (formData, projectId) => {
       console.log("---------inside save moodboard image action----------")
       const response = await fetch(baseEndpoint + `/projects/${projectId}/moodboardImage`, options)
       if (response.ok) {
-        const project = await response.json()
-        console.log(project)
+        const initialisedProject = await response.json()
+        console.log(initialisedProject)
         console.log("new product created successfully")
-        dispatch({})
+        dispatch({
+          type: SAVE_INITIALISED_PROJECT,
+          payload: initialisedProject
+        })
+
+        if (initialisedProject) {
+          updateUser()
+        }
       }
     } catch (error) {
       console.log(error)
     }
   }
 }
-// export const addMoodboardImage = (moodboardImageUrl, projectId) => {
-//   return async (dispatch) => {
-//     const options = {
-//       method: "PUT",
-//       body: JSON.stringify({ moodboardImage: moodboardImageUrl }),
-//       headers: {
-//         "Content-Type": "application/json",
-//         Authorization: `Bearer ${localStorage.getItem("accessToken")}`
-//       }
-//     }
-//     try {
-//       console.log("---------inside save moodboard image action----------")
-//       const response = await fetch(baseEndpoint + `projects/${projectId}/moodboardImage`, options)
-//       if (response.ok) {
-//         const project = await response.json()
-//         console.log(project)
-//         console.log("moodboard image saved successfully")
-//         dispatch({})
-//       }
-//     } catch (error) {
-//       console.log(error)
-//     }
-//   }
-// }
+
+const updateUser = () => {
+  return async (dispatch) => {
+    try {
+      const opts = {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`
+        }
+      }
+      const userResponse = await fetch(baseEndpoint + "/users/me", opts)
+      if (userResponse.ok) {
+        const user = await userResponse.json()
+
+        dispatch({
+          type: SET_USER_INFO,
+          payload: user
+        })
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}

@@ -516,6 +516,9 @@ Button:active {
   align-self: end;
 }
 
+#projects-thumbnail-image {
+  height: 200px;
+}
 .money-info-wrapper {
   display: flex;
   justify-content: center;

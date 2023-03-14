@@ -144,90 +144,23 @@ export default function NewMoodboard() {
     try {
       const dataUrl = await toJpeg(ref.current, { cacheBust: true })
       console.log("dataUrl", dataUrl)
-
-      const decodeBase64 = (dataUrl) => {
-        return Buffer.from(dataUrl, "base64").toString("ascii")
-      }
-
-      console.log("decodeBase64", decodeBase64)
       const blob = await fetch(dataUrl).then((res) => res.blob())
 
-      // Create URL for the blob
       const formData = new FormData()
       formData.append("moodboard", blob, "moodboard.jpeg")
       console.log("form data file", formData.get("moodboard"))
 
-      // Add the URL to moodboardImage object
-      const moodboardImage = {
-        moodboardImage: formData
-      }
-
-      console.log("moodboard", moodboardImage)
       if (formData) {
-        // dispatch(saveNewMoodboardAction(moodboardImage))
         dispatch(addMoodboardImage(formData, projectId))
         setTimeout(() => {
           setShowSpinner(false)
-          // navigate("/new-project-details")
+          navigate(`/new-project-details/${projectId}`)
         }, 3000)
       }
     } catch (error) {
       console.log(error)
     }
   }, [ref])
-
-  function dataURItoBlob(dataUrl) {
-    const byteString = Buffer.from(dataUrl, "base64").toString("utf8")
-    const ab = new ArrayBuffer(byteString.length)
-    const ia = new Uint8Array(ab)
-    for (let i = 0; i < byteString.length; i++) {
-      ia[i] = byteString.charCodeAt(i)
-    }
-    return new Blob([ab], { type: "image/jpeg" })
-  }
-
-  // const handleMoodboardSave = useCallback(async () => {
-  //   if (ref.current === null) {
-  //     return
-  //   }
-  //   setShowSpinner(true)
-
-  //   try {
-  //     // const dataUrl = await toJpeg(ref.current, { cacheBust: true })
-  //     // console.log("dataUrl", dataUrl)
-  //     // setMoodboardJpeg(dataUrl)
-
-  //     const dataUrl = await toJpeg(ref.current, { cacheBust: true })
-  //     console.log("dataURL", dataUrl)
-  //     const blob = await fetch(dataUrl).then((res) => res.blob())
-  //     const moodboardImageFormData = new FormData()
-  //     moodboardImageFormData.append("moodboard-image", blob, "image.jpeg")
-  //     console.log("moodboardImageFormData", moodboardImageFormData)
-
-  //     const imageurl = URL.createObjectURL(blob)
-  //     console.log("imageurl", imageurl)
-  //     setMoodboardJpeg(imageurl)
-
-  //     console.log("!!!!!!!!!!!!!!!!here!!!!!!!!!")
-
-  //     const moodboardImage = {
-  //       moodboardImage: imageurl
-  //     }
-
-  //     console.log("moodboard", moodboardImage)
-  //     if (moodboardImage) {
-  //       dispatch(saveNewMoodboardAction(moodboardImage))
-  //       dispatch(addMoodboardImage(moodboardImageFormData, projectId))
-  //       setShowSpinner(false)
-
-  //       // setTimeout(() => {
-  //       //   navigate("/new-project-details")
-  //       // }, 1000)
-  //     }
-  //   } catch (error) {
-  //     console.log(error)
-  //   }
-  // }, [ref])
 
   return (
     <div id="moodboard-background">
