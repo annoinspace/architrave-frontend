@@ -64,7 +64,7 @@ export default function MyLibrary() {
             <h3>colour palettes</h3>
             <ImageUploadPalette />
           </div>
-          {colorPalettes.length === 0 && <div>What are you waiting for? Create your palettes!</div>}
+          {colorPalettes?.length === 0 && <div>What are you waiting for? Create your palettes!</div>}
         </div>
         <br />
         <div>

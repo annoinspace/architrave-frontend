@@ -3,12 +3,17 @@ import { Image, Button, Spinner } from "react-bootstrap"
 import { useSelector, useDispatch } from "react-redux"
 import * as htmlToImage from "html-to-image"
 import { toJpeg } from "html-to-image"
+import { Buffer } from "buffer"
 import { useNavigate } from "react-router-dom"
-import { saveNewMoodboardAction } from "../redux/actions/moodboardActions"
+import { addMoodboardImage } from "../redux/actions/moodboardActions"
 
 export default function NewMoodboard() {
-  const products = useSelector((state) => state.moodboard.moodboardComponents.products)
-  const palette = useSelector((state) => state.moodboard.moodboardComponents.palette?.colors)
+  const initialisedProject = useSelector((state) => state.moodboard.initialisedProject)
+  const projectId = initialisedProject?._id
+  console.log("-------id in projectId---------", projectId)
+
+  const products = useSelector((state) => state.moodboard.initialisedProject?.products)
+  const palette = initialisedProject.palette?.colors
   const inspo = useSelector((state) => state.currentUser.currentUser.inspo)
 
   const [draggedProduct1, setDraggedProduct1] = useState(null)
@@ -137,52 +142,92 @@ export default function NewMoodboard() {
     setShowSpinner(true)
 
     try {
-      // const dataUrl = await toJpeg(ref.current, { cacheBust: true })
-      // console.log("dataUrl", dataUrl)
-      // setMoodboardJpeg(dataUrl)
-
       const dataUrl = await toJpeg(ref.current, { cacheBust: true })
-      const blob = await fetch(dataUrl).then((res) => res.blob())
-      const imageurl = URL.createObjectURL(blob)
-      console.log("imageurl", imageurl)
-      setMoodboardJpeg(imageurl)
+      console.log("dataUrl", dataUrl)
 
-      console.log("!!!!!!!!!!!!!!!!here!!!!!!!!!")
-
-      const moodboard = {
-        backgroundColor: backgroundColor,
-        swatchStyle: swatchStyle,
-        swatchShadow: swatchShadow,
-        imageShadow: imageShadow,
-        border: border,
-        image1: draggedProduct1,
-        image2: draggedProduct2,
-        image3: draggedProduct3,
-        image4: draggedProduct4,
-        image5: draggedProduct5,
-        image6: draggedProduct6,
-        image7: draggedProduct7,
-        image8: draggedProduct8,
-        image9: draggedProduct9,
-        image10: draggedProduct10,
-        image11: draggedProduct11,
-        image12: draggedProduct12,
-        moodboardImage: imageurl
+      const decodeBase64 = (dataUrl) => {
+        return Buffer.from(dataUrl, "base64").toString("ascii")
       }
 
-      console.log("moodboard", moodboard)
-      if (moodboard) {
-        dispatch(saveNewMoodboardAction(moodboard))
-        setShowSpinner(false)
+      console.log("decodeBase64", decodeBase64)
+      const blob = await fetch(dataUrl).then((res) => res.blob())
 
+      // Create URL for the blob
+      const formData = new FormData()
+      formData.append("moodboard", blob, "moodboard.jpeg")
+      console.log("form data file", formData.get("moodboard"))
+
+      // Add the URL to moodboardImage object
+      const moodboardImage = {
+        moodboardImage: formData
+      }
+
+      console.log("moodboard", moodboardImage)
+      if (formData) {
+        // dispatch(saveNewMoodboardAction(moodboardImage))
+        dispatch(addMoodboardImage(formData, projectId))
         setTimeout(() => {
-          navigate("/new-project-details")
-        }, 1000)
+          setShowSpinner(false)
+          // navigate("/new-project-details")
+        }, 3000)
       }
     } catch (error) {
       console.log(error)
     }
   }, [ref])
+
+  function dataURItoBlob(dataUrl) {
+    const byteString = Buffer.from(dataUrl, "base64").toString("utf8")
+    const ab = new ArrayBuffer(byteString.length)
+    const ia = new Uint8Array(ab)
+    for (let i = 0; i < byteString.length; i++) {
+      ia[i] = byteString.charCodeAt(i)
+    }
+    return new Blob([ab], { type: "image/jpeg" })
+  }
+
+  // const handleMoodboardSave = useCallback(async () => {
+  //   if (ref.current === null) {
+  //     return
+  //   }
+  //   setShowSpinner(true)
+
+  //   try {
+  //     // const dataUrl = await toJpeg(ref.current, { cacheBust: true })
+  //     // console.log("dataUrl", dataUrl)
+  //     // setMoodboardJpeg(dataUrl)
+
+  //     const dataUrl = await toJpeg(ref.current, { cacheBust: true })
+  //     console.log("dataURL", dataUrl)
+  //     const blob = await fetch(dataUrl).then((res) => res.blob())
+  //     const moodboardImageFormData = new FormData()
+  //     moodboardImageFormData.append("moodboard-image", blob, "image.jpeg")
+  //     console.log("moodboardImageFormData", moodboardImageFormData)
+
+  //     const imageurl = URL.createObjectURL(blob)
+  //     console.log("imageurl", imageurl)
+  //     setMoodboardJpeg(imageurl)
+
+  //     console.log("!!!!!!!!!!!!!!!!here!!!!!!!!!")
+
+  //     const moodboardImage = {
+  //       moodboardImage: imageurl
+  //     }
+
+  //     console.log("moodboard", moodboardImage)
+  //     if (moodboardImage) {
+  //       dispatch(saveNewMoodboardAction(moodboardImage))
+  //       dispatch(addMoodboardImage(moodboardImageFormData, projectId))
+  //       setShowSpinner(false)
+
+  //       // setTimeout(() => {
+  //       //   navigate("/new-project-details")
+  //       // }, 1000)
+  //     }
+  //   } catch (error) {
+  //     console.log(error)
+  //   }
+  // }, [ref])
 
   return (
     <div id="moodboard-background">

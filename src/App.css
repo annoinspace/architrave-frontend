@@ -631,12 +631,14 @@ Button:active {
 
 .single-product-new-project-image {
   max-width: 120px;
+  cursor: pointer;
 }
 
 #selected-wrapper {
   background-color: var(--light-brown-opacity);
   width: 100%;
   display: flex;
+  flex-wrap: wrap;
   gap: 10px;
   border-radius: 30px;
   padding: 30px;

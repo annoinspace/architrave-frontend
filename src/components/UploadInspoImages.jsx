@@ -19,6 +19,9 @@ export default function UploadInspoImages() {
 
   const handleDrop = (e) => {
     e.preventDefault()
+    console.log("dropped image", e.target.value)
+    const dropped = e.target.value
+    console.log(typeof dropped)
     if (imageFiles.length === 5) {
       return
     }

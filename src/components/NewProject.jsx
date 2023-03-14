@@ -1,17 +1,27 @@
 import React, { useEffect, useState } from "react"
-import { Container, Button, Form, Image } from "react-bootstrap"
+import { Container, Button, Form, Image, Spinner } from "react-bootstrap"
 import { useDispatch, useSelector } from "react-redux"
-import { saveProductsForMoodboard, saveSelectedColorPalette } from "../redux/actions/moodboardActions"
+import {
+  initialiseNewProject,
+  saveBudgetAction,
+  saveCurrencyAction,
+  saveCushionAction,
+  saveProductsForMoodboard,
+  saveSelectedColorPalette,
+  saveSummaryAction,
+  saveTitleAction
+} from "../redux/actions/moodboardActions"
 import { useNavigate } from "react-router-dom"
 
 export default function NewProject() {
   const currentUser = useSelector((state) => state.currentUser.currentUser)
   const productLibrary = currentUser?.productLibrary
   const colorLibrary = currentUser?.colorLibrary
+  const initialisedProject = useSelector((state) => state.moodboard.initialisedProject)
 
-  const [title, setTitle] = useState("Project Title")
+  const [title, setTitle] = useState("Project Title*")
   const [editTitle, setEditTitle] = useState(false)
-  const [summary, setSummary] = useState("Here is a section where you can add a project summary")
+  const [summary, setSummary] = useState("add project summary*")
   const [editSummary, setEditSummary] = useState(false)
   const [currency, setCurrency] = useState("")
   const [budget, setBudget] = useState("")
@@ -23,22 +33,11 @@ export default function NewProject() {
 
   const [selectedProducts, setSelectedProducts] = useState([])
 
+  const [showSpinner, setShowSpinner] = useState(false)
+
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  const saveSelectedProducts = () => {
-    dispatch(saveProductsForMoodboard(selectedProducts))
-    dispatch(saveSelectedColorPalette(fullPalette))
-    setSelectedProducts([])
-    setSelectedPalette("")
-    setFullPalette("")
-    setSelectedPaletteStyle("")
-    startMoodboard()
-  }
-
-  const startMoodboard = () => {
-    navigate("/new-moodboard")
-  }
   const setPalette = (palette) => {
     setSelectedPalette(palette._id)
     setSelectedPaletteStyle("user-palette-wrapper-new-project-selected")
@@ -49,9 +48,10 @@ export default function NewProject() {
   const setSelectedProductsHandler = (product) => {
     // checking if the product is on the list already
     if (!selectedProducts.includes(product)) {
+      if (selectedProducts.length === 12) {
+        return // do not add more products if there are already 12
+      }
       setSelectedProducts([...selectedProducts, product])
-    } else {
-      return
     }
   }
 
@@ -70,6 +70,61 @@ export default function NewProject() {
       setCreateMoodboardStartText("Let's create your moodboard!")
     }
   }, [selectedProducts, selectedPalette])
+
+  useEffect(() => {
+    console.log("title", title)
+  }, [title])
+
+  const saveSelectedProducts = () => {
+    if (!title || !budget || !currency || !summary || !cushion) {
+      setCreateMoodboardStartText("please fill in the mandatory fields")
+    } else {
+      setShowSpinner(true)
+
+      const newProject = {
+        title: title,
+        summary: summary,
+        currency: currency,
+        budget: budget,
+        cushion: cushion,
+        products: selectedProducts,
+        palette: fullPalette
+      }
+
+      console.log("-----newProject", newProject)
+      dispatch(saveProductsForMoodboard(selectedProducts))
+      dispatch(saveSelectedColorPalette(fullPalette))
+      dispatch(saveTitleAction(title))
+      dispatch(saveSummaryAction(summary))
+      dispatch(saveCurrencyAction(currency))
+      dispatch(saveBudgetAction(budget))
+      dispatch(saveCushionAction(cushion))
+      dispatch(initialiseNewProject(newProject))
+
+      setTimeout(() => {
+        setSelectedProducts([])
+        setSelectedPalette("")
+        setFullPalette("")
+        setSelectedPaletteStyle("")
+        setShowSpinner(false)
+        navigate("/new-moodboard")
+      }, 2000)
+    }
+  }
+
+  const startMoodboard = () => {
+    navigate("/new-moodboard")
+  }
+
+  // useEffect(() => {
+  //   console.log("initialised project")
+  //   if (initialisedProject) {
+  //     setShowSpinner(false)
+  //     setTimeout(() => {
+  //       navigate("/new-moodboard")
+  //     }, 1000)
+  //   }
+  // }, [initialisedProject])
 
   return (
     <Container className="p-5">
@@ -120,11 +175,11 @@ export default function NewProject() {
         </div>
         <div className="mt-5 money-info-wrapper">
           <div>
-            <div className="mb-2">Currency</div>
+            <div className="mb-2">Currency*</div>
             <Form.Group className="mb-3" controlId="currency-form">
               <Form.Control
                 type="text"
-                placeholder="Enter currency"
+                placeholder="Enter currency symbol"
                 value={currency}
                 onChange={(e) => {
                   setCurrency(e.target.value)
@@ -133,7 +188,7 @@ export default function NewProject() {
             </Form.Group>
           </div>
           <div>
-            <div className="mb-2">Budget</div>
+            <div className="mb-2">Budget*</div>
             <Form.Group className="mb-3" controlId="budget-form">
               <Form.Control
                 type="number"
@@ -147,7 +202,7 @@ export default function NewProject() {
             </Form.Group>
           </div>
           <div>
-            <div className="mb-2">Cushion</div>
+            <div className="mb-2">Cushion*</div>
             <Form.Group className="mb-3" controlId="cushion-form">
               <Form.Control
                 type="number"
@@ -159,13 +214,15 @@ export default function NewProject() {
               />
               <Form.Text className="text-muted">This is the money allocated in case you go over budget</Form.Text>
             </Form.Group>
+            <p>* mandatory fields</p>
           </div>
         </div>
       </div>
 
       <div id="initialise-moodboard">
         <div id="new-project-images-wrapper">
-          <h6>Select products for moodboard</h6>
+          <h6>Select up to 12 products to create your moodboard</h6>
+          <p>(you can add more products to your shopping list later)</p>
           <div className="all-products-new-project">
             {productLibrary.map((product) => (
               <div
@@ -211,6 +268,7 @@ export default function NewProject() {
             {selectedPalette && (
               <Button style={{ backgroundColor: "rgb(132, 112, 112)", border: "none" }} onClick={saveSelectedProducts}>
                 Create Moodboard
+                {showSpinner && <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" />}
               </Button>
             )}
           </div>
