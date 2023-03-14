@@ -1,18 +1,22 @@
 import React, { useEffect } from "react"
-import { useSelector } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
 import { Container, Button, Image } from "react-bootstrap"
 import { useNavigate } from "react-router-dom"
+import { saveSelectedProject } from "../redux/actions/moodboardActions"
 
 export default function Homepage() {
   const navigate = useNavigate()
   const currentUser = useSelector((state) => state.currentUser.currentUser)
   const allProjects = currentUser?.projects
+
+  const dispatch = useDispatch()
   const handleCreateProjectClick = () => {
     navigate("/new-project")
   }
 
-  const projectClickedHandler = (projectId) => {
-    navigate(`/new-project-details/${projectId}`)
+  const projectClickedHandler = (project) => {
+    dispatch(saveSelectedProject(project))
+    navigate(`/new-project-details/${project._id}`)
   }
 
   useEffect(() => {
@@ -33,7 +37,7 @@ export default function Homepage() {
         {allProjects.length > 0 && (
           <div id="projects-thumbnail-wrapper">
             {allProjects.map((project) => (
-              <div key={project._id} onClick={() => projectClickedHandler(project._id)}>
+              <div key={project._id} onClick={() => projectClickedHandler(project)}>
                 <div>{project.title}</div>
                 <Image src={project.moodboardImage} id="projects-thumbnail-image" />
               </div>

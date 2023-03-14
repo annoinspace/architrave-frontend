@@ -5,13 +5,14 @@ import { useParams } from "react-router-dom"
 
 export default function ProjectDetails() {
   const { projectId } = useParams()
+  const selectedProject = useSelector((state) => state.moodboard.selectedProject)
 
-  const initialisedProject = useSelector((state) => state.moodboard.initialisedProject)
+  // const initialisedProject = useSelector((state) => state.moodboard.initialisedProject)
 
-  const moodboardImage = initialisedProject.moodboardImage
-  const title = initialisedProject.title
-  const summary = initialisedProject.summary
-  console.log("moodboardComponent", initialisedProject)
+  const moodboardImage = selectedProject.moodboardImage
+  const title = selectedProject.title
+  const summary = selectedProject.summary
+  console.log("moodboardComponent", selectedProject)
   console.log("moodboardImage", moodboardImage)
   return (
     <Container className="p-5">

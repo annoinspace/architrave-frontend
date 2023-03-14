@@ -8,6 +8,7 @@ export const SAVE_CURRENCY = "SAVE_CURRENCY"
 export const SAVE_BUDGET = "SAVE_BUDGET"
 export const SAVE_CUSHION = "SAVE_CUSHION"
 export const SAVE_INITIALISED_PROJECT = "SAVE_INITIALISED_PROJECT"
+export const SELECTED_PROJECT = "SELECTED_PROJECT"
 
 export const saveProductsForMoodboard = (payload) => ({
   type: SAVE_PRODUCTS_FOR_MOODBOARD,
@@ -33,16 +34,24 @@ export const saveSummaryAction = (payload) => ({
   type: SAVE_SUMMARY,
   payload: payload
 })
+
 export const saveCurrencyAction = (payload) => ({
   type: SAVE_CURRENCY,
   payload: payload
 })
+
 export const saveBudgetAction = (payload) => ({
   type: SAVE_BUDGET,
   payload: payload
 })
+
 export const saveCushionAction = (payload) => ({
   type: SAVE_CUSHION,
+  payload: payload
+})
+
+export const saveSelectedProject = (payload) => ({
+  type: SELECTED_PROJECT,
   payload: payload
 })
 

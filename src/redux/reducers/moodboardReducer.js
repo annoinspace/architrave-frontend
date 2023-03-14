@@ -7,12 +7,14 @@ import {
   SAVE_CURRENCY,
   SAVE_BUDGET,
   SAVE_CUSHION,
-  SAVE_INITIALISED_PROJECT
+  SAVE_INITIALISED_PROJECT,
+  SELECTED_PROJECT
 } from "../actions/moodboardActions"
 
 const initialState = {
   moodboardComponents: null,
-  initialisedProject: null
+  initialisedProject: null,
+  selectedProject: null
 }
 
 const moodboardReducer = (state = initialState, action) => {
@@ -85,6 +87,11 @@ const moodboardReducer = (state = initialState, action) => {
       return {
         ...state,
         initialisedProject: action.payload
+      }
+    case SELECTED_PROJECT:
+      return {
+        ...state,
+        selectedProject: action.payload
       }
 
     default:
