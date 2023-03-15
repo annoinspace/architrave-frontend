@@ -112,20 +112,6 @@ export default function NewProject() {
     }
   }
 
-  const startMoodboard = () => {
-    navigate("/new-moodboard")
-  }
-
-  // useEffect(() => {
-  //   console.log("initialised project")
-  //   if (initialisedProject) {
-  //     setShowSpinner(false)
-  //     setTimeout(() => {
-  //       navigate("/new-moodboard")
-  //     }, 1000)
-  //   }
-  // }, [initialisedProject])
-
   return (
     <Container className="p-5">
       <div id="create-project-section-one">

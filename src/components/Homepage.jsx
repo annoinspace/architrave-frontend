@@ -16,7 +16,7 @@ export default function Homepage() {
 
   const projectClickedHandler = (project) => {
     dispatch(saveSelectedProject(project))
-    navigate(`/new-project-details/${project._id}`)
+    navigate(`/project-details/${project._id}`)
   }
 
   useEffect(() => {

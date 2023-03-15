@@ -39,7 +39,7 @@ function App() {
                 <Route path="/my-library" element={<MyLibrary />} />
                 <Route path="/new-project" element={<NewProject />} />
                 <Route path="/new-moodboard" element={<NewMoodboard />} />
-                <Route path="/new-project-details/:projectId" element={<ProjectDetails />} />
+                <Route path="/project-details/:projectId" element={<ProjectDetails />} />
               </>
             )}
           </Routes>
