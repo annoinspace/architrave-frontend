@@ -1051,23 +1051,24 @@ Button:active {
   max-width: 600px;
   margin-top: 20px;
 }
-#budget-wrapper-headline {
+.budget-wrapper-headline {
   display: flex;
   align-items: center;
   margin-top: 50px;
   margin-bottom: 30px;
-
   width: 100%;
   padding-inline: 30px;
   justify-content: space-between;
   font-family: var(--fancy-title);
   font-size: var(--medium-font);
 }
-#budget-line {
+.budget-line {
   border: 1px solid var(--light-brown);
   height: 2px;
   flex-grow: 1;
   margin-right: 30px;
+  align-self: flex-start;
+  margin-top: 15px;
 }
 
 #project-section-three {
@@ -1131,20 +1132,32 @@ Button:active {
   align-items: center;
 }
 
-#selected-budget-item h6 {
-  margin-bottom: 10px;
-}
-#selected-budget-item-image {
-  max-height: 150px;
-  margin-bottom: 10px;
-  border-radius: 15px;
-}
 #selected-budget-item {
-  background-color: pink;
+  border: 1px solid var(--light-brown-opacity);
   z-index: 11;
   width: 95%;
   border-radius: 30px;
   padding: 10px;
   padding-left: 20px;
   padding-right: 20px;
+  display: flex;
+  gap: 10px;
+}
+
+#selected-budget-item > div > h6 {
+  width: 300px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  border: 1px solid red;
+  margin-top: 10px;
+}
+#selected-budget-item > div > div {
+  border: 1px solid red;
+  width: 300px;
+}
+
+#selected-budget-item-image {
+  max-height: 150px;
+  border-radius: 15px;
 }

@@ -1,6 +1,6 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { useSelector } from "react-redux"
-import { Container, Image } from "react-bootstrap"
+import { Container, Image, Button, Form } from "react-bootstrap"
 import { useParams } from "react-router-dom"
 
 export default function ProjectDetails() {
@@ -9,18 +9,38 @@ export default function ProjectDetails() {
   const moodboardImage = selectedProject.moodboardImage
   const currency = selectedProject.currency
   const budget = selectedProject.budget
+  const cushion = selectedProject.cushion
   const title = selectedProject.title
   const summary = selectedProject.summary
   const products = selectedProject.products
+
   const [selectedProduct, setSelectedProduct] = useState(null)
+  const [editQuantity, setEditQuantity] = useState(false)
+
+  const [selectedProductQuantity, setSelectedProductQuantity] = useState(null)
 
   const selectedProductHandler = (product) => {
     if (selectedProduct === null) {
       setSelectedProduct(product)
+      setSelectedProductQuantity(product.quantity)
     } else {
       setSelectedProduct(null)
+      setSelectedProductQuantity(null)
     }
   }
+
+  const editQuantityHandler = () => {
+    setEditQuantity(true)
+  }
+  const totalAllocatedCalculator = () => {
+    let total = 0
+    for (let i = 0; i < products.length; i++) {
+      total += products[i].price * products[i].quantity
+    }
+    return total
+  }
+  let totalAllocated = totalAllocatedCalculator()
+  const remaining = budget - totalAllocated
 
   return (
     <Container className="p-5" id="project-details-container">
@@ -32,11 +52,25 @@ export default function ProjectDetails() {
       </div>
       <div id="project-section-two">
         <Image src={moodboardImage} id="moodboard-jpeg" />
-        <div id="budget-wrapper-headline">
-          <div id="budget-line"></div>
+        <div className="budget-wrapper-headline">
+          <div className="budget-line"></div>
           <div>
-            Budget {currency}
-            {budget}
+            <div>
+              Budget {currency}
+              {budget}
+            </div>
+            <div>
+              Cushion {currency}
+              {cushion ? cushion : 0}
+            </div>
+            <div>
+              Total Allocated {currency}
+              {totalAllocated ? totalAllocated : 0}
+            </div>
+            <div>
+              Remaining {currency}
+              {remaining && remaining}
+            </div>
           </div>
         </div>
       </div>
@@ -44,9 +78,32 @@ export default function ProjectDetails() {
         <h5>Specified Products</h5>
         {selectedProduct !== null && (
           <div id="selected-budget-item">
-            <h6>{selectedProduct.name}</h6>
             <Image src={selectedProduct.image} id="selected-budget-item-image" />
-            <div>{selectedProduct.quantity}</div>
+            <div>
+              <h6>{selectedProduct.name}</h6>
+              <div>
+                {editQuantity ? (
+                  <Form.Group className="title-form" controlId="title-form">
+                    <Form.Control
+                      type="text"
+                      placeholder={selectedProductQuantity}
+                      value={selectedProductQuantity}
+                      onChange={(e) => {
+                        setSelectedProductQuantity(e.target.value)
+                      }}
+                    />
+                    <Button variant="outline-success" onClick={(e) => setEditQuantity(false)}>
+                      Save Quantity
+                    </Button>
+                  </Form.Group>
+                ) : (
+                  <>
+                    Quantity:{selectedProductQuantity}
+                    <Button onClick={editQuantityHandler}>Edit Quantity</Button>
+                  </>
+                )}
+              </div>
+            </div>
           </div>
         )}
         {products.map((product) => (
