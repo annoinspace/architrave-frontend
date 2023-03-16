@@ -12,6 +12,7 @@ export const SAVE_NEW_PRODUCT = "SAVE_NEW_PRODUCT"
 export const DELETE_PRODUCT = "DELETE_PRODUCT"
 export const ADD_INSPO_IMAGES = "ADD_INSPO_IMAGES"
 export const DELETE_INSPO = "DELETE_INSPO"
+export const SET_USER_PROJECTS = "SET_USER_PROJECTS"
 
 const baseEndpoint = process.env.REACT_APP_BE_URL
 
@@ -64,6 +65,10 @@ export const getAccessToken = (loggingInAuthor) => {
               dispatch({
                 type: LOGIN_USER_STATUS,
                 payload: { status: "success", message: "user successfully logged in" }
+              })
+              dispatch({
+                type: SET_USER_PROJECTS,
+                payload: user.projects
               })
             } else {
               console.log("error getting the user")

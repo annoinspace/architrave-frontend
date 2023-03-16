@@ -1,23 +1,45 @@
 import React, { useState, useEffect } from "react"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { Container, Image, Button, Form } from "react-bootstrap"
 import { useParams } from "react-router-dom"
+import { updateProjectDetails } from "../redux/actions/moodboardActions"
 
 export default function ProjectDetails() {
   const { projectId } = useParams()
-  const selectedProject = useSelector((state) => state.moodboard.selectedProject)
-  const moodboardImage = selectedProject.moodboardImage
-  const currency = selectedProject.currency
-  const budget = selectedProject.budget
-  const cushion = selectedProject.cushion
-  const title = selectedProject.title
-  const summary = selectedProject.summary
-  const products = selectedProject.products
+  const selectedProject = useSelector((state) => state.moodboard?.selectedProject)
+
+  const currency = selectedProject?.currency
+
+  const allProducts = selectedProject?.products
 
   const [selectedProduct, setSelectedProduct] = useState(null)
   const [editQuantity, setEditQuantity] = useState(false)
 
   const [selectedProductQuantity, setSelectedProductQuantity] = useState(null)
+  const [editProject, setEditProject] = useState(false)
+
+  const [title, setTitle] = useState(selectedProject?.title)
+  const [summary, setSummary] = useState(selectedProject?.summary)
+  const [budget, setBudget] = useState(selectedProject?.budget)
+  const [cushion, setCushion] = useState(selectedProject?.cushion)
+
+  const dispatch = useDispatch()
+
+  const enableEditHandler = () => {
+    setEditProject(true)
+  }
+  const saveChangesHandler = () => {
+    setEditProject(false)
+
+    const fields = {
+      title: title,
+      summary: summary,
+      budget: budget,
+      cushion: cushion
+    }
+    console.log(fields)
+    dispatch(updateProjectDetails(fields, projectId))
+  }
 
   const selectedProductHandler = (product) => {
     if (selectedProduct === null) {
@@ -34,8 +56,8 @@ export default function ProjectDetails() {
   }
   const totalAllocatedCalculator = () => {
     let total = 0
-    for (let i = 0; i < products.length; i++) {
-      total += products[i].price * products[i].quantity
+    for (let i = 0; i < allProducts?.length; i++) {
+      total += allProducts[i].price * allProducts[i].quantity
     }
     return total
   }
@@ -44,24 +66,91 @@ export default function ProjectDetails() {
 
   return (
     <Container className="p-5" id="project-details-container">
-      <div id="create-project-section-one">
+      <div id="edit-button">
+        {editProject === false ? (
+          <Button variant="outline-success" onClick={enableEditHandler}>
+            Enable Edit
+          </Button>
+        ) : (
+          <Button variant="outline-success" onClick={saveChangesHandler}>
+            Save Changes
+          </Button>
+        )}
+      </div>
+      <div id="project-section-one">
         <div className="header-top">
-          <h1 className="text-center title-form-header">{title}</h1>
-          <div className="text-center mt-3 summary-text">{summary}</div>
+          {editProject ? (
+            <Form.Group className="" controlId="title-form">
+              <Form.Control
+                className="text-center title-form-header"
+                type="text"
+                placeholder={title}
+                value={title}
+                onChange={(e) => {
+                  setTitle(e.target.value)
+                }}
+              />
+            </Form.Group>
+          ) : (
+            <h1 className="text-center title-form-header">{title}</h1>
+          )}
+          {editProject ? (
+            <Form.Group className="" controlId="summary-form">
+              <Form.Control
+                className="text-center summary-text"
+                type="text"
+                placeholder={summary}
+                value={summary}
+                onChange={(e) => {
+                  setSummary(e.target.value)
+                }}
+              />
+            </Form.Group>
+          ) : (
+            <div className="text-center summary-text">{summary}</div>
+          )}
         </div>
       </div>
       <div id="project-section-two">
-        <Image src={moodboardImage} id="moodboard-jpeg" />
+        <Image src={selectedProject?.moodboardImage} id="moodboard-jpeg" />
         <div className="budget-wrapper-headline">
           <div className="budget-line"></div>
           <div>
-            <div>
+            <div className="d-flex align-items-center m-1">
               Budget {currency}
-              {budget}
+              {editProject ? (
+                <Form.Group className="m-0" controlId="budget-form">
+                  <Form.Control
+                    className=""
+                    type="number"
+                    placeholder={budget}
+                    value={budget}
+                    onChange={(e) => {
+                      setBudget(e.target.value)
+                    }}
+                  />
+                </Form.Group>
+              ) : (
+                <>{budget}</>
+              )}
             </div>
-            <div>
+            <div className="d-flex align-items-center m-1">
               Cushion {currency}
-              {cushion ? cushion : 0}
+              {editProject ? (
+                <Form.Group className="m-0" controlId="cushion-form">
+                  <Form.Control
+                    className=""
+                    type="number"
+                    placeholder={cushion}
+                    value={cushion}
+                    onChange={(e) => {
+                      setCushion(e.target.value)
+                    }}
+                  />
+                </Form.Group>
+              ) : (
+                <>{cushion}</>
+              )}
             </div>
             <div>
               Total Allocated {currency}
@@ -106,7 +195,7 @@ export default function ProjectDetails() {
             </div>
           </div>
         )}
-        {products.map((product) => (
+        {allProducts?.map((product) => (
           <div key={product._id} className="budget-list-item" onClick={() => selectedProductHandler(product)}>
             <h6>{product.name}</h6>
             <div className="product-price">

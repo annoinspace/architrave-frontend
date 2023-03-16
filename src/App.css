@@ -19,6 +19,7 @@ font-family: 'Playfair Display SC', serif; */
   --light-brown: rgb(132, 112, 112);
   --light-brown-opacity: rgba(132, 112, 112, 0.3);
   --light-cream-opacity: rgba(236, 215, 206, 0.25);
+  --light-green-opacity: rgba(40, 167, 69, 0.1);
 }
 
 * {
@@ -1037,6 +1038,10 @@ Button:active {
 
 #project-details-container {
   z-index: -1;
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
 }
 
 #project-section-two {
@@ -1045,6 +1050,12 @@ Button:active {
   align-items: center;
   flex-direction: column;
   margin: 30px;
+  width: 100%;
+}
+
+#project-section-one {
+  padding: 30px 0px 30px 0px;
+  width: 80%;
 }
 
 #moodboard-jpeg {
@@ -1160,4 +1171,46 @@ Button:active {
 #selected-budget-item-image {
   max-height: 150px;
   border-radius: 15px;
+}
+
+#edit-button {
+  display: flex;
+  padding: 10px;
+  justify-content: right;
+  width: 100%;
+}
+
+.header-top {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#title-form {
+  color: var(--dark-brown);
+
+  font-weight: 500;
+  line-height: 1.2;
+  font-size: 2.5rem;
+  height: 90px;
+  background-color: var(--light-green-opacity);
+}
+
+#summary-form {
+  background-color: var(--light-green-opacity);
+  width: 400px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#budget-form {
+  background-color: var(--light-green-opacity);
+  width: 100px;
+  height: 30px;
+}
+#cushion-form {
+  background-color: var(--light-green-opacity);
+  width: 100px;
+  height: 30px;
 }

@@ -13,6 +13,7 @@ import {
   ADD_INSPO_IMAGES,
   DELETE_INSPO
 } from "../actions/userActions"
+import { UPDATE_PROJECT_DETAILS } from "../actions/moodboardActions"
 
 const initialState = {
   signUpStatus: null,

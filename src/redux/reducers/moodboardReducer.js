@@ -8,17 +8,37 @@ import {
   SAVE_BUDGET,
   SAVE_CUSHION,
   SAVE_INITIALISED_PROJECT,
-  SELECTED_PROJECT
+  SELECTED_PROJECT,
+  UPDATE_PROJECT_DETAILS
 } from "../actions/moodboardActions"
+import { SET_USER_PROJECTS } from "../actions/userActions"
 
 const initialState = {
   moodboardComponents: null,
   initialisedProject: null,
-  selectedProject: null
+  selectedProject: null,
+  currentUserProjects: null
 }
 
 const moodboardReducer = (state = initialState, action) => {
   switch (action.type) {
+    case SET_USER_PROJECTS:
+      return {
+        ...state,
+        currentUserProjects: action.payload
+      }
+    case UPDATE_PROJECT_DETAILS:
+      const updatedCurrentUserProjects = state.currentUserProjects.map((project) => {
+        if (project._id === action.payload._id) {
+          return action.payload // replace the matching project with the new one
+        }
+        return project // return the original project if it doesn't match the _id
+      })
+      return {
+        ...state,
+        currentUserProjects: updatedCurrentUserProjects // replace the currentUserProjects array with the updated array
+      }
+
     case SAVE_PRODUCTS_FOR_MOODBOARD:
       return {
         ...state,

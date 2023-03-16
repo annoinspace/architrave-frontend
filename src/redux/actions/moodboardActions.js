@@ -9,6 +9,7 @@ export const SAVE_BUDGET = "SAVE_BUDGET"
 export const SAVE_CUSHION = "SAVE_CUSHION"
 export const SAVE_INITIALISED_PROJECT = "SAVE_INITIALISED_PROJECT"
 export const SELECTED_PROJECT = "SELECTED_PROJECT"
+export const UPDATE_PROJECT_DETAILS = "UPDATE_PROJECT_DETAILS"
 
 export const saveProductsForMoodboard = (payload) => ({
   type: SAVE_PRODUCTS_FOR_MOODBOARD,
@@ -113,6 +114,34 @@ export const addMoodboardImage = (formData, projectId) => {
         if (initialisedProject) {
           updateUser()
         }
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
+export const updateProjectDetails = (fields, projectId) => {
+  return async (dispatch) => {
+    const options = {
+      method: "PUT",
+      body: JSON.stringify(fields),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`
+      }
+    }
+    try {
+      console.log("---------inside update project action----------")
+      const response = await fetch(baseEndpoint + `/projects/${projectId}`, options)
+      if (response.ok) {
+        const updatedProject = await response.json()
+        console.log(updatedProject)
+        console.log("project updated successfully")
+        dispatch({
+          type: UPDATE_PROJECT_DETAILS,
+          payload: updatedProject
+        })
       }
     } catch (error) {
       console.log(error)
