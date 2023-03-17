@@ -517,6 +517,16 @@ Button:active {
   border: none;
   align-self: end;
 }
+#projects-thumbnail-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 50px;
+  justify-content: center;
+  padding: 30px;
+}
+.thumbnail-wrapper {
+  cursor: pointer;
+}
 
 #projects-thumbnail-image {
   height: 200px;
@@ -1059,7 +1069,7 @@ Button:active {
 }
 
 #moodboard-jpeg {
-  max-width: 600px;
+  max-width: 800px;
   margin-top: 20px;
 }
 .budget-wrapper-headline {
@@ -1146,13 +1156,14 @@ Button:active {
 #selected-budget-item {
   border: 1px solid var(--light-brown-opacity);
   z-index: 11;
-  width: 95%;
+  width: 600px;
   border-radius: 30px;
   padding: 10px;
-  padding-left: 20px;
-  padding-right: 20px;
+
   display: flex;
   gap: 10px;
+  margin-right: auto;
+  margin-left: 40px;
 }
 
 #selected-budget-item > div > h6 {
@@ -1160,12 +1171,12 @@ Button:active {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  border: 1px solid red;
+  font-size: 20px;
+
   margin-top: 10px;
 }
 #selected-budget-item > div > div {
-  border: 1px solid red;
-  width: 300px;
+  width: 250px;
 }
 
 #selected-budget-item-image {
@@ -1213,4 +1224,44 @@ Button:active {
   background-color: var(--light-green-opacity);
   width: 100px;
   height: 30px;
+}
+#quantity-price-wrapper {
+  width: 100%;
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+}
+#quantity-wrapper {
+  display: flex;
+  align-items: center;
+  height: 45px;
+  margin-top: 15px;
+}
+
+#quantity-wrapper button {
+  margin-left: auto;
+  width: 70px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#quantity-wrapper span {
+  padding: 0.375rem 0.75rem;
+  width: 70px;
+}
+#quantity-wrapper .form-group {
+  margin-bottom: 0rem;
+}
+#quantity-form {
+  width: 70px;
+  margin-bottom: 0rem;
+  height: 30px;
+}
+
+#total-cost-selected {
+  margin-top: 15px;
+  margin-left: 40px;
+  min-width: 200px;
 }

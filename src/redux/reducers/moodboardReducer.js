@@ -2,14 +2,13 @@ import {
   SAVE_COLOR_PALETTE_FOR_MOODBOARD,
   SAVE_PRODUCTS_FOR_MOODBOARD,
   SAVE_NEW_MOODBOARD,
-  SAVE_TITLE,
-  SAVE_SUMMARY,
-  SAVE_CURRENCY,
-  SAVE_BUDGET,
-  SAVE_CUSHION,
   SAVE_INITIALISED_PROJECT,
   SELECTED_PROJECT,
-  UPDATE_PROJECT_DETAILS
+  UPDATE_PROJECT_DETAILS,
+  UPDATE_SELECTED_PROJECT,
+  UPDATE_SELECTED_PROJECT_QUANTITY,
+  SET_USER_PROJECTS_HOME,
+  UPDATE_DELETED_PROJECT
 } from "../actions/moodboardActions"
 import { SET_USER_PROJECTS } from "../actions/userActions"
 
@@ -27,6 +26,11 @@ const moodboardReducer = (state = initialState, action) => {
         ...state,
         currentUserProjects: action.payload
       }
+    case SET_USER_PROJECTS_HOME:
+      return {
+        ...state,
+        currentUserProjects: action.payload
+      }
     case UPDATE_PROJECT_DETAILS:
       const updatedCurrentUserProjects = state.currentUserProjects.map((project) => {
         if (project._id === action.payload._id) {
@@ -39,6 +43,21 @@ const moodboardReducer = (state = initialState, action) => {
         currentUserProjects: updatedCurrentUserProjects // replace the currentUserProjects array with the updated array
       }
 
+    case UPDATE_DELETED_PROJECT:
+      const updateDeletedProject = state.currentUserProjects.filter((project) => project._id !== action.payload)
+      return {
+        ...state,
+        currentUserProjects: updateDeletedProject
+      }
+
+    case UPDATE_SELECTED_PROJECT_QUANTITY:
+      return {
+        ...state,
+        selectedProject: {
+          ...state.selectedProject,
+          products: action.payload
+        }
+      }
     case SAVE_PRODUCTS_FOR_MOODBOARD:
       return {
         ...state,
@@ -63,52 +82,17 @@ const moodboardReducer = (state = initialState, action) => {
           moodboard: action.payload
         }
       }
-    case SAVE_TITLE:
-      return {
-        ...state,
-        moodboardComponents: {
-          ...state.moodboardComponents,
-          title: action.payload
-        }
-      }
-    case SAVE_SUMMARY:
-      return {
-        ...state,
-        moodboardComponents: {
-          ...state.moodboardComponents,
-          summary: action.payload
-        }
-      }
-    case SAVE_CURRENCY:
-      return {
-        ...state,
-        moodboardComponents: {
-          ...state.moodboardComponents,
-          currency: action.payload
-        }
-      }
-    case SAVE_BUDGET:
-      return {
-        ...state,
-        moodboardComponents: {
-          ...state.moodboardComponents,
-          budget: action.payload
-        }
-      }
-    case SAVE_CUSHION:
-      return {
-        ...state,
-        moodboardComponents: {
-          ...state.moodboardComponents,
-          cushion: action.payload
-        }
-      }
     case SAVE_INITIALISED_PROJECT:
       return {
         ...state,
         initialisedProject: action.payload
       }
     case SELECTED_PROJECT:
+      return {
+        ...state,
+        selectedProject: action.payload
+      }
+    case UPDATE_SELECTED_PROJECT:
       return {
         ...state,
         selectedProject: action.payload

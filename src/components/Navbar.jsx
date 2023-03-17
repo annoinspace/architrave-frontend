@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { logoutUser, updateUserLocation } from "../redux/actions/userActions"
 import { Link, useLocation, useNavigate } from "react-router-dom"
+import { getAllUserProjects } from "../redux/actions/moodboardActions"
 
 export default function Navbar() {
   const location = useLocation()
@@ -26,6 +27,16 @@ export default function Navbar() {
       setLoggedInNav(true)
     }
   }, [currentUser])
+
+  const homeHandler = () => {
+    console.log("home clicked")
+
+    dispatch(getAllUserProjects())
+
+    setTimeout(() => {
+      navigate("/home")
+    }, 500)
+  }
 
   useEffect(() => {
     console.log("location from useLocation()", location.pathname)
@@ -63,7 +74,7 @@ export default function Navbar() {
 
       {loggedInNav && (
         <>
-          <div className="nav-link" id="architrave-nav" onClick={() => navigate("/home")}>
+          <div className="nav-link" id="architrave-nav" onClick={homeHandler}>
             My Architrave
           </div>
 

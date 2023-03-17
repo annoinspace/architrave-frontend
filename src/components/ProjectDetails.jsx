@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { Container, Image, Button, Form } from "react-bootstrap"
-import { useParams } from "react-router-dom"
-import { updateProjectDetails } from "../redux/actions/moodboardActions"
+import { Container, Image, Button, Form, Spinner } from "react-bootstrap"
+import { useNavigate, useParams } from "react-router-dom"
+import { deleteProjectAction, updateProductQuantity, updateProjectDetails } from "../redux/actions/moodboardActions"
 
 export default function ProjectDetails() {
   const { projectId } = useParams()
+  const navigate = useNavigate()
   const selectedProject = useSelector((state) => state.moodboard?.selectedProject)
 
   const currency = selectedProject?.currency
@@ -16,12 +17,19 @@ export default function ProjectDetails() {
   const [editQuantity, setEditQuantity] = useState(false)
 
   const [selectedProductQuantity, setSelectedProductQuantity] = useState(null)
+  const [selectedProductPrice, setSelectedProductPrice] = useState(0)
   const [editProject, setEditProject] = useState(false)
 
   const [title, setTitle] = useState(selectedProject?.title)
   const [summary, setSummary] = useState(selectedProject?.summary)
-  const [budget, setBudget] = useState(selectedProject?.budget)
+  const [budget, setBudget] = useState(parseFloat(selectedProject?.budget))
+  const [totalBudget, setTotalBudget] = useState(selectedProject?.budget)
   const [cushion, setCushion] = useState(selectedProject?.cushion)
+  const [totalAllocated, setTotalAllocated] = useState(0)
+  const [remaining, setRemaining] = useState(0)
+
+  const [deleteProject, setDeleteProject] = useState(false)
+  const [loadingSpinner, setLoadingSpinner] = useState(false)
 
   const dispatch = useDispatch()
 
@@ -45,24 +53,60 @@ export default function ProjectDetails() {
     if (selectedProduct === null) {
       setSelectedProduct(product)
       setSelectedProductQuantity(product.quantity)
+      setSelectedProductPrice(product.price)
     } else {
       setSelectedProduct(null)
       setSelectedProductQuantity(null)
+      setSelectedProductPrice(0)
     }
   }
 
   const editQuantityHandler = () => {
     setEditQuantity(true)
   }
-  const totalAllocatedCalculator = () => {
-    let total = 0
-    for (let i = 0; i < allProducts?.length; i++) {
-      total += allProducts[i].price * allProducts[i].quantity
+
+  const saveQuantityhandler = () => {
+    const productId = selectedProduct._id
+    const fields = {
+      quantity: selectedProductQuantity
     }
-    return total
+
+    console.log(fields, productId)
+    dispatch(updateProductQuantity(fields, projectId, productId))
+    setEditQuantity(false)
   }
-  let totalAllocated = totalAllocatedCalculator()
-  const remaining = budget - totalAllocated
+
+  const totalAllocatedCalculator = () => {
+    let totalSpent = 0
+    for (let i = 0; i < allProducts?.length; i++) {
+      totalSpent += allProducts[i].price * allProducts[i].quantity
+    }
+    return totalSpent
+  }
+
+  const selectedTotal = selectedProductPrice * selectedProductQuantity
+
+  useEffect(() => {
+    console.log("project updated", selectedProject)
+    const totalCost = totalAllocatedCalculator()
+    setTotalAllocated(parseFloat(totalCost.toFixed(2)))
+    setTotalBudget(parseInt(budget + cushion))
+    const remainingBudget = parseInt(totalBudget - totalAllocated).toFixed(2)
+    setRemaining(parseFloat(remainingBudget))
+    console.log("budget", budget, typeof budget)
+    console.log("cushion", cushion, typeof cushion)
+    console.log("total allocated", totalAllocated, typeof totalAllocated)
+    console.log("remaining", remainingBudget, typeof remainingBudget)
+  }, [editProject, cushion, totalBudget, totalAllocated, remaining])
+
+  const deleteProjecthandler = () => {
+    setLoadingSpinner(true)
+    dispatch(deleteProjectAction(projectId))
+    setTimeout(() => {
+      setLoadingSpinner(false)
+      navigate("/home")
+    }, 2000)
+  }
 
   return (
     <Container className="p-5" id="project-details-container">
@@ -116,7 +160,7 @@ export default function ProjectDetails() {
         <div className="budget-wrapper-headline">
           <div className="budget-line"></div>
           <div>
-            <div className="d-flex align-items-center m-1">
+            <div className="d-flex align-items-center justify-content-end m-1">
               Budget {currency}
               {editProject ? (
                 <Form.Group className="m-0" controlId="budget-form">
@@ -134,7 +178,7 @@ export default function ProjectDetails() {
                 <>{budget}</>
               )}
             </div>
-            <div className="d-flex align-items-center m-1">
+            <div className="d-flex align-items-center justify-content-end m-1">
               Cushion {currency}
               {editProject ? (
                 <Form.Group className="m-0" controlId="cushion-form">
@@ -144,7 +188,7 @@ export default function ProjectDetails() {
                     placeholder={cushion}
                     value={cushion}
                     onChange={(e) => {
-                      setCushion(e.target.value)
+                      setCushion(parseInt(e.target.value))
                     }}
                   />
                 </Form.Group>
@@ -152,11 +196,15 @@ export default function ProjectDetails() {
                 <>{cushion}</>
               )}
             </div>
-            <div>
-              Total Allocated {currency}
-              {totalAllocated ? totalAllocated : 0}
+            <div className="d-flex align-items-center justify-content-end m-1">
+              Total Budget {currency}
+              {totalBudget ? totalBudget : 0}
             </div>
-            <div>
+            <div className="d-flex align-items-center justify-content-end m-1">
+              Total Allocated {currency}
+              {totalAllocated && totalAllocated}
+            </div>
+            <div className="d-flex align-items-center justify-content-end m-1">
               Remaining {currency}
               {remaining && remaining}
             </div>
@@ -168,30 +216,45 @@ export default function ProjectDetails() {
         {selectedProduct !== null && (
           <div id="selected-budget-item">
             <Image src={selectedProduct.image} id="selected-budget-item-image" />
-            <div>
+            <div className="w-100">
               <h6>{selectedProduct.name}</h6>
-              <div>
-                {editQuantity ? (
-                  <Form.Group className="title-form" controlId="title-form">
-                    <Form.Control
-                      type="text"
-                      placeholder={selectedProductQuantity}
-                      value={selectedProductQuantity}
-                      onChange={(e) => {
-                        setSelectedProductQuantity(e.target.value)
-                      }}
-                    />
-                    <Button variant="outline-success" onClick={(e) => setEditQuantity(false)}>
-                      Save Quantity
-                    </Button>
-                  </Form.Group>
-                ) : (
-                  <>
-                    Quantity:{selectedProductQuantity}
-                    <Button onClick={editQuantityHandler}>Edit Quantity</Button>
-                  </>
-                )}
+              <div className="budget-line"></div>
+              <div id="quantity-price-wrapper">
+                <div id="quantity-wrapper">
+                  {" "}
+                  Quantity:
+                  {editQuantity ? (
+                    <>
+                      <Form.Group controlId="quantity-form">
+                        <Form.Control
+                          className="quantity-form"
+                          type="number"
+                          placeholder={selectedProductQuantity}
+                          value={selectedProductQuantity}
+                          onChange={(e) => {
+                            setSelectedProductQuantity(e.target.value)
+                          }}
+                        />
+                      </Form.Group>
+                      <Button variant="outline-success" onClick={saveQuantityhandler}>
+                        Save
+                      </Button>
+                    </>
+                  ) : (
+                    <>
+                      <span>{selectedProductQuantity}</span>
+                      <Button variant="outline-success" onClick={editQuantityHandler}>
+                        Edit
+                      </Button>
+                    </>
+                  )}
+                </div>
+                <div id="total-cost-selected">
+                  Total Cost: {currency}
+                  {selectedTotal}
+                </div>
               </div>
+              <div className="budget-line"></div>
             </div>
           </div>
         )}
@@ -205,6 +268,23 @@ export default function ProjectDetails() {
             </div>
           </div>
         ))}
+      </div>
+      <div id="edit-button">
+        {deleteProject ? (
+          <>
+            <Button variant="secondary" onClick={() => setDeleteProject(false)}>
+              Cancel{" "}
+            </Button>
+            <Button variant="danger" onClick={deleteProjecthandler}>
+              Confirm
+              {loadingSpinner && <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" />}
+            </Button>
+          </>
+        ) : (
+          <Button variant="danger" onClick={() => setDeleteProject(true)}>
+            Delete Project
+          </Button>
+        )}
       </div>
     </Container>
   )

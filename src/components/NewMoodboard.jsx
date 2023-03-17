@@ -154,8 +154,8 @@ export default function NewMoodboard() {
         dispatch(addMoodboardImage(formData, projectId))
         setTimeout(() => {
           setShowSpinner(false)
-          navigate(`/new-project-details/${projectId}`)
-        }, 3000)
+          navigate(`/project-details/${projectId}`)
+        }, 2000)
       }
     } catch (error) {
       console.log(error)

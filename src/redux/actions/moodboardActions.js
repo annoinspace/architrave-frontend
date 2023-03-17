@@ -10,6 +10,10 @@ export const SAVE_CUSHION = "SAVE_CUSHION"
 export const SAVE_INITIALISED_PROJECT = "SAVE_INITIALISED_PROJECT"
 export const SELECTED_PROJECT = "SELECTED_PROJECT"
 export const UPDATE_PROJECT_DETAILS = "UPDATE_PROJECT_DETAILS"
+export const UPDATE_SELECTED_PROJECT = "UPDATE_SELECTED_PROJECT"
+export const UPDATE_SELECTED_PROJECT_QUANTITY = "UPDATE_SELECTED_PROJECT_QUANTITY"
+export const SET_USER_PROJECTS_HOME = "SET_USER_PROJECTS_HOME"
+export const UPDATE_DELETED_PROJECT = "PDATE_DELETED_PROJECT"
 
 export const saveProductsForMoodboard = (payload) => ({
   type: SAVE_PRODUCTS_FOR_MOODBOARD,
@@ -57,6 +61,35 @@ export const saveSelectedProject = (payload) => ({
 })
 
 const baseEndpoint = process.env.REACT_APP_BE_URL
+
+export const getAllUserProjects = () => {
+  return async (dispatch) => {
+    const options = {
+      method: "GET",
+
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`
+      }
+    }
+    try {
+      console.log("---------getting all the projects---------")
+      const response = await fetch(baseEndpoint + "/projects/all", options)
+      if (response.ok) {
+        const projects = await response.json()
+
+        dispatch({
+          type: SET_USER_PROJECTS_HOME,
+          payload: projects
+        })
+      } else {
+        console.log("error getting projects")
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
 
 export const initialiseNewProject = (newProject) => {
   return async (dispatch) => {
@@ -142,6 +175,39 @@ export const updateProjectDetails = (fields, projectId) => {
           type: UPDATE_PROJECT_DETAILS,
           payload: updatedProject
         })
+        dispatch({
+          type: UPDATE_SELECTED_PROJECT,
+          payload: updatedProject
+        })
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
+export const updateProductQuantity = (fields, projectId, productId) => {
+  return async (dispatch) => {
+    const options = {
+      method: "PUT",
+      body: JSON.stringify(fields),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`
+      }
+    }
+    try {
+      console.log("---------inside update project action----------")
+      const response = await fetch(baseEndpoint + `/projects/${projectId}/products/${productId}`, options)
+      if (response.ok) {
+        const updatedProducts = await response.json()
+        console.log(updatedProducts)
+        console.log("product quantity updated successfully")
+
+        dispatch({
+          type: UPDATE_SELECTED_PROJECT_QUANTITY,
+          payload: updatedProducts
+        })
       }
     } catch (error) {
       console.log(error)
@@ -166,6 +232,30 @@ const updateUser = () => {
         dispatch({
           type: SET_USER_INFO,
           payload: user
+        })
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
+export const deleteProjectAction = (projectId) => {
+  return async (dispatch) => {
+    const opts = {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`
+      }
+    }
+    try {
+      const response = await fetch(baseEndpoint + `/projects/${projectId}`, opts)
+      if (response.ok) {
+        console.log("project deleted")
+        dispatch({
+          type: UPDATE_DELETED_PROJECT,
+          payload: projectId
         })
       }
     } catch (error) {
