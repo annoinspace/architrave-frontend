@@ -11,14 +11,13 @@ export default function ProjectDetails() {
 
   const currency = selectedProject?.currency
 
-  const allProducts = selectedProject?.products
-
   const [selectedProduct, setSelectedProduct] = useState(null)
   const [editQuantity, setEditQuantity] = useState(false)
 
   const [selectedProductQuantity, setSelectedProductQuantity] = useState(null)
   const [selectedProductPrice, setSelectedProductPrice] = useState(0)
   const [editProject, setEditProject] = useState(false)
+  const [allProducts, setAllProducts] = useState(selectedProject?.products)
 
   const [title, setTitle] = useState(selectedProject?.title)
   const [summary, setSummary] = useState(selectedProject?.summary)
@@ -26,6 +25,7 @@ export default function ProjectDetails() {
   const [totalBudget, setTotalBudget] = useState(selectedProject?.budget)
   const [cushion, setCushion] = useState(selectedProject?.cushion)
   const [totalAllocated, setTotalAllocated] = useState(0)
+
   const [remaining, setRemaining] = useState(0)
 
   const [deleteProject, setDeleteProject] = useState(false)
@@ -47,9 +47,11 @@ export default function ProjectDetails() {
     }
     console.log(fields)
     dispatch(updateProjectDetails(fields, projectId))
+    updateBudgetInfo()
   }
 
   const selectedProductHandler = (product) => {
+    updateBudgetInfo()
     if (selectedProduct === null) {
       setSelectedProduct(product)
       setSelectedProductQuantity(product.quantity)
@@ -72,6 +74,19 @@ export default function ProjectDetails() {
     }
 
     console.log(fields, productId)
+
+    console.log("----products in the save handler--------", allProducts)
+    console.log("----product to edit in the save handler--------", productId)
+
+    const updatedProductQuantity = allProducts.map((product) => {
+      if (product._id === productId) {
+        return { ...product, ...fields }
+      }
+      return product
+    })
+
+    setAllProducts(updatedProductQuantity)
+
     dispatch(updateProductQuantity(fields, projectId, productId))
     setEditQuantity(false)
   }
@@ -86,18 +101,31 @@ export default function ProjectDetails() {
 
   const selectedTotal = selectedProductPrice * selectedProductQuantity
 
-  useEffect(() => {
+  const updateBudgetInfo = () => {
     console.log("project updated", selectedProject)
+    console.log("all products", allProducts)
     const totalCost = totalAllocatedCalculator()
     setTotalAllocated(parseFloat(totalCost.toFixed(2)))
-    setTotalBudget(parseInt(budget + cushion))
-    const remainingBudget = parseInt(totalBudget - totalAllocated).toFixed(2)
-    setRemaining(parseFloat(remainingBudget))
+    setTotalBudget(parseInt(parseFloat(budget) + cushion))
+    setRemaining(parseFloat(totalBudget - totalAllocated).toFixed(2))
+
     console.log("budget", budget, typeof budget)
     console.log("cushion", cushion, typeof cushion)
     console.log("total allocated", totalAllocated, typeof totalAllocated)
-    console.log("remaining", remainingBudget, typeof remainingBudget)
+    console.log("remaining", remaining, typeof remaining)
+  }
+  useEffect(() => {
+    console.log("products updated")
+    updateBudgetInfo()
+  }, [allProducts])
+
+  useEffect(() => {
+    console.log("budget info updated")
   }, [editProject, cushion, totalBudget, totalAllocated, remaining])
+
+  useEffect(() => {
+    updateBudgetInfo()
+  }, [])
 
   const deleteProjecthandler = () => {
     setLoadingSpinner(true)
@@ -200,6 +228,7 @@ export default function ProjectDetails() {
               Total Budget {currency}
               {totalBudget ? totalBudget : 0}
             </div>
+            <div className="budget-line-budget"></div>
             <div className="d-flex align-items-center justify-content-end m-1">
               Total Allocated {currency}
               {totalAllocated && totalAllocated}

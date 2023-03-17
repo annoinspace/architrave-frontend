@@ -1091,6 +1091,15 @@ Button:active {
   align-self: flex-start;
   margin-top: 15px;
 }
+.budget-line-budget {
+  border: 1px solid var(--light-brown-opacity);
+  height: 1px;
+  flex-grow: 1;
+  margin-left: 30px;
+  align-self: flex-start;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
 
 #project-section-three {
   display: flex;

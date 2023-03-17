@@ -175,7 +175,7 @@ export default function NewProject() {
           </div>
           <div>
             <div className="mb-2">Budget*</div>
-            <Form.Group className="mb-3" controlId="budget-form">
+            <Form.Group className="mb-3" controlId="budget-form-new">
               <Form.Control
                 type="number"
                 placeholder="Enter budget"
@@ -189,7 +189,7 @@ export default function NewProject() {
           </div>
           <div>
             <div className="mb-2">Cushion*</div>
-            <Form.Group className="mb-3" controlId="cushion-form">
+            <Form.Group className="mb-3" controlId="cushion-form-new">
               <Form.Control
                 type="number"
                 placeholder="Enter cushion"
