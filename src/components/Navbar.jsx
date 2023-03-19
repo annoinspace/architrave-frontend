@@ -84,7 +84,9 @@ export default function Navbar() {
             My Library
           </div>
 
-          <div className="nav-link">Profile</div>
+          <div className="nav-link" onClick={() => navigate("/profile")}>
+            Profile
+          </div>
           <div className="nav-link r" onClick={logoutHandler}>
             {" "}
             Logout

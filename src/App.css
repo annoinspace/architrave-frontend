@@ -83,6 +83,7 @@ Button:active {
 .library-divider {
   margin: 50px;
 }
+
 /*  ------------navbar------------- */
 #navbar {
   border-bottom: 1.5px solid var(--accent);
@@ -1070,12 +1071,11 @@ Button:active {
 
 #moodboard-jpeg {
   max-width: 800px;
-  margin-top: 20px;
 }
 .budget-wrapper-headline {
   display: flex;
   align-items: center;
-  margin-top: 50px;
+  margin-top: 30px;
   margin-bottom: 30px;
   width: 100%;
   padding-inline: 30px;
@@ -1106,7 +1106,7 @@ Button:active {
   flex-wrap: wrap;
   gap: 20px;
   justify-content: center;
-  margin-bottom: 200px;
+  margin-bottom: 50px;
 }
 #project-section-three h5 {
   width: 100%;
@@ -1247,7 +1247,6 @@ Button:active {
   height: 45px;
   margin-top: 15px;
 }
-
 #quantity-wrapper button {
   margin-left: auto;
   width: 70px;
@@ -1273,4 +1272,64 @@ Button:active {
   margin-top: 15px;
   margin-left: 40px;
   min-width: 200px;
+}
+
+#project-section-four {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  margin-bottom: 50px;
+  width: 100%;
+}
+#project-section-four h5 {
+  width: 100%;
+  text-align: left;
+}
+
+.download-moodboard-wrapper {
+  padding: 10px;
+  padding-bottom: 0px;
+}
+
+#download-moodboard {
+  margin-left: 20px;
+}
+
+/* ----------------------profile-------------------- */
+
+.profile-list-item {
+  border: 1px solid var(--light-brown-opacity);
+  margin-bottom: 10px;
+  padding: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  border-radius: 30px;
+  width: 45%;
+}
+/* .profile-list-item-selected {
+  border: 1px solid var(--light-brown-opacity);
+  margin-bottom: 10px;
+  padding: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  border-radius: 30px;
+  width: 95%;
+} */
+
+.profile-list-item h6 {
+  margin: 0;
+}
+
+.profile-list-item:hover {
+  background: #f1eded;
+  box-shadow: inset 10px 10px 30px rgba(223, 221, 221, 0.25), inset -10px -10px 30px #ffffff;
 }

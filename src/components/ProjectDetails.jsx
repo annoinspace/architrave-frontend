@@ -1,15 +1,16 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useCallback, useRef } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { Container, Image, Button, Form, Spinner } from "react-bootstrap"
 import { useNavigate, useParams } from "react-router-dom"
+import { toJpeg } from "html-to-image"
 import { deleteProjectAction, updateProductQuantity, updateProjectDetails } from "../redux/actions/moodboardActions"
 
 export default function ProjectDetails() {
   const { projectId } = useParams()
   const navigate = useNavigate()
   const selectedProject = useSelector((state) => state.moodboard?.selectedProject)
-
-  const currency = selectedProject?.currency
+  const currentUser = useSelector((state) => state.currentUser.currentUser)
+  const currency = currentUser.currency
 
   const [selectedProduct, setSelectedProduct] = useState(null)
   const [editQuantity, setEditQuantity] = useState(false)
@@ -30,8 +31,28 @@ export default function ProjectDetails() {
 
   const [deleteProject, setDeleteProject] = useState(false)
   const [loadingSpinner, setLoadingSpinner] = useState(false)
+  const [downloadingSpinner, setDownloadingSpinner] = useState(false)
 
   const dispatch = useDispatch()
+  const ref = useRef(null)
+
+  const onMoodboardSave = useCallback(async () => {
+    if (ref.current === null) {
+      return
+    }
+    setDownloadingSpinner(true)
+    try {
+      const dataUrl = await toJpeg(ref.current, { cacheBust: true })
+
+      const link = document.createElement("a")
+      link.download = `${title}-moodboard.jpeg`
+      link.href = dataUrl
+      setDownloadingSpinner(false)
+      link.click()
+    } catch (err) {
+      console.log(err)
+    }
+  }, [ref])
 
   const enableEditHandler = () => {
     setEditProject(true)
@@ -124,8 +145,11 @@ export default function ProjectDetails() {
   }, [editProject, cushion, totalBudget, totalAllocated, remaining])
 
   useEffect(() => {
-    updateBudgetInfo()
-  }, [])
+    if (totalBudget !== 0) {
+      updateBudgetInfo()
+      setRemaining((totalBudget - totalAllocated).toFixed(2))
+    }
+  }, [totalBudget])
 
   const deleteProjecthandler = () => {
     setLoadingSpinner(true)
@@ -184,7 +208,19 @@ export default function ProjectDetails() {
         </div>
       </div>
       <div id="project-section-two">
-        <Image src={selectedProject?.moodboardImage} id="moodboard-jpeg" />
+        <Image src={selectedProject?.moodboardImage} id="moodboard-jpeg" ref={ref} />
+        <div className="w-100 download-moodboard-wrapper">
+          <Button variant="outline-success" id="download-moodboard" onClick={onMoodboardSave}>
+            {downloadingSpinner ? (
+              <>
+                Preparing File
+                <Spinner className="ml-2" as="span" animation="border" size="sm" role="status" aria-hidden="true" />
+              </>
+            ) : (
+              <>Download Moodboard</>
+            )}
+          </Button>
+        </div>
         <div className="budget-wrapper-headline">
           <div className="budget-line"></div>
           <div>
@@ -298,6 +334,9 @@ export default function ProjectDetails() {
           </div>
         ))}
       </div>
+      <div id="project-section-four">
+        <h5>Contractors & Services</h5>
+      </div>
       <div id="edit-button">
         {deleteProject ? (
           <>
@@ -306,7 +345,9 @@ export default function ProjectDetails() {
             </Button>
             <Button variant="danger" onClick={deleteProjecthandler}>
               Confirm
-              {loadingSpinner && <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" />}
+              {loadingSpinner && (
+                <Spinner className="ml-2" as="span" animation="border" size="sm" role="status" aria-hidden="true" />
+              )}
             </Button>
           </>
         ) : (

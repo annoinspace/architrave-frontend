@@ -16,7 +16,8 @@ export default function SignUp() {
   const [password, setPassword] = useState("")
   const [username, setUsername] = useState("")
   const [displayName, setDisplayName] = useState("")
-  const isFormIncomplete = !email || !password || !username || !displayName
+  const [currency, setCurrency] = useState("")
+  const isFormIncomplete = !email || !password || !username || !displayName || !currency
   const handleSubmit = (e) => {
     e.preventDefault()
     console.log(username, displayName, email, password)
@@ -104,6 +105,18 @@ export default function SignUp() {
                   setPassword(e.target.value)
                 }}
               />
+            </Form.Group>
+            <Form.Group className="mb-4" controlId="formBasicChrrency">
+              <Form.Label>Currency</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Currency"
+                value={currency}
+                onChange={(e) => {
+                  setCurrency(e.target.value)
+                }}
+              />
+              <Form.Text className="text-muted mb-4">Please enter your desired currency e.g £</Form.Text>
             </Form.Group>
 
             <Button

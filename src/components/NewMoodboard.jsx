@@ -1,9 +1,7 @@
 import React, { useState, useRef, useCallback } from "react"
 import { Image, Button, Spinner } from "react-bootstrap"
 import { useSelector, useDispatch } from "react-redux"
-import * as htmlToImage from "html-to-image"
 import { toJpeg } from "html-to-image"
-import { Buffer } from "buffer"
 import { useNavigate } from "react-router-dom"
 import { addMoodboardImage } from "../redux/actions/moodboardActions"
 
@@ -28,7 +26,7 @@ export default function NewMoodboard() {
   const [draggedProduct10, setDraggedProduct10] = useState(null)
   const [draggedProduct11, setDraggedProduct11] = useState(null)
   const [draggedProduct12, setDraggedProduct12] = useState(null)
-  const [moodboardJpeg, setMoodboardJpeg] = useState(null)
+
   const [imageShadow, setImageShadow] = useState(false)
   const [backgroundColor, setBackgroundColor] = useState("#ffffff")
   const [swatchStyle, setSwatchStyle] = useState("swatch-square")

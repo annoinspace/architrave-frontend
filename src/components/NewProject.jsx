@@ -23,7 +23,7 @@ export default function NewProject() {
   const [editTitle, setEditTitle] = useState(false)
   const [summary, setSummary] = useState("add project summary*")
   const [editSummary, setEditSummary] = useState(false)
-  const [currency, setCurrency] = useState("")
+  // const [currency, setCurrency] = useState("")
   const [budget, setBudget] = useState("")
   const [cushion, setCushion] = useState("")
   const [selectedPalette, setSelectedPalette] = useState("")
@@ -76,7 +76,7 @@ export default function NewProject() {
   }, [title])
 
   const saveSelectedProducts = () => {
-    if (!title || !budget || !currency || !summary || !cushion) {
+    if (!title || !budget || !summary || !cushion) {
       setCreateMoodboardStartText("please fill in the mandatory fields")
     } else {
       setShowSpinner(true)
@@ -84,7 +84,7 @@ export default function NewProject() {
       const newProject = {
         title: title,
         summary: summary,
-        currency: currency,
+        // currency: currency,
         budget: budget,
         cushion: cushion,
         products: selectedProducts,
@@ -96,7 +96,7 @@ export default function NewProject() {
       dispatch(saveSelectedColorPalette(fullPalette))
       dispatch(saveTitleAction(title))
       dispatch(saveSummaryAction(summary))
-      dispatch(saveCurrencyAction(currency))
+      // dispatch(saveCurrencyAction(currency))
       dispatch(saveBudgetAction(budget))
       dispatch(saveCushionAction(cushion))
       dispatch(initialiseNewProject(newProject))
@@ -160,7 +160,7 @@ export default function NewProject() {
           )}
         </div>
         <div className="mt-5 money-info-wrapper">
-          <div>
+          {/* <div>
             <div className="mb-2">Currency*</div>
             <Form.Group className="mb-3" controlId="currency-form">
               <Form.Control
@@ -172,7 +172,7 @@ export default function NewProject() {
                 }}
               />
             </Form.Group>
-          </div>
+          </div> */}
           <div>
             <div className="mb-2">Budget*</div>
             <Form.Group className="mb-3" controlId="budget-form-new">

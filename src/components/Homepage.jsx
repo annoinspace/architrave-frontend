@@ -6,7 +6,7 @@ import { saveSelectedProject } from "../redux/actions/moodboardActions"
 
 export default function Homepage() {
   const navigate = useNavigate()
-  const currentUser = useSelector((state) => state.currentUser.currentUser)
+
   const allProjects = useSelector((state) => state.moodboard.currentUserProjects)
 
   const dispatch = useDispatch()
@@ -34,6 +34,7 @@ export default function Homepage() {
         </Button>
 
         {allProjects?.length === 0 && <div>create your first project!</div>}
+        <h4>Active Projects</h4>
         {allProjects?.length > 0 && (
           <div id="projects-thumbnail-wrapper">
             {allProjects.map((project) => (
@@ -44,6 +45,7 @@ export default function Homepage() {
             ))}
           </div>
         )}
+        <h4>Archived Projects</h4>
       </div>
     </Container>
   )
