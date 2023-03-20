@@ -84,7 +84,7 @@ export default function NewProject() {
       const newProject = {
         title: title,
         summary: summary,
-        // currency: currency,
+
         budget: budget,
         cushion: cushion,
         products: selectedProducts,
@@ -96,7 +96,6 @@ export default function NewProject() {
       dispatch(saveSelectedColorPalette(fullPalette))
       dispatch(saveTitleAction(title))
       dispatch(saveSummaryAction(summary))
-      // dispatch(saveCurrencyAction(currency))
       dispatch(saveBudgetAction(budget))
       dispatch(saveCushionAction(cushion))
       dispatch(initialiseNewProject(newProject))
@@ -160,19 +159,6 @@ export default function NewProject() {
           )}
         </div>
         <div className="mt-5 money-info-wrapper">
-          {/* <div>
-            <div className="mb-2">Currency*</div>
-            <Form.Group className="mb-3" controlId="currency-form">
-              <Form.Control
-                type="text"
-                placeholder="Enter currency symbol"
-                value={currency}
-                onChange={(e) => {
-                  setCurrency(e.target.value)
-                }}
-              />
-            </Form.Group>
-          </div> */}
           <div>
             <div className="mb-2">Budget*</div>
             <Form.Group className="mb-3" controlId="budget-form-new">
@@ -254,7 +240,9 @@ export default function NewProject() {
             {selectedPalette && (
               <Button style={{ backgroundColor: "rgb(132, 112, 112)", border: "none" }} onClick={saveSelectedProducts}>
                 Create Moodboard
-                {showSpinner && <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" />}
+                {showSpinner && (
+                  <Spinner className="ml-2" as="span" animation="border" size="sm" role="status" aria-hidden="true" />
+                )}
               </Button>
             )}
           </div>

@@ -343,10 +343,14 @@ export default function ProjectDetails() {
             <Button variant="secondary" onClick={() => setDeleteProject(false)}>
               Cancel{" "}
             </Button>
-            <Button variant="danger" onClick={deleteProjecthandler}>
-              Confirm
-              {loadingSpinner && (
-                <Spinner className="ml-2" as="span" animation="border" size="sm" role="status" aria-hidden="true" />
+            <Button variant="danger" onClick={deleteProjecthandler} className="ml-2">
+              {loadingSpinner ? (
+                <>
+                  Deleting
+                  <Spinner className="ml-2" as="span" animation="border" size="sm" role="status" aria-hidden="true" />
+                </>
+              ) : (
+                "Confirm"
               )}
             </Button>
           </>

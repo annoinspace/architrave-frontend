@@ -39,7 +39,7 @@ export default function Homepage() {
           <div id="projects-thumbnail-wrapper">
             {allProjects.map((project) => (
               <div key={project._id} onClick={() => projectClickedHandler(project)} className="thumbnail-wrapper">
-                <div>{project.title}</div>
+                <h5>{project.title}</h5>
                 <Image src={project.moodboardImage} id="projects-thumbnail-image" />
               </div>
             ))}

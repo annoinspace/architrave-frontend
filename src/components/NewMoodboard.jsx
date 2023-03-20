@@ -152,7 +152,7 @@ export default function NewMoodboard() {
         dispatch(addMoodboardImage(formData, projectId))
         setTimeout(() => {
           setShowSpinner(false)
-          navigate(`/project-details/${projectId}`)
+          navigate(`/home`)
         }, 2000)
       }
     } catch (error) {
@@ -354,7 +354,7 @@ export default function NewMoodboard() {
           <h6>Settings</h6>
           <div>
             <p>Swatch Style</p>
-            <div id="swatch-buttons-wrapper">
+            <div className="buttons-wrapper">
               <Button onClick={squareSwatches}>Square</Button>
               <Button onClick={circleSwatches}>Circle</Button>
               <Button onClick={rectangleSwatches}>Rectangle</Button>
@@ -364,8 +364,10 @@ export default function NewMoodboard() {
             </div>
 
             <p>Swatch Shadows</p>
-            <Button onClick={swatchShadowOn}>On</Button>
-            <Button onClick={swatchShadowOff}>Off</Button>
+            <div className="buttons-wrapper">
+              <Button onClick={swatchShadowOn}>On</Button>
+              <Button onClick={swatchShadowOff}>Off</Button>
+            </div>
           </div>
           <div>
             <p>Background Colour</p>
@@ -380,16 +382,23 @@ export default function NewMoodboard() {
           </div>
           <div>
             <p>Image Borders</p>
-            <Button onClick={borderHandlerOn}>On</Button>
-            <Button onClick={borderHandlerOff}>Off</Button>
+            <div className="buttons-wrapper">
+              <Button onClick={borderHandlerOn}>On</Button>
+              <Button onClick={borderHandlerOff}>Off</Button>
+            </div>
             <p>Image Shadows</p>
-            <Button onClick={imageBorderHandlerOn}>On</Button>
-            <Button onClick={imageBorderHandlerOff}>Off</Button>
+            <div className="buttons-wrapper">
+              <Button onClick={imageBorderHandlerOn}>On</Button>
+              <Button onClick={imageBorderHandlerOff}>Off</Button>
+            </div>
           </div>
         </div>
-        <Button onClick={handleMoodboardSave}>
+        <Button onClick={handleMoodboardSave} variant="outline-success">
           {showSpinner ? (
-            <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" />
+            <>
+              Saving{" "}
+              <Spinner className="ml-2" as="span" animation="border" size="sm" role="status" aria-hidden="true" />
+            </>
           ) : (
             "Save Moodboard"
           )}

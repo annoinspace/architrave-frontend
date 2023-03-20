@@ -541,6 +541,18 @@ Button:active {
 }
 .thumbnail-wrapper {
   cursor: pointer;
+  border-radius: 30px;
+  padding: 20px;
+  border: 1px solid var(--light-brown-opacity);
+}
+.thumbnail-wrapper:hover {
+  box-shadow: rgba(117, 101, 104, 0.25) 0px 20px 50px -20px, rgba(87, 65, 65, 0.3) 0px 20px 50px -20px;
+}
+.thumbnail-wrapper:hover #projects-thumbnail-image {
+  border-radius: 8px;
+}
+.thumbnail-wrapper h5 {
+  text-align: center;
 }
 
 #projects-thumbnail-image {
@@ -710,7 +722,7 @@ Button:active {
   align-self: center;
   position: relative;
 }
-#swatch-buttons-wrapper {
+.buttons-wrapper {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -1040,13 +1052,12 @@ Button:active {
 
 #moodboard-settings-section {
   min-height: calc(100vh - 50px);
-  width: 250px;
+  width: 240px;
   padding-top: 30px;
   padding-bottom: 30px;
   display: flex;
   flex-direction: column;
   gap: 10px;
-
   align-items: center;
 }
 #moodboard-settings-section-inner {
@@ -1058,6 +1069,21 @@ Button:active {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+}
+
+#moodboard-settings-section-inner h6 {
+  margin-top: 20px;
+  font-size: 20px;
+}
+#moodboard-settings-section-inner button {
+  background-color: var(--light-brown);
+  border: none;
+}
+#moodboard-settings-section-inner p {
+  text-align: center;
+  margin-top: 20px;
+  font-weight: 500;
+  margin-block-end: 5px;
 }
 /* ---------- new project details------- */
 
