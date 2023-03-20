@@ -190,6 +190,20 @@ Button:active {
 #login-form input[type="password"] {
   background-color: #f0f0f0; 
 } */
+
+.login-option {
+  border: 1px solid rgba(132, 112, 112, 0.25);
+  padding-inline: 4px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.login-option-none {
+  cursor: pointer;
+}
+.login-option:hover {
+  background: #f2eeee;
+  box-shadow: inset 10px 10px 30px rgba(223, 221, 221, 0.35), inset -10px -10px 30px #ffffff;
+}
 /*  ------------my library page------------- */
 #image-swatch-modal {
   min-width: 900px;

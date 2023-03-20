@@ -8,28 +8,46 @@ import { useNavigate } from "react-router-dom"
 export default function Login() {
   const navigate = useNavigate()
 
-  const currentUser = useSelector((state) => state.currentUser.currentUser)
-  const accessToken = useSelector((state) => state.currentUser.accessToken)
   const loginStatus = useSelector((state) => state.currentUser.loginStatus)
   const loginStatusMessage = loginStatus?.status
   const dispatch = useDispatch()
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const [username, setUsername] = useState("")
+  const [usernameForm, setUsernameForm] = useState(false)
 
-  const handleSubmit = (e) => {
+  // const handleSubmit = (e) => {
+  //   e.preventDefault()
+
+  //   loginUser()
+  // }
+
+  const loginWithEmailHandler = (e) => {
     e.preventDefault()
-
-    loginUser()
-  }
-
-  const loginUser = () => {
-    const credentials = {
+    const credentialEmail = {
       email: email,
       password: password
     }
     console.log("logging in")
-    dispatch(getAccessToken(credentials))
+    dispatch(getAccessToken(credentialEmail))
   }
+  const loginWithUsernameHandler = (e) => {
+    e.preventDefault()
+    const credentialUsername = {
+      username: username,
+      password: password
+    }
+    console.log("logging in")
+    dispatch(getAccessToken(credentialUsername))
+  }
+
+  const usernameClickedHandler = () => {
+    setUsernameForm(true)
+  }
+  const emailClickedHandler = () => {
+    setUsernameForm(false)
+  }
+
   useEffect(() => {
     console.log("-------checking the login status", loginStatus)
     if (loginStatusMessage === "success") {
@@ -58,18 +76,47 @@ export default function Login() {
               {loginStatus.message}
             </Alert>
           )}
-          <Form onSubmit={handleSubmit}>
+          <Form>
             <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label>Email address</Form.Label>
-              <Form.Control
-                type="email"
-                placeholder="Enter email"
-                value={email}
-                onChange={(e) => {
-                  setEmail(e.target.value)
-                }}
-              />
-              <Form.Text className="text-muted">We'll never share your email with anyone else.</Form.Text>
+              <div className="d-flex justify-content-between">
+                <Form.Label
+                  className={usernameForm ? "login-option-none" : "login-option"}
+                  onClick={emailClickedHandler}
+                >
+                  Email
+                </Form.Label>
+                <Form.Label
+                  className={usernameForm ? "login-option" : "login-option-none"}
+                  onClick={usernameClickedHandler}
+                >
+                  Username
+                </Form.Label>
+              </div>
+              {usernameForm ? (
+                <>
+                  <Form.Control
+                    type="username"
+                    placeholder="Enter username"
+                    value={username}
+                    onChange={(e) => {
+                      setUsername(e.target.value)
+                    }}
+                  />
+                  <Form.Text className="text-muted">Usernames are case sensitive.</Form.Text>
+                </>
+              ) : (
+                <>
+                  <Form.Control
+                    type="email"
+                    placeholder="Enter email"
+                    value={email}
+                    onChange={(e) => {
+                      setEmail(e.target.value)
+                    }}
+                  />
+                  <Form.Text className="text-muted">We'll never share your email with anyone else.</Form.Text>
+                </>
+              )}
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicPassword">
@@ -83,10 +130,18 @@ export default function Login() {
                 }}
               />
             </Form.Group>
-
-            <Button style={{ backgroundColor: "rgb(132, 112, 112)", border: "none" }} type="submit">
-              Submit
-            </Button>
+            {usernameForm ? (
+              <Button
+                style={{ backgroundColor: "rgb(132, 112, 112)", border: "none" }}
+                onClick={loginWithUsernameHandler}
+              >
+                Submit
+              </Button>
+            ) : (
+              <Button style={{ backgroundColor: "rgb(132, 112, 112)", border: "none" }} onClick={loginWithEmailHandler}>
+                Submit
+              </Button>
+            )}
           </Form>{" "}
         </div>
       </div>
