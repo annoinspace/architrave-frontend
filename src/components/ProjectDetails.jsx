@@ -1,9 +1,15 @@
 import React, { useState, useEffect, useCallback, useRef } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { Container, Image, Button, Form, Spinner } from "react-bootstrap"
+import { Container, Image, Button, Form, Spinner, Modal } from "react-bootstrap"
 import { useNavigate, useParams } from "react-router-dom"
+import { AiOutlineCloseCircle } from "react-icons/ai"
 import { toJpeg } from "html-to-image"
-import { deleteProjectAction, updateProductQuantity, updateProjectDetails } from "../redux/actions/moodboardActions"
+import {
+  deleteProductInProject,
+  deleteProjectAction,
+  updateProductQuantity,
+  updateProjectDetails
+} from "../redux/actions/moodboardActions"
 
 export default function ProjectDetails() {
   const { projectId } = useParams()
@@ -11,6 +17,7 @@ export default function ProjectDetails() {
   const selectedProject = useSelector((state) => state.moodboard?.selectedProject)
   const currentUser = useSelector((state) => state.currentUser.currentUser)
   const currency = currentUser.currency
+  const productLibrary = currentUser.productLibrary
 
   const [selectedProduct, setSelectedProduct] = useState(null)
   const [editQuantity, setEditQuantity] = useState(false)
@@ -33,8 +40,30 @@ export default function ProjectDetails() {
   const [loadingSpinner, setLoadingSpinner] = useState(false)
   const [downloadingSpinner, setDownloadingSpinner] = useState(false)
 
+  const [addProductModal, setAddProductModal] = useState(false)
+  const [addProducts, setAddProducts] = useState([])
+
   const dispatch = useDispatch()
   const ref = useRef(null)
+
+  const remainingProducts = productLibrary.filter((product) => !allProducts.some((p) => p._id === product._id))
+
+  const closeModal = () => {
+    setAddProductModal(false)
+    setAddProducts([])
+  }
+
+  const handleAddProduct = () => {
+    setAddProductModal(true)
+  }
+  const productClickedHandler = (product) => {
+    console.log("product clicked", product._id)
+    setAddProducts([...addProducts, product])
+  }
+  const removeFromSelectedProducts = (productId) => {
+    const filtered = addProducts.filter((product) => product._id !== productId)
+    setAddProducts(filtered)
+  }
 
   const onMoodboardSave = useCallback(async () => {
     if (ref.current === null) {
@@ -129,12 +158,28 @@ export default function ProjectDetails() {
     setTotalAllocated(parseFloat(totalCost.toFixed(2)))
     setTotalBudget(parseInt(parseFloat(budget) + cushion))
     setRemaining(parseFloat(totalBudget - totalAllocated).toFixed(2))
-
-    console.log("budget", budget, typeof budget)
-    console.log("cushion", cushion, typeof cushion)
-    console.log("total allocated", totalAllocated, typeof totalAllocated)
-    console.log("remaining", remaining, typeof remaining)
   }
+
+  const deleteProjecthandler = () => {
+    setLoadingSpinner(true)
+    dispatch(deleteProjectAction(projectId))
+    setTimeout(() => {
+      setLoadingSpinner(false)
+      navigate("/home")
+    }, 2000)
+  }
+
+  const deleteProductHandler = () => {
+    console.log("selectedProduct._id", selectedProduct._id)
+    dispatch(deleteProductInProject(projectId, selectedProduct._id))
+
+    const filteredproducts = allProducts.filter((product) => product._id !== selectedProduct._id)
+    setAllProducts(filteredproducts)
+    setSelectedProduct(null)
+    updateBudgetInfo()
+    updateBudgetInfo()
+  }
+
   useEffect(() => {
     console.log("products updated")
     updateBudgetInfo()
@@ -150,15 +195,6 @@ export default function ProjectDetails() {
       setRemaining((totalBudget - totalAllocated).toFixed(2))
     }
   }, [totalBudget])
-
-  const deleteProjecthandler = () => {
-    setLoadingSpinner(true)
-    dispatch(deleteProjectAction(projectId))
-    setTimeout(() => {
-      setLoadingSpinner(false)
-      navigate("/home")
-    }, 2000)
-  }
 
   return (
     <Container className="p-5" id="project-details-container">
@@ -279,49 +315,65 @@ export default function ProjectDetails() {
       <div id="project-section-three">
         <h5>Specified Products</h5>
         {selectedProduct !== null && (
-          <div id="selected-budget-item">
-            <Image src={selectedProduct.image} id="selected-budget-item-image" />
-            <div className="w-100">
-              <h6>{selectedProduct.name}</h6>
-              <div className="budget-line"></div>
-              <div id="quantity-price-wrapper">
-                <div id="quantity-wrapper">
-                  {" "}
-                  Quantity:
-                  {editQuantity ? (
-                    <>
-                      <Form.Group controlId="quantity-form">
-                        <Form.Control
-                          className="quantity-form"
-                          type="number"
-                          placeholder={selectedProductQuantity}
-                          value={selectedProductQuantity}
-                          onChange={(e) => {
-                            setSelectedProductQuantity(e.target.value)
-                          }}
-                        />
-                      </Form.Group>
-                      <Button variant="outline-success" onClick={saveQuantityhandler}>
-                        Save
-                      </Button>
-                    </>
-                  ) : (
-                    <>
-                      <span>{selectedProductQuantity}</span>
-                      <Button variant="outline-success" onClick={editQuantityHandler}>
-                        Edit
-                      </Button>
-                    </>
-                  )}
-                </div>
-                <div id="total-cost-selected">
-                  Total Cost: {currency}
-                  {selectedTotal}
-                </div>
+          <>
+            <div id="selected-budget-item">
+              <div>
+                <Image src={selectedProduct.image} id="selected-budget-item-image" />
               </div>
-              <div className="budget-line"></div>
+
+              <div className="w-100">
+                <h6>{selectedProduct.name}</h6>
+                <div className="budget-line selected-budget-item-250 "></div>
+                <div id="quantity-price-wrapper">
+                  <div id="quantity-wrapper">
+                    {" "}
+                    Quantity:
+                    {editQuantity ? (
+                      <>
+                        <Form.Group controlId="quantity-form">
+                          <Form.Control
+                            className="quantity-form"
+                            type="number"
+                            placeholder={selectedProductQuantity}
+                            value={selectedProductQuantity}
+                            onChange={(e) => {
+                              setSelectedProductQuantity(e.target.value)
+                            }}
+                          />
+                        </Form.Group>
+                        <Button variant="outline-success" onClick={saveQuantityhandler}>
+                          Save
+                        </Button>
+                      </>
+                    ) : (
+                      <>
+                        <span>{selectedProductQuantity}</span>
+                        <Button variant="outline-success" onClick={editQuantityHandler}>
+                          Edit
+                        </Button>
+                      </>
+                    )}
+                  </div>
+                  <div id="total-cost-selected">
+                    <div>
+                      Single Product: {currency}
+                      {selectedProduct.price}
+                    </div>
+                    <div>
+                      Total Cost: {currency}
+                      {selectedTotal}
+                    </div>
+                  </div>
+                </div>
+                <div className="budget-line selected-budget-item-250 "></div>
+              </div>
             </div>
-          </div>
+            <div className="delete-product-button-wrapper">
+              <Button variant="outline-danger" onClick={deleteProductHandler}>
+                Delete Product
+              </Button>
+            </div>
+          </>
         )}
         {allProducts?.map((product) => (
           <div key={product._id} className="budget-list-item" onClick={() => selectedProductHandler(product)}>
@@ -333,7 +385,49 @@ export default function ProjectDetails() {
             </div>
           </div>
         ))}
+        <Button id="create-project-button" style={{ alignSelf: "center" }} onClick={handleAddProduct}>
+          + Add Product
+        </Button>
       </div>
+      {addProductModal && (
+        <Modal show={addProductModal} onHide={closeModal} id="add-product-modal">
+          <div className="modal-display-list-header">
+            <h4 style={{ flexGrow: 1, marginLeft: "30px", marginRight: "30px" }}>More Products from your Library</h4>
+            <AiOutlineCloseCircle onClick={closeModal} className="icon-button close-position" />
+          </div>
+          <div id="more-products-wrapper-modal">
+            {remainingProducts?.map((product) => (
+              <div
+                key={product._id}
+                className="product-display-list-item"
+                onClick={() => productClickedHandler(product)}
+              >
+                <Image src={product.image} className="product-display-list-image" />
+                <div className="product-details-wrapper">
+                  <div className="product-name">{product.name} </div>
+                </div>
+              </div>
+            ))}
+
+            <div className="budget-line w-100"></div>
+            <div id="more-products-selected">
+              {addProducts.length > 0 &&
+                addProducts.map((product) => (
+                  <div
+                    key={product._id}
+                    className="product-display-list-item"
+                    onClick={() => removeFromSelectedProducts(product._id)}
+                  >
+                    <Image src={product.image} className="product-display-list-image" />
+                    <div className="product-details-wrapper">
+                      <div className="product-name">{product.name} </div>
+                    </div>
+                  </div>
+                ))}
+            </div>
+          </div>
+        </Modal>
+      )}
       <div id="project-section-four">
         <h5>Contractors & Services</h5>
       </div>

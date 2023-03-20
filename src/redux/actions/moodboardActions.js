@@ -13,7 +13,8 @@ export const UPDATE_PROJECT_DETAILS = "UPDATE_PROJECT_DETAILS"
 export const UPDATE_SELECTED_PROJECT = "UPDATE_SELECTED_PROJECT"
 export const UPDATE_SELECTED_PROJECT_QUANTITY = "UPDATE_SELECTED_PROJECT_QUANTITY"
 export const SET_USER_PROJECTS_HOME = "SET_USER_PROJECTS_HOME"
-export const UPDATE_DELETED_PROJECT = "PDATE_DELETED_PROJECT"
+export const UPDATE_DELETED_PROJECT = "UPDATE_DELETED_PROJECT"
+export const DELETE_PRODUCT_IN_MOODBOARD = "DELETE_PRODUCT_IN_MOODBOARD"
 
 export const saveProductsForMoodboard = (payload) => ({
   type: SAVE_PRODUCTS_FOR_MOODBOARD,
@@ -257,6 +258,32 @@ export const deleteProjectAction = (projectId) => {
           type: UPDATE_DELETED_PROJECT,
           payload: projectId
         })
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
+export const deleteProductInProject = (projectId, productId) => {
+  return async (dispatch) => {
+    const opts = {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`
+      }
+    }
+    try {
+      const response = await fetch(baseEndpoint + `/projects/${projectId}/products/${productId}`, opts)
+      if (response.ok) {
+        const res = await response.json()
+        const products = res.remainingProducts
+        console.log("------------product deleted successfully------------", products)
+        // dispatch({
+        //   type: DELETE_PRODUCT_IN_MOODBOARD,
+        //   payload: projectId
+        // })
       }
     } catch (error) {
       console.log(error)

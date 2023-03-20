@@ -1146,6 +1146,7 @@ Button:active {
   flex-wrap: wrap;
   gap: 20px;
   justify-content: center;
+  align-items: center;
   margin-bottom: 50px;
 }
 #project-section-three h5 {
@@ -1162,7 +1163,7 @@ Button:active {
   align-items: center;
   cursor: pointer;
   border-radius: 30px;
-  width: 45%;
+  width: 400px;
 }
 .budget-list-item-selected {
   border: 1px solid var(--light-brown-opacity);
@@ -1208,11 +1209,11 @@ Button:active {
   width: 600px;
   border-radius: 30px;
   padding: 10px;
-
   display: flex;
   gap: 10px;
-  margin-right: auto;
+  margin-right: 40px;
   margin-left: 40px;
+  justify-self: left;
 }
 
 #selected-budget-item > div > h6 {
@@ -1224,8 +1225,8 @@ Button:active {
 
   margin-top: 10px;
 }
-#selected-budget-item > div > div {
-  width: 250px;
+.selected-budget-item-250 {
+  width: 230px;
 }
 
 #selected-budget-item-image {
@@ -1238,6 +1239,13 @@ Button:active {
   padding: 10px;
   justify-content: right;
   width: 100%;
+}
+.delete-product-button-wrapper {
+  padding: 10px;
+  margin-right: auto;
+
+  display: flex;
+  align-items: center;
 }
 
 .header-top {
@@ -1351,19 +1359,6 @@ Button:active {
   border-radius: 30px;
   width: 45%;
 }
-/* .profile-list-item-selected {
-  border: 1px solid var(--light-brown-opacity);
-  margin-bottom: 10px;
-  padding: 10px;
-  padding-left: 20px;
-  padding-right: 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  cursor: pointer;
-  border-radius: 30px;
-  width: 95%;
-} */
 
 .profile-list-item h6 {
   margin: 0;
@@ -1372,4 +1367,24 @@ Button:active {
 .profile-list-item:hover {
   background: #f1eded;
   box-shadow: inset 10px 10px 30px rgba(223, 221, 221, 0.25), inset -10px -10px 30px #ffffff;
+}
+#add-product-modal {
+  min-width: 700px;
+}
+#more-products-wrapper-modal {
+  display: flex;
+  padding: 30px;
+  gap: 15px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+#more-products-selected {
+  display: flex;
+  padding: 30px;
+  gap: 15px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.added-product {
+  border: 2px solid var(--light-green-opacity);
 }
