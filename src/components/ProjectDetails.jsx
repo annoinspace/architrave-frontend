@@ -5,6 +5,7 @@ import { useNavigate, useParams } from "react-router-dom"
 import { AiOutlineCloseCircle } from "react-icons/ai"
 import { toJpeg } from "html-to-image"
 import {
+  addNewProductToProject,
   deleteProductInProject,
   deleteProjectAction,
   updateProductQuantity,
@@ -41,16 +42,16 @@ export default function ProjectDetails() {
   const [downloadingSpinner, setDownloadingSpinner] = useState(false)
 
   const [addProductModal, setAddProductModal] = useState(false)
-  const [addProducts, setAddProducts] = useState([])
+
+  const [addProducts, setAddProducts] = useState("")
 
   const dispatch = useDispatch()
   const ref = useRef(null)
-
-  const remainingProducts = productLibrary.filter((product) => !allProducts.some((p) => p._id === product._id))
+  let remainingProducts = productLibrary?.filter((product) => !allProducts.some((p) => p._id === product._id))
 
   const closeModal = () => {
     setAddProductModal(false)
-    setAddProducts([])
+    setAddProducts("")
   }
 
   const handleAddProduct = () => {
@@ -58,11 +59,24 @@ export default function ProjectDetails() {
   }
   const productClickedHandler = (product) => {
     console.log("product clicked", product._id)
-    setAddProducts([...addProducts, product])
+
+    setAddProducts(product)
   }
   const removeFromSelectedProducts = (productId) => {
-    const filtered = addProducts.filter((product) => product._id !== productId)
-    setAddProducts(filtered)
+    // const filtered = addProducts.filter((product) => product._id !== productId)
+    setAddProducts("")
+  }
+
+  const addMoreProductsHandler = () => {
+    const productIdToAdd = addProducts._id
+    console.log("addProducts", addProducts)
+    console.log("allProducts", allProducts)
+    const updated = { ...addProducts, quantity: 1 }
+    setAllProducts([...allProducts, updated])
+    dispatch(addNewProductToProject(projectId, productIdToAdd))
+
+    updateBudgetInfo()
+    closeModal()
   }
 
   const onMoodboardSave = useCallback(async () => {
@@ -399,10 +413,10 @@ export default function ProjectDetails() {
             {remainingProducts?.map((product) => (
               <div
                 key={product._id}
-                className="product-display-list-item"
+                className="product-display-list-item-more"
                 onClick={() => productClickedHandler(product)}
               >
-                <Image src={product.image} className="product-display-list-image" />
+                <Image src={product.image} className="product-display-list-more-image" />
                 <div className="product-details-wrapper">
                   <div className="product-name">{product.name} </div>
                 </div>
@@ -411,20 +425,24 @@ export default function ProjectDetails() {
 
             <div className="budget-line w-100"></div>
             <div id="more-products-selected">
-              {addProducts.length > 0 &&
-                addProducts.map((product) => (
-                  <div
-                    key={product._id}
-                    className="product-display-list-item"
-                    onClick={() => removeFromSelectedProducts(product._id)}
-                  >
-                    <Image src={product.image} className="product-display-list-image" />
-                    <div className="product-details-wrapper">
-                      <div className="product-name">{product.name} </div>
-                    </div>
+              {addProducts && (
+                <div
+                  key={addProducts._id}
+                  className="product-display-list-item"
+                  onClick={() => removeFromSelectedProducts(addProducts._id)}
+                >
+                  <Image src={addProducts.image} className="product-display-list-image" />
+                  <div className="product-details-wrapper">
+                    <div className="product-name">{addProducts.name} </div>
                   </div>
-                ))}
+                </div>
+              )}
             </div>
+          </div>
+          <div>
+            <Button variant="outline-success" onClick={addMoreProductsHandler}>
+              Add Product
+            </Button>
           </div>
         </Modal>
       )}

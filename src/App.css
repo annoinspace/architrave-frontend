@@ -1388,3 +1388,20 @@ Button:active {
 .added-product {
   border: 2px solid var(--light-green-opacity);
 }
+.product-display-list-item-more {
+  height: 145px;
+  width: 145px;
+  cursor: pointer;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+}
+.product-display-list-item-more:hover {
+  box-shadow: rgba(117, 101, 104, 0.25) 0px 50px 100px -20px, rgba(87, 65, 65, 0.3) 0px 20px 50px -20px;
+}
+
+.product-display-list-more-image {
+  height: 145px;
+  width: 145px;
+  object-fit: cover;
+}

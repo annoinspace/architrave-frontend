@@ -290,3 +290,28 @@ export const deleteProductInProject = (projectId, productId) => {
     }
   }
 }
+
+export const addNewProductToProject = (projectId, productId) => {
+  return async (dispatch) => {
+    const opts = {
+      method: "PATCH",
+      body: JSON.stringify({ productId: productId }),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`
+      }
+    }
+
+    try {
+      console.log("------------in the add product action------------")
+      const response = await fetch(baseEndpoint + `/projects/${projectId}/products`, opts)
+      if (response.ok) {
+        console.log("------------product successfully added------------")
+        const res = await response.json()
+        console.log(res)
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
