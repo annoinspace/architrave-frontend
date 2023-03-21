@@ -3,7 +3,7 @@ import { Image, Button, Spinner } from "react-bootstrap"
 import { useSelector, useDispatch } from "react-redux"
 import { toJpeg } from "html-to-image"
 import { useNavigate } from "react-router-dom"
-import { addMoodboardImage } from "../redux/actions/moodboardActions"
+import { addMoodboardImage, getAllUserProjects } from "../redux/actions/moodboardActions"
 
 export default function NewMoodboard() {
   const initialisedProject = useSelector((state) => state.moodboard.initialisedProject)
@@ -152,6 +152,7 @@ export default function NewMoodboard() {
         dispatch(addMoodboardImage(formData, projectId))
         setTimeout(() => {
           setShowSpinner(false)
+          dispatch(getAllUserProjects())
           navigate(`/home`)
         }, 2000)
       }

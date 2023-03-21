@@ -13,6 +13,7 @@ export const DELETE_PRODUCT = "DELETE_PRODUCT"
 export const ADD_INSPO_IMAGES = "ADD_INSPO_IMAGES"
 export const DELETE_INSPO = "DELETE_INSPO"
 export const SET_USER_PROJECTS = "SET_USER_PROJECTS"
+export const UPDATE_USER_PROFILE = "UPDATE_USER_PROFILE"
 
 const baseEndpoint = process.env.REACT_APP_BE_URL
 
@@ -363,6 +364,33 @@ export const deleteInspo = (inspoId) => {
         })
       } else {
         console.log("error deleting inspo")
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
+export const changeUsernameAction = (username) => {
+  return async (dispatch) => {
+    const opts = {
+      method: "PUT",
+      body: JSON.stringify({ username: username }),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`
+      }
+    }
+
+    try {
+      const response = await fetch(baseEndpoint + `/users/me/username`, opts)
+      if (response.ok) {
+        const updatedUser = await response.json()
+
+        dispatch({
+          type: UPDATE_USER_PROFILE,
+          payload: updatedUser
+        })
       }
     } catch (error) {
       console.log(error)

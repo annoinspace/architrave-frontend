@@ -73,25 +73,28 @@ export default function Navbar() {
       )}
 
       {loggedInNav && (
-        <>
-          <div className="nav-link" id="architrave-nav" onClick={homeHandler}>
-            My Architrave
-          </div>
+        <div className="d-flex w-100 justify-content-between">
+          <div className="d-flex">
+            <div className="nav-link" id="architrave-nav" onClick={homeHandler}>
+              My Architrave
+            </div>
 
-          <div className="nav-link">Curated</div>
+            {/* <div className="nav-link">Curated</div> */}
 
-          <div className="nav-link" onClick={() => navigate("/my-library")}>
-            My Library
+            <div className="nav-link" onClick={() => navigate("/my-library")}>
+              My Library
+            </div>
           </div>
-
-          <div className="nav-link" onClick={() => navigate("/profile")}>
-            Profile
+          <div className="d-flex">
+            <div className="nav-link" onClick={() => navigate("/profile")}>
+              Profile
+            </div>
+            <div className="nav-link" onClick={logoutHandler}>
+              {" "}
+              Logout
+            </div>
           </div>
-          <div className="nav-link r" onClick={logoutHandler}>
-            {" "}
-            Logout
-          </div>
-        </>
+        </div>
       )}
     </div>
   )

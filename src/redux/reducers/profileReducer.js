@@ -11,7 +11,8 @@ import {
   SAVE_NEW_PRODUCT,
   DELETE_PRODUCT,
   ADD_INSPO_IMAGES,
-  DELETE_INSPO
+  DELETE_INSPO,
+  UPDATE_USER_PROFILE
 } from "../actions/userActions"
 import { UPDATE_PROJECT_DETAILS } from "../actions/moodboardActions"
 
@@ -106,6 +107,11 @@ const profileReducer = (state = initialState, action) => {
           ...state.currentUser,
           inspo: action.payload
         }
+      }
+    case UPDATE_USER_PROFILE:
+      return {
+        ...state,
+        currentUser: action.payload
       }
 
     default:
