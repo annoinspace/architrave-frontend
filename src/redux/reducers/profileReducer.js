@@ -12,16 +12,19 @@ import {
   DELETE_PRODUCT,
   ADD_INSPO_IMAGES,
   DELETE_INSPO,
-  UPDATE_USER_PROFILE
+  UPDATE_USER_USERNAME,
+  UPDATE_USER_EMAIL,
+  UPDATE_USER_CURRENCY,
+  SET_PASSWORD_ERROR
 } from "../actions/userActions"
-import { UPDATE_PROJECT_DETAILS } from "../actions/moodboardActions"
 
 const initialState = {
   signUpStatus: null,
   loginStatus: null,
   userLocation: "/",
   accessToken: null,
-  currentUser: null
+  currentUser: null,
+  passwordError: null
 }
 const profileReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -108,10 +111,34 @@ const profileReducer = (state = initialState, action) => {
           inspo: action.payload
         }
       }
-    case UPDATE_USER_PROFILE:
+    case UPDATE_USER_USERNAME:
       return {
         ...state,
-        currentUser: action.payload
+        currentUser: {
+          ...state.currentUser,
+          username: action.payload
+        }
+      }
+    case UPDATE_USER_EMAIL:
+      return {
+        ...state,
+        currentUser: {
+          ...state.currentUser,
+          email: action.payload
+        }
+      }
+    case UPDATE_USER_CURRENCY:
+      return {
+        ...state,
+        currentUser: {
+          ...state.currentUser,
+          currency: action.payload
+        }
+      }
+    case SET_PASSWORD_ERROR:
+      return {
+        ...state,
+        passwordError: action.payload
       }
 
     default:

@@ -33,8 +33,8 @@ export default function Homepage() {
           + Create Project
         </Button>
 
-        {allProjects?.length === 0 && <div>create your first project!</div>}
         <h4>Active Projects</h4>
+        {allProjects?.length === 0 && <div id="projects-thumbnail-wrapper-empty">create your first project!</div>}
         {allProjects?.length > 0 && (
           <div id="projects-thumbnail-wrapper">
             {allProjects.map((project) => (
@@ -46,6 +46,7 @@ export default function Homepage() {
           </div>
         )}
         <h4>Archived Projects</h4>
+        {allProjects?.length === 0 && <div>your archived projects will appear here</div>}
       </div>
     </Container>
   )

@@ -13,7 +13,10 @@ export const DELETE_PRODUCT = "DELETE_PRODUCT"
 export const ADD_INSPO_IMAGES = "ADD_INSPO_IMAGES"
 export const DELETE_INSPO = "DELETE_INSPO"
 export const SET_USER_PROJECTS = "SET_USER_PROJECTS"
-export const UPDATE_USER_PROFILE = "UPDATE_USER_PROFILE"
+export const UPDATE_USER_USERNAME = "UPDATE_USER_USERNAME"
+export const UPDATE_USER_EMAIL = "UPDATE_USER_EMAIL"
+export const UPDATE_USER_CURRENCY = "UPDATE_USER_CURRENCY"
+export const SET_PASSWORD_ERROR = "SET_PASSWORD_ERROR"
 
 const baseEndpoint = process.env.REACT_APP_BE_URL
 
@@ -385,15 +388,125 @@ export const changeUsernameAction = (username) => {
     try {
       const response = await fetch(baseEndpoint + `/users/me/username`, opts)
       if (response.ok) {
-        const updatedUser = await response.json()
-
+        const updated = await response.json()
+        console.log("updatedUsername", updated)
+        const userName = updated.username
         dispatch({
-          type: UPDATE_USER_PROFILE,
-          payload: updatedUser
+          type: UPDATE_USER_USERNAME,
+          payload: userName
         })
       }
     } catch (error) {
       console.log(error)
+    }
+  }
+}
+
+export const changeEmailAction = (email) => {
+  return async (dispatch) => {
+    const opts = {
+      method: "PUT",
+      body: JSON.stringify({ email: email }),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`
+      }
+    }
+
+    try {
+      const response = await fetch(baseEndpoint + `/users/me/email`, opts)
+      if (response.ok) {
+        const updated = await response.json()
+        console.log("updatedEmail", updated)
+        const newEmail = updated.email
+        dispatch({
+          type: UPDATE_USER_EMAIL,
+          payload: newEmail
+        })
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
+export const changeCurrencyAction = (currency) => {
+  return async (dispatch) => {
+    const opts = {
+      method: "PUT",
+      body: JSON.stringify({ currency: currency }),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`
+      }
+    }
+
+    try {
+      const response = await fetch(baseEndpoint + `/users/me/currency`, opts)
+      if (response.ok) {
+        const updated = await response.json()
+        console.log("updatedCurrency", updated)
+        const newCurrency = updated.currency
+        dispatch({
+          type: UPDATE_USER_CURRENCY,
+          payload: newCurrency
+        })
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
+export const changePasswordAction = (fields) => {
+  return async (dispatch) => {
+    const opts = {
+      method: "PUT",
+      body: JSON.stringify(fields),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`
+      }
+    }
+
+    try {
+      console.log("------in the save password action--------")
+      const response = await fetch(baseEndpoint + `/users/me/newpassword`, opts)
+
+      if (response.ok) {
+        console.log("------in the save password action SUCCESS--------")
+        const updatedPassword = await response.json()
+        console.log("updatedPassword", updatedPassword)
+        const newAccessToken = updatedPassword.accessToken
+        console.log("newAccessToken", newAccessToken)
+
+        if (newAccessToken) {
+          dispatch({
+            type: SET_ACCESS_TOKEN,
+            payload: newAccessToken
+          })
+          dispatch({
+            type: SET_PASSWORD_ERROR,
+            payload: null
+          })
+          localStorage.setItem("accessToken", newAccessToken)
+        } else {
+          console.log("there was an error updating the password")
+        }
+      } else {
+        const errorResponse = await response.json()
+        console.log("Error response from server:", errorResponse)
+        dispatch({
+          type: SET_PASSWORD_ERROR,
+          payload: errorResponse.message || "Wrong current password."
+        })
+      }
+    } catch (error) {
+      console.log(error)
+      dispatch({
+        type: SET_PASSWORD_ERROR,
+        payload: "An error occurred while updating the password."
+      })
     }
   }
 }
