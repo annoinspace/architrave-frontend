@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react"
 import { Button, Form, Modal, Alert, Image } from "react-bootstrap"
 import { AiOutlineCloseCircle } from "react-icons/ai"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { saveNewProduct, saveNewProductFromImageUpload } from "../redux/actions/userActions"
 
 export default function UploadProducts() {
+  const currentUser = useSelector((state) => state.currentUser.currentUser)
+  const currency = currentUser.currency
   const dispatch = useDispatch()
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const [showUrlInput, setShowUrlInput] = useState(false)

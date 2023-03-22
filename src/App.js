@@ -13,6 +13,7 @@ import NewProject from "./components/NewProject"
 import NewMoodboard from "./components/NewMoodboard"
 import ProjectDetails from "./components/ProjectDetails"
 import Profile from "./components/Profile"
+import ArchivedProject from "./components/ArchivedProject"
 function App() {
   const currentUser = useSelector((state) => state.currentUser.currentUser)
   const loginStatus = useSelector((state) => state.currentUser.loginStatus)
@@ -41,6 +42,7 @@ function App() {
                 <Route path="/new-project" element={<NewProject />} />
                 <Route path="/new-moodboard" element={<NewMoodboard />} />
                 <Route path="/project-details/:projectId" element={<ProjectDetails />} />
+                <Route path="/archive/:projectId" element={<ArchivedProject />} />
                 <Route path="/profile" element={<Profile />} />
               </>
             )}

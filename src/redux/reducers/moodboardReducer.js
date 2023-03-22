@@ -8,6 +8,7 @@ import {
   UPDATE_SELECTED_PROJECT,
   UPDATE_SELECTED_PROJECT_QUANTITY,
   SET_USER_PROJECTS_HOME,
+  SELECTED_ARCHIVE_PROJECT,
   UPDATE_DELETED_PROJECT
 } from "../actions/moodboardActions"
 import { SET_USER_PROJECTS } from "../actions/userActions"
@@ -16,6 +17,7 @@ const initialState = {
   moodboardComponents: null,
   initialisedProject: null,
   selectedProject: null,
+  selectedArchiveProject: null,
   currentUserProjects: null
 }
 
@@ -91,6 +93,11 @@ const moodboardReducer = (state = initialState, action) => {
       return {
         ...state,
         selectedProject: action.payload
+      }
+    case SELECTED_ARCHIVE_PROJECT:
+      return {
+        ...state,
+        selectedArchiveProject: action.payload
       }
     case UPDATE_SELECTED_PROJECT:
       return {

@@ -15,6 +15,7 @@ export const UPDATE_SELECTED_PROJECT_QUANTITY = "UPDATE_SELECTED_PROJECT_QUANTIT
 export const SET_USER_PROJECTS_HOME = "SET_USER_PROJECTS_HOME"
 export const UPDATE_DELETED_PROJECT = "UPDATE_DELETED_PROJECT"
 export const DELETE_PRODUCT_IN_MOODBOARD = "DELETE_PRODUCT_IN_MOODBOARD"
+export const SELECTED_ARCHIVE_PROJECT = "SELECTED_ARCHIVE_PROJECT"
 
 export const saveProductsForMoodboard = (payload) => ({
   type: SAVE_PRODUCTS_FOR_MOODBOARD,
@@ -58,6 +59,10 @@ export const saveCushionAction = (payload) => ({
 
 export const saveSelectedProject = (payload) => ({
   type: SELECTED_PROJECT,
+  payload: payload
+})
+export const saveSelectedArchiveProject = (payload) => ({
+  type: SELECTED_ARCHIVE_PROJECT,
   payload: payload
 })
 
@@ -301,7 +306,6 @@ export const addNewProductToProject = (projectId, productId) => {
         Authorization: `Bearer ${localStorage.getItem("accessToken")}`
       }
     }
-
     try {
       console.log("------------in the add product action------------")
       const response = await fetch(baseEndpoint + `/projects/${projectId}/products`, opts)
@@ -309,6 +313,30 @@ export const addNewProductToProject = (projectId, productId) => {
         console.log("------------product successfully added------------")
         const res = await response.json()
         console.log(res)
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
+export const moveProjectToArchive = (projectId) => {
+  return async () => {
+    const opts = {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`
+      }
+    }
+
+    try {
+      console.log("------------in the change status action-----------")
+      const response = await fetch(baseEndpoint + `/projects/${projectId}/status`, opts)
+      if (response.ok) {
+        console.log("---------project status successfully changed----------")
+      } else {
+        console.log("error changing the project status")
       }
     } catch (error) {
       console.log(error)

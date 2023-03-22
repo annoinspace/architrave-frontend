@@ -117,12 +117,15 @@ export default function MyLibrary() {
         {selectedProduct && (
           <Modal show={modalIsOpen} onHide={closeModal} id="">
             <div className="modal-display-list-header">
-              <h2 style={{ flexGrow: 1, marginLeft: "30px", marginRight: "30px" }}>{selectedProduct.name}</h2>
               <AiOutlineCloseCircle onClick={closeModal} className="icon-button close-position" />
             </div>
             <div className="modal-display-list-image-wrapper">
               <Image src={selectedProduct.image} className="modal-display-list-image" />
-              <div>Price: {selectedProduct.price}</div>
+              <h4 style={{ flexGrow: 1, marginLeft: "30px", marginRight: "30px" }}>{selectedProduct.name}</h4>
+              <div>
+                Price: {currentUser.currency}
+                {selectedProduct.price}
+              </div>
               <div>Category: {selectedProduct.category}</div>
               <a href={selectedProduct.link} target="_blank" rel="noopener noreferrer" className="no-style">
                 <div>
