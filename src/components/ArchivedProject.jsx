@@ -55,17 +55,19 @@ export default function ArchivedProject() {
         <h5>Specified Products</h5>
 
         {allProducts?.map((product) => (
-          <div key={product._id} className="budget-list-item">
-            <div className="budget-list-product-image-wrapper">
-              <Image src={product.image} className="budget-list-product-image" />
+          <a href={product.link} target="_blank" rel="noopener noreferrer" className="no-style">
+            <div key={product._id} className="budget-list-item">
+              <div className="budget-list-product-image-wrapper">
+                <Image src={product.image} className="budget-list-product-image" />
+              </div>
+              <h6>{product.name}</h6>
+              <div className="product-price">
+                {currency}
+                {product.price}
+                <div>{product.quantity}</div>
+              </div>
             </div>
-            <h6>{product.name}</h6>
-            <div className="product-price">
-              {currency}
-              {product.price}
-              <div>{product.quantity}</div>
-            </div>
-          </div>
+          </a>
         ))}
       </div>
 

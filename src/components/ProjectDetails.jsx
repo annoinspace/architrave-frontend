@@ -391,6 +391,10 @@ export default function ProjectDetails() {
         )}
         {allProducts?.map((product) => (
           <div key={product._id} className="budget-list-item" onClick={() => selectedProductHandler(product)}>
+            <div className="budget-list-product-image-wrapper">
+              <Image src={product.image} className="budget-list-product-image" />
+            </div>
+
             <h6>{product.name}</h6>
             <div className="product-price">
               {currency}

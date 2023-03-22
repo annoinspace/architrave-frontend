@@ -40,12 +40,8 @@ font-family: 'Playfair Display SC', serif; */
   border-radius: 10px;
   -webkit-box-shadow: inset 0 0 6px rgba(90, 89, 89, 0.4);
 }
-.con {
-  border: 1px solid red;
-}
-
-.col {
-  border: 1px solid orange;
+a:-webkit-any-link {
+  text-decoration: none !important;
 }
 
 .page-header {
