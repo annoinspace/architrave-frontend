@@ -106,7 +106,7 @@ export default function NewProject() {
         setFullPalette("")
         setSelectedPaletteStyle("")
         setShowSpinner(false)
-        navigate("/new-moodboard")
+        navigate("/select-template")
       }, 2000)
     }
   }

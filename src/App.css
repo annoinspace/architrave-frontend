@@ -842,15 +842,6 @@ Button:active {
   gap: 10px;
 }
 
-#moodboard-swatches {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  position: absolute;
-  bottom: 70px;
-  right: 25px;
-  z-index: 10;
-}
 .swatch-square {
   width: 70px;
   height: 70px;
@@ -883,227 +874,6 @@ Button:active {
 .swatch-rectangle {
   width: 140px;
   height: 40px;
-}
-
-#image-1 {
-  height: 300px;
-  width: 200px;
-
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  overflow: hidden;
-}
-#image-1-image {
-  height: 300px;
-  width: 200px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-  object-fit: cover;
-}
-#image-2 {
-  height: 220px;
-  width: 220px;
-
-  position: absolute;
-  top: 250px;
-  left: 120px;
-  border-radius: 50%;
-  overflow: hidden;
-  z-index: 10;
-}
-
-#image-2-image {
-  height: 220px;
-  width: 220px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-  object-fit: cover;
-}
-#image-3 {
-  height: 300px;
-  width: 200px;
-  position: absolute;
-  top: 60px;
-  left: 250px;
-  overflow: hidden;
-}
-
-#image-3-image {
-  height: 300px;
-  width: 200px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-  object-fit: cover;
-}
-#image-4 {
-  height: 220px;
-  width: 200px;
-  position: absolute;
-  bottom: 20px;
-  right: 50px;
-  overflow: hidden;
-  z-index: 9;
-}
-
-#image-4-image {
-  height: 220px;
-  width: 200px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-  object-fit: cover;
-}
-#image-5 {
-  height: 150px;
-  width: 150px;
-  position: absolute;
-  top: 65px;
-  left: 415px;
-  overflow: hidden;
-  border-radius: 50%;
-  z-index: 9;
-}
-
-#image-5-image {
-  height: 150px;
-  width: 150px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-  object-fit: cover;
-}
-
-#image-6 {
-  height: 130px;
-  width: 130px;
-  position: absolute;
-  bottom: 160px;
-  left: 20px;
-  overflow: hidden;
-}
-#image-6-image {
-  height: 130px;
-  width: 130px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-  object-fit: cover;
-}
-#image-7 {
-  height: 130px;
-  width: 130px;
-  position: absolute;
-  bottom: 20px;
-  left: 20px;
-  overflow: hidden;
-}
-#image-7-image {
-  height: 130px;
-  width: 130px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-  object-fit: cover;
-}
-#image-8 {
-  height: 130px;
-  width: 130px;
-
-  position: absolute;
-  bottom: 20px;
-  left: 160px;
-  overflow: hidden;
-}
-#image-8-image {
-  height: 130px;
-  width: 130px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-  object-fit: cover;
-}
-#image-9 {
-  height: 210px;
-  width: 210px;
-  position: absolute;
-  bottom: 50px;
-  left: 320px;
-  overflow: hidden;
-}
-#image-9-image {
-  height: 210px;
-  width: 210px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-  object-fit: cover;
-}
-#image-10 {
-  height: 130px;
-  width: 130px;
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  overflow: hidden;
-  z-index: 1;
-}
-#image-10-image {
-  height: 130px;
-  width: 130px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-  object-fit: cover;
-}
-#image-11 {
-  height: 130px;
-  width: 130px;
-  position: absolute;
-  top: 20px;
-  right: 160px;
-  overflow: hidden;
-  z-index: 1;
-}
-#image-11-image {
-  height: 130px;
-  width: 130px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-  object-fit: cover;
-}
-#image-12 {
-  height: 200px;
-  width: 210px;
-  position: absolute;
-  top: 170px;
-  right: 110px;
-  overflow: hidden;
-  z-index: 1;
-}
-#image-12-image {
-  height: 200px;
-  width: 210px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-  object-fit: cover;
 }
 
 #available-images-wrapper {
@@ -1610,4 +1380,12 @@ Button:active {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.template-jpeg {
+  max-width: 300px;
+  cursor: pointer;
+}
+.template-jpeg:hover {
+  box-shadow: rgba(117, 101, 104, 0.25) 0px 20px 50px -20px, rgba(87, 65, 65, 0.3) 0px 20px 50px -20px;
 }
