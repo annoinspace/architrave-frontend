@@ -712,7 +712,6 @@ Button:active {
   height: 60px;
 }
 .summary-text .form-group {
-  width: 800px;
   margin-bottom: 0;
 }
 
@@ -1139,12 +1138,12 @@ Button:active {
 
 #title-form {
   color: var(--dark-brown);
-
   font-weight: 500;
   line-height: 1.2;
   font-size: 2.5rem;
   height: 90px;
   background-color: var(--light-green-opacity);
+  text-align: center;
 }
 
 #summary-form {
@@ -1152,6 +1151,8 @@ Button:active {
   width: 400px;
   display: flex;
   flex-wrap: wrap;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 #budget-form {
@@ -1385,7 +1386,16 @@ Button:active {
 .template-jpeg {
   max-width: 300px;
   cursor: pointer;
+  border: 1px solid var(--light-brown);
 }
 .template-jpeg:hover {
   box-shadow: rgba(117, 101, 104, 0.25) 0px 20px 50px -20px, rgba(87, 65, 65, 0.3) 0px 20px 50px -20px;
+}
+
+.template-wrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 40px;
+  justify-content: center;
+  flex-wrap: wrap;
 }
