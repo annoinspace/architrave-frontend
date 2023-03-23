@@ -1,6 +1,6 @@
 import "../styles/MoodboardOne.css"
 import React, { useState, useRef, useCallback } from "react"
-import { Image, Button, Spinner } from "react-bootstrap"
+import { Image, Button, Spinner, Form } from "react-bootstrap"
 import { useSelector, useDispatch } from "react-redux"
 import { toJpeg } from "html-to-image"
 import { useNavigate } from "react-router-dom"
@@ -28,10 +28,11 @@ export default function MoodboardTemplateOne() {
   const [draggedProduct11, setDraggedProduct11] = useState(null)
   const [draggedProduct12, setDraggedProduct12] = useState(null)
 
-  const [moodboardTextFieldOne, setmoodboardTextFieldOne] = useState("Aspirational Text")
-  const [moodboardTextFieldTwo, setmoodboardTextFieldTwo] = useState("Aspirational Text")
-  const [moodboardTextFieldThree, setmoodboardTextFieldThree] = useState("Aspirational Text")
-  const [moodboardTextFieldFour, setmoodboardTextFieldFour] = useState("Aspirational Text")
+  const [moodboardTextFieldOne, setmoodboardTextFieldOne] = useState("")
+
+  const [moodboardTextFieldTwo, setmoodboardTextFieldTwo] = useState("")
+  const [moodboardTextFieldThree, setmoodboardTextFieldThree] = useState("")
+  const [moodboardTextFieldFour, setmoodboardTextFieldFour] = useState("")
 
   const [imageShadow, setImageShadow] = useState(false)
   const [backgroundColor, setBackgroundColor] = useState("#ffffff")
@@ -190,13 +191,61 @@ export default function MoodboardTemplateOne() {
             ))}
         </div>
         <div id="aspirational-text-wrapper">
-          <div>{moodboardTextFieldOne}</div>
+          <div className="aspirational-text">
+            <Form.Group className="" controlId="aspirational-text-form">
+              <Form.Control
+                className=""
+                type="text"
+                placeholder="Aspirational text"
+                value={moodboardTextFieldOne}
+                onChange={(e) => {
+                  setmoodboardTextFieldOne(e.target.value)
+                }}
+              />
+            </Form.Group>
+          </div>
           <div className="budget-line w-100 mt-0"></div>
-          <div>{moodboardTextFieldTwo}</div>
+          <div className="aspirational-text">
+            <Form.Group className="" controlId="aspirational-text-form">
+              <Form.Control
+                className=""
+                type="text"
+                placeholder="Aspirational text"
+                value={moodboardTextFieldTwo}
+                onChange={(e) => {
+                  setmoodboardTextFieldTwo(e.target.value)
+                }}
+              />
+            </Form.Group>
+          </div>
           <div className="budget-line w-100 mt-0"></div>
-          <div>{moodboardTextFieldThree}</div>
+          <div className="aspirational-text">
+            <Form.Group className="" controlId="aspirational-text-form">
+              <Form.Control
+                className=""
+                type="text"
+                placeholder="Aspirational text"
+                value={moodboardTextFieldThree}
+                onChange={(e) => {
+                  setmoodboardTextFieldThree(e.target.value)
+                }}
+              />
+            </Form.Group>
+          </div>
           <div className="budget-line w-100 mt-0"></div>
-          <div>{moodboardTextFieldFour}</div>
+          <div className="aspirational-text">
+            <Form.Group className="" controlId="aspirational-text-form">
+              <Form.Control
+                className=""
+                type="text"
+                placeholder="Aspirational text"
+                value={moodboardTextFieldFour}
+                onChange={(e) => {
+                  setmoodboardTextFieldFour(e.target.value)
+                }}
+              />
+            </Form.Group>
+          </div>
         </div>
         <div
           id="template-2-image-1"
