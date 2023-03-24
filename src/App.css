@@ -15,6 +15,7 @@ font-family: 'Playfair Display SC', serif; */
   --simple-font: "Murecho", sans-serif;
   --icon: 30px;
   --icon-small: 20px;
+  --icon-xsmall: 16px;
   --dark-brown: rgb(79, 67, 67);
   --light-brown: rgb(132, 112, 112);
   --light-brown-opacity: rgba(132, 112, 112, 0.3);
@@ -227,27 +228,36 @@ Button:active {
 
 .swatch {
   width: 50px;
-  height: 90px;
+  height: 70px;
   border-radius: 30px;
-  border: 1px solid black;
   z-index: 9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   transition: all 1s ease;
 }
 
+.swatch > p {
+  margin-bottom: 0rem;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
 .swatch:hover {
-  width: 150px;
-  height: 90px;
+  width: 115px;
+  height: 70px;
   border-radius: 30px;
-  border: 1px solid rgb(152, 38, 38);
-  background-color: aquamarine;
   z-index: 10;
+}
+.swatch:hover > p {
+  opacity: 1;
 }
 
 .swatch-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 15px;
+  gap: 10px;
 }
 
 .selected-swatches-in-modal {
@@ -280,9 +290,16 @@ Button:active {
 .individual-selected-swatches-in-modal-overlay:hover {
   opacity: 1;
 }
+
+#palette-section {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0px;
+}
 .user-palette-wrapper {
   padding: 10px;
   margin-bottom: 10px;
+  margin-right: 20px;
 }
 
 .palette-header {
@@ -296,13 +313,19 @@ Button:active {
 
 .small-icon {
   cursor: pointer;
-  font-size: var(--icon-small);
+  font-size: var(--icon-xsmall);
   margin-right: 5px;
   color: var(--dark-brown);
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+}
+.user-palette-wrapper:hover .small-icon {
+  opacity: 1;
 }
 
 .user-palette-wrapper-swatch {
   display: flex;
+
   gap: 15px;
   padding: 10px;
   padding-left: 20px;

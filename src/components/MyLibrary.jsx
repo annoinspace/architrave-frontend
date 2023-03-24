@@ -18,6 +18,31 @@ export default function MyLibrary() {
   const userInspo = currentUser?.inspo
   const [selectedProduct, setSelectedProduct] = useState(null)
   const [modalIsOpen, setModalIsOpen] = useState(false)
+  const [hexValueOfSwatch, setHexValueOfSwatch] = useState("")
+  const [hexTextColor, setHexTextColor] = useState("rgb(79, 67, 67)")
+
+  const handleColourToHex = (color) => {
+    console.log("rgb", color)
+    const rgbValues = color.substring(color.indexOf("(") + 1, color.indexOf(")")).split(",")
+    const r = rgbValues[0]
+    const g = rgbValues[1]
+    const b = rgbValues[2]
+
+    const rValue = parseInt(r)
+    const gValue = parseInt(g)
+    const bValue = parseInt(b)
+    setTextColorForHex(rValue, gValue, bValue)
+    const hex = "#" + componentToHex(rValue) + componentToHex(gValue) + componentToHex(bValue)
+    setHexValueOfSwatch(hex)
+  }
+  const setTextColorForHex = (rValue, gValue, bValue) => {
+    const combinedValue = (rValue = gValue + bValue)
+    combinedValue < 375 ? setHexTextColor("rgb(255, 255, 255)") : setHexTextColor("rgb(79, 67, 67)")
+  }
+  const componentToHex = (colorComponent) => {
+    let hex = colorComponent.toString(16)
+    return hex.length === 1 ? "0" + hex : hex
+  }
 
   const closeModal = () => {
     setModalIsOpen(false)
@@ -53,6 +78,10 @@ export default function MyLibrary() {
     dispatch(deleteInspo(inspoId))
   }
 
+  useEffect(() => {
+    console.log("chanigng the hex value")
+  }, [hexValueOfSwatch])
+
   return (
     <Container className="p-5">
       <div className="header-top">
@@ -67,26 +96,29 @@ export default function MyLibrary() {
           {colorPalettes?.length === 0 && <div>What are you waiting for? Create your palettes!</div>}
         </div>
         <br />
-        <div>
+        <div id="palette-section">
           {colorPalettes &&
             colorPalettes.map((palette) => (
               <div key={palette._id} className="user-palette-wrapper">
                 <div className="palette-header">
                   <h5>{palette.paletteName}</h5>
-                  <div>
-                    {/* <FiEdit2 className="small-icon" onClick={() => editClickHandler(palette)} /> */}
-                    <FaTrashAlt className="small-icon" onClick={() => trashClickHandler(palette._id)} />
-                  </div>{" "}
+                  <div>{/* <FiEdit2 className="small-icon" onClick={() => editClickHandler(palette)} /> */}</div>{" "}
+                  <FaTrashAlt className="small-icon" onClick={() => trashClickHandler(palette._id)} />
                 </div>
                 <div className="user-palette-wrapper-swatch">
                   {palette.colors.map((color) => (
                     <div
-                      className="swatch-style-library"
+                      onMouseEnter={() => handleColourToHex(color)}
+                      className="swatch"
                       key={color}
                       style={{
                         backgroundColor: color
                       }}
-                    ></div>
+                    >
+                      <p className="swatch-hex" style={{ color: hexTextColor }}>
+                        {hexValueOfSwatch}
+                      </p>
+                    </div>
                   ))}{" "}
                 </div>
               </div>
