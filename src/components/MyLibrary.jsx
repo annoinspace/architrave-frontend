@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState, useRef } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { Button, Container, Image, Modal } from "react-bootstrap"
 import { FaTrashAlt } from "react-icons/fa"
@@ -20,6 +20,10 @@ export default function MyLibrary() {
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const [hexValueOfSwatch, setHexValueOfSwatch] = useState("")
   const [hexTextColor, setHexTextColor] = useState("rgb(79, 67, 67)")
+
+  const inspoImagesWrapperRef = useRef(null)
+  const productsWrapperRef = useRef(null)
+  const paletteWrapperRef = useRef(null)
 
   const handleColourToHex = (color) => {
     console.log("rgb", color)
@@ -78,16 +82,38 @@ export default function MyLibrary() {
     dispatch(deleteInspo(inspoId))
   }
 
+  function handleInspoWallClick() {
+    inspoImagesWrapperRef.current.scrollIntoView({ behavior: "smooth" })
+  }
+  function handleProductsWallClick() {
+    productsWrapperRef.current.scrollIntoView({ behavior: "smooth" })
+  }
+  function handlePaletteWallClick() {
+    paletteWrapperRef.current.scrollIntoView({ behavior: "smooth" })
+  }
+
   useEffect(() => {
     console.log("chanigng the hex value")
   }, [hexValueOfSwatch])
 
   return (
     <Container className="p-5">
+      <div id="library-navigation">
+        Jump To
+        <div className="jump-library" onClick={handlePaletteWallClick}>
+          Palettes
+        </div>
+        <div className="jump-library" onClick={handleProductsWallClick}>
+          Products
+        </div>
+        <div className="jump-library" onClick={handleInspoWallClick}>
+          Inspo Wall
+        </div>
+      </div>
       <div className="header-top">
         <h1 className="text-center">My Library</h1>
       </div>
-      <div>
+      <div ref={paletteWrapperRef}>
         <div>
           <div className="d-flex justify-content-between mt-5">
             <h3>colour palettes</h3>
@@ -127,7 +153,7 @@ export default function MyLibrary() {
         <hr className="library-divider" />
       </div>
 
-      <div>
+      <div ref={productsWrapperRef}>
         <div className="d-flex justify-content-between mt-5">
           <h3>saved products</h3>
           <UploadProducts />
@@ -172,7 +198,7 @@ export default function MyLibrary() {
         )}
         <hr className="library-divider" />
       </div>
-      <div className="mt-5">
+      <div className="mt-5" ref={inspoImagesWrapperRef}>
         <div className="d-flex justify-content-between">
           <h3>inspo wall</h3>
           <UploadInspoImages />
@@ -184,7 +210,10 @@ export default function MyLibrary() {
               <div key={image._id} className="inspo-display-list-item">
                 <Image src={image.url} className="inspo-display-list-image" />
                 <div className="trash-wrapper">
-                  <FaTrashAlt className="small-icon inspo-trash" onClick={() => trashInspoClickHandler(image._id)} />
+                  <FaTrashAlt
+                    className="small-icon-inspo inspo-trash"
+                    onClick={() => trashInspoClickHandler(image._id)}
+                  />
                 </div>
               </div>
             ))}

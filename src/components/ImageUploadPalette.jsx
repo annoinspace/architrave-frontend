@@ -194,27 +194,31 @@ const ImageUploadPalette = ({ numberOfColors = 100 }) => {
             </div>
           </div>
           <div className="mt-5 mb-5 text-center">
-            {selectedColors.length > 0 && <h5 className="mt-3">Selected Swatches</h5>}
-            <div className="m-5 selected-swatches-in-modal">
-              {selectedColors.map((color) => (
-                <>
-                  <div
-                    className="individual-selected-swatches-in-modal"
-                    key={color}
-                    value={color}
-                    style={{
-                      backgroundColor: color
-                    }}
-                  >
-                    {" "}
-                    <div className="individual-selected-swatches-in-modal-overlay">
-                      {" "}
-                      <AiOutlineCloseCircle onClick={() => deleteSwatch(color)} className="icon-button " />
-                    </div>
-                  </div>
-                </>
-              ))}{" "}
-            </div>
+            {selectedColors.length > 0 && (
+              <>
+                <h5 className="mt-3">Selected Swatches</h5>
+                <div className="m-5 selected-swatches-in-modal">
+                  {selectedColors.map((color) => (
+                    <>
+                      <div
+                        className="individual-selected-swatches-in-modal"
+                        key={color}
+                        value={color}
+                        style={{
+                          backgroundColor: color
+                        }}
+                      >
+                        {" "}
+                        <div className="individual-selected-swatches-in-modal-overlay">
+                          {" "}
+                          <AiOutlineCloseCircle onClick={() => deleteSwatch(color)} className="icon-button " />
+                        </div>
+                      </div>
+                    </>
+                  ))}{" "}
+                </div>{" "}
+              </>
+            )}
             {selectedColors.length > 0 && (
               <Form className="d-flex flex-column justify-content-center align-items-center">
                 {alert && (

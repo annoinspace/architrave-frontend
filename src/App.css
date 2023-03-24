@@ -203,6 +203,27 @@ Button:active {
   box-shadow: inset 10px 10px 30px rgba(223, 221, 221, 0.35), inset -10px -10px 30px #ffffff;
 }
 /*  ------------my library page------------- */
+
+#library-navigation {
+  position: fixed;
+  bottom: 60px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+.jump-library {
+  border: 1px solid var(--light-brown-opacity);
+  padding: 5px;
+  text-align: center;
+  margin-top: 5px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.jump-library:hover {
+  background: #f2eeee;
+  box-shadow: inset 10px 10px 30px rgba(223, 221, 221, 0.25), inset -10px -10px 30px #ffffff;
+}
 #image-swatch-modal {
   min-width: 900px;
   min-height: 300px;
@@ -319,6 +340,12 @@ Button:active {
   color: var(--dark-brown);
   opacity: 0;
   transition: opacity 0.2s ease-in-out;
+}
+.small-icon-inspo {
+  cursor: pointer;
+  font-size: var(--icon-xsmall);
+  margin-right: 5px;
+  color: var(--dark-brown);
 }
 .user-palette-wrapper:hover .small-icon {
   opacity: 1;

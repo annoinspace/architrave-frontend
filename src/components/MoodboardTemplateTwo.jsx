@@ -4,6 +4,7 @@ import { Image, Button, Spinner, Form } from "react-bootstrap"
 import { useSelector, useDispatch } from "react-redux"
 import { toJpeg } from "html-to-image"
 import { useNavigate } from "react-router-dom"
+import { HiOutlineCheck } from "react-icons/hi"
 import { addMoodboardImage, getAllUserProjects } from "../redux/actions/moodboardActions"
 
 export default function MoodboardTemplateOne() {
@@ -28,12 +29,14 @@ export default function MoodboardTemplateOne() {
   const [draggedProduct11, setDraggedProduct11] = useState(null)
   const [draggedProduct12, setDraggedProduct12] = useState(null)
 
-  const [moodboardTextFieldOne, setmoodboardTextFieldOne] = useState("")
-
-  const [moodboardTextFieldTwo, setmoodboardTextFieldTwo] = useState("")
-  const [moodboardTextFieldThree, setmoodboardTextFieldThree] = useState("")
-  const [moodboardTextFieldFour, setmoodboardTextFieldFour] = useState("")
-
+  const [moodboardTextFieldOne, setmoodboardTextFieldOne] = useState("Aspirational Text")
+  const [editText1, setEditText1] = useState(true)
+  const [moodboardTextFieldTwo, setmoodboardTextFieldTwo] = useState("Edit Me!")
+  const [editText2, setEditText2] = useState(true)
+  const [moodboardTextFieldThree, setmoodboardTextFieldThree] = useState("More Text")
+  const [editText3, setEditText3] = useState(true)
+  const [moodboardTextFieldFour, setmoodboardTextFieldFour] = useState("Happy Days!")
+  const [editText4, setEditText4] = useState(true)
   const [imageShadow, setImageShadow] = useState(false)
   const [backgroundColor, setBackgroundColor] = useState("#ffffff")
   const [swatchStyle, setSwatchStyle] = useState("swatch-square")
@@ -147,7 +150,7 @@ export default function MoodboardTemplateOne() {
     setShowSpinner(true)
 
     try {
-      const dataUrl = await toJpeg(ref.current, { cacheBust: true })
+      const dataUrl = await toJpeg(ref.current, { quality: 1.0, cacheBust: true })
       console.log("dataUrl", dataUrl)
       const blob = await fetch(dataUrl).then((res) => res.blob())
 
@@ -192,59 +195,83 @@ export default function MoodboardTemplateOne() {
         </div>
         <div id="aspirational-text-wrapper">
           <div className="aspirational-text">
-            <Form.Group className="" controlId="aspirational-text-form">
-              <Form.Control
-                className=""
-                type="text"
-                placeholder="Aspirational text"
-                value={moodboardTextFieldOne}
-                onChange={(e) => {
-                  setmoodboardTextFieldOne(e.target.value)
-                }}
-              />
-            </Form.Group>
+            {!editText1 && <div onClick={() => setEditText1(true)}>{moodboardTextFieldOne}</div>}
+            {editText1 && (
+              <div className="aspirational-text-tick">
+                <Form.Group className="aspirational-text-form" controlId="">
+                  <Form.Control
+                    className=""
+                    type="text"
+                    placeholder={moodboardTextFieldOne}
+                    value={moodboardTextFieldOne}
+                    onChange={(e) => {
+                      setmoodboardTextFieldOne(e.target.value)
+                    }}
+                  />
+                </Form.Group>
+                <HiOutlineCheck className="small-icon-inspo tick" onClick={() => setEditText1(false)} />
+              </div>
+            )}
           </div>
           <div className="budget-line w-100 mt-0"></div>
           <div className="aspirational-text">
-            <Form.Group className="" controlId="aspirational-text-form">
-              <Form.Control
-                className=""
-                type="text"
-                placeholder="Aspirational text"
-                value={moodboardTextFieldTwo}
-                onChange={(e) => {
-                  setmoodboardTextFieldTwo(e.target.value)
-                }}
-              />
-            </Form.Group>
+            {!editText2 && <div onClick={() => setEditText2(true)}>{moodboardTextFieldTwo}</div>}
+            {editText2 && (
+              <div className="aspirational-text-tick">
+                <Form.Group className="aspirational-text-form" controlId="">
+                  <Form.Control
+                    className=""
+                    type="text"
+                    placeholder={moodboardTextFieldTwo}
+                    value={moodboardTextFieldTwo}
+                    onChange={(e) => {
+                      setmoodboardTextFieldTwo(e.target.value)
+                    }}
+                  />
+                </Form.Group>
+                <HiOutlineCheck className="small-icon-inspo tick" onClick={() => setEditText2(false)} />
+              </div>
+            )}
           </div>
           <div className="budget-line w-100 mt-0"></div>
           <div className="aspirational-text">
-            <Form.Group className="" controlId="aspirational-text-form">
-              <Form.Control
-                className=""
-                type="text"
-                placeholder="Aspirational text"
-                value={moodboardTextFieldThree}
-                onChange={(e) => {
-                  setmoodboardTextFieldThree(e.target.value)
-                }}
-              />
-            </Form.Group>
+            {!editText3 && <div onClick={() => setEditText3(true)}>{moodboardTextFieldThree}</div>}
+            {editText3 && (
+              <div className="aspirational-text-tick">
+                <Form.Group className="aspirational-text-form" controlId="">
+                  <Form.Control
+                    className=""
+                    type="text"
+                    placeholder={moodboardTextFieldThree}
+                    value={moodboardTextFieldThree}
+                    onChange={(e) => {
+                      setmoodboardTextFieldThree(e.target.value)
+                    }}
+                  />
+                </Form.Group>
+                <HiOutlineCheck className="small-icon-inspo tick" onClick={() => setEditText3(false)} />
+              </div>
+            )}
           </div>
           <div className="budget-line w-100 mt-0"></div>
           <div className="aspirational-text">
-            <Form.Group className="" controlId="aspirational-text-form">
-              <Form.Control
-                className=""
-                type="text"
-                placeholder="Aspirational text"
-                value={moodboardTextFieldFour}
-                onChange={(e) => {
-                  setmoodboardTextFieldFour(e.target.value)
-                }}
-              />
-            </Form.Group>
+            {!editText4 && <div onClick={() => setEditText4(true)}>{moodboardTextFieldFour}</div>}
+            {editText4 && (
+              <div className="aspirational-text-tick">
+                <Form.Group className="aspirational-text-form" controlId="">
+                  <Form.Control
+                    className=""
+                    type="text"
+                    placeholder={moodboardTextFieldFour}
+                    value={moodboardTextFieldFour}
+                    onChange={(e) => {
+                      setmoodboardTextFieldFour(e.target.value)
+                    }}
+                  />
+                </Form.Group>
+                <HiOutlineCheck className="small-icon-inspo tick" onClick={() => setEditText4(false)} />
+              </div>
+            )}
           </div>
         </div>
         <div

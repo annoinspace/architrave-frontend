@@ -265,20 +265,35 @@
   justify-content: center;
   gap: 5px;
   position: absolute;
-  bottom: 290px;
+  bottom: 300px;
   right: 35px;
   z-index: 20;
   width: 150px;
 }
 .aspirational-text {
-  cursor: text;
+  cursor: pointer;
   font-family: var(--lora);
-  font-size: 16px;
+  font-size: 18px;
 }
 .aspirational-text-form {
-  border: transparent;
+  border: transparent !important;
   padding: 0rem;
+  margin-bottom: 0rem !important;
 }
-.aspirational-text-form .form-group {
-  margin-bottom: 0rem;
+/* .aspirational-text-form .form-group {
+} */
+.aspirational-text-tick {
+  display: flex;
+  position: relative;
+}
+
+.tick {
+  position: absolute;
+  right: -35px;
+  top: 5px;
+  font-size: 25px;
+  color: white;
+  padding: 2px;
+  border-radius: 20px;
+  background-color: var(--light-green);
 }
