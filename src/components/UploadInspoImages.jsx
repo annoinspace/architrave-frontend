@@ -73,7 +73,7 @@ export default function UploadInspoImages() {
   return (
     <div>
       <Button style={{ backgroundColor: "rgb(132, 112, 112)", border: "none" }} onClick={() => setModalIsOpen(true)}>
-        Upload Images
+        + Upload Images
       </Button>
       <Modal show={modalIsOpen} onHide={closeModal} id="inspo-upload-modal">
         <div id="swatch-modal-inner-wrapper">

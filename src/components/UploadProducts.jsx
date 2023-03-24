@@ -116,7 +116,7 @@ export default function UploadProducts() {
   return (
     <div>
       <Button style={{ backgroundColor: "rgb(132, 112, 112)", border: "none" }} onClick={() => setModalIsOpen(true)}>
-        Add Product
+        + Add Product
       </Button>
       <Modal show={modalIsOpen} onHide={closeModal} id="image-swatch-modal">
         <AiOutlineCloseCircle onClick={closeModal} className="icon-button close-position " />

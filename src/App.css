@@ -293,6 +293,7 @@ Button:active {
 
 #palette-section {
   display: flex;
+  justify-content: center;
   flex-wrap: wrap;
   gap: 0px;
 }
@@ -334,8 +335,8 @@ Button:active {
   width: fit-content;
 }
 .user-palette-wrapper-swatch:hover {
-  background: #f2eeee;
-  box-shadow: inset 10px 10px 30px rgba(223, 221, 221, 0.35), inset -10px -10px 30px #ffffff;
+  background: #ffffff;
+  box-shadow: inset 10px 10px 30px rgba(214, 208, 208, 0.25), inset -10px -10px 30px #ffffff;
 }
 
 .swatch-style-library {

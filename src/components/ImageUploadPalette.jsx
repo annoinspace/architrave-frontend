@@ -155,7 +155,7 @@ const ImageUploadPalette = ({ numberOfColors = 100 }) => {
   return (
     <div>
       <Button style={{ backgroundColor: "rgb(132, 112, 112)", border: "none" }} onClick={() => setModalIsOpen(true)}>
-        New Palette
+        + New Palette
       </Button>
 
       <Modal show={modalIsOpen} onHide={closeModal} id="image-swatch-modal">
