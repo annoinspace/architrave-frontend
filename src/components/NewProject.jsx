@@ -127,7 +127,7 @@ export default function NewProject() {
                   }}
                 />
               </Form.Group>
-              <Button variant="outline-success" onClick={(e) => setEditTitle(false)}>
+              <Button variant="outline-success" className="body-font" onClick={(e) => setEditTitle(false)}>
                 Save Title
               </Button>
             </h1>

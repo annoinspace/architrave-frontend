@@ -58,7 +58,7 @@ export default function Login() {
   return (
     <Container id="login-wrapper" className="p-5">
       <div id="architrave-info">
-        <h1>
+        <h1 style={{ fontSize: "2.5rem" }} className="mb-5">
           smarter planning for your
           <br /> projects starts here
         </h1>

@@ -171,7 +171,10 @@ export default function ProjectDetails() {
     const totalCost = totalAllocatedCalculator()
     setTotalAllocated(parseFloat(totalCost.toFixed(2)))
     setTotalBudget(parseInt(parseFloat(budget) + cushion))
-    setRemaining(parseFloat(totalBudget - totalAllocated).toFixed(2))
+    console.log("remaining before update:", remaining)
+    setRemaining(parseFloat(totalBudget - totalAllocated))
+    console.log("remaining after update:", remaining)
+    console.log("type of remaining", typeof remaining)
   }
 
   const deleteProjecthandler = () => {
@@ -238,7 +241,7 @@ export default function ProjectDetails() {
               />
             </Form.Group>
           ) : (
-            <h1 className="text-center title-form-header">{title}</h1>
+            <h1 className="text-center title-form-header large-header">{title}</h1>
           )}
           {editProject ? (
             <Form.Group className="" controlId="summary-form">
@@ -271,7 +274,7 @@ export default function ProjectDetails() {
             )}
           </Button>
         </div>
-        <div className="budget-wrapper-headline">
+        <div className="budget-wrapper-headline .budget-number budget-number ">
           <div className="budget-line"></div>
           <div>
             <div className="d-flex align-items-center justify-content-end m-1">
@@ -289,7 +292,7 @@ export default function ProjectDetails() {
                   />
                 </Form.Group>
               ) : (
-                <>{budget}</>
+                <div className="budget-number">{budget}</div>
               )}
             </div>
             <div className="d-flex align-items-center justify-content-end m-1">
@@ -319,7 +322,10 @@ export default function ProjectDetails() {
               Total Allocated {currency}
               {totalAllocated && totalAllocated}
             </div>
-            <div className="d-flex align-items-center justify-content-end m-1">
+            <div
+              id={remaining >= 0 ? "remaining-wrapper-green" : "remaining-wrapper-orange"}
+              className="d-flex align-items-center justify-content-end m-1"
+            >
               Remaining {currency}
               {remaining && remaining}
             </div>
@@ -450,9 +456,9 @@ export default function ProjectDetails() {
           </div>
         </Modal>
       )}
-      <div id="project-section-four">
+      {/* <div id="project-section-four">
         <h5>Contractors & Services</h5>
-      </div>
+      </div> */}
       <div id="edit-button">
         {deleteProject ? (
           <>
@@ -471,7 +477,7 @@ export default function ProjectDetails() {
             </Button>
           </>
         ) : (
-          <Button variant="danger" onClick={() => setDeleteProject(true)}>
+          <Button variant="outline-danger" onClick={() => setDeleteProject(true)}>
             Delete Project
           </Button>
         )}

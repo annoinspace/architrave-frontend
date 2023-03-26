@@ -66,7 +66,7 @@ export default function Homepage() {
     <>
       <Container className="p-5 z-2">
         <div className="header-top">
-          <h1 className="text-center mb-5">My Projects</h1>
+          <h1 className="text-center mb-5 mt-5 large-header">My Projects</h1>
         </div>
         <div id="project-preview-wrapper">
           <Button id="create-project-button" onClick={handleCreateProjectClick}>

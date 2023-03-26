@@ -77,17 +77,16 @@ export default function Navbar() {
 
       {loggedInNav && (
         <>
-          <div className="d-flex w-100 justify-content-between">
+          <div className="d-flex w-100 justify-content-between align-items-center">
             <div className="d-flex">
-              <div className="nav-link" id="architrave-nav" onClick={homeHandler}>
-                My Architrave
-              </div>
-
-              <div className="nav-link" onClick={() => navigate("/my-library")}>
-                My Library
+              <div className="nav-link text-white architrave-text-nav " id="architrave-nav" onClick={homeHandler}>
+                architrave
               </div>
             </div>
             <div className="d-flex">
+              <div className="nav-link " onClick={() => navigate("/my-library")}>
+                Library
+              </div>
               <div className="nav-link" onClick={() => navigate("/profile")}>
                 Profile
               </div>

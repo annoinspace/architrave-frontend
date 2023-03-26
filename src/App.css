@@ -1,5 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Lora:ital@0;1&family=Murecho:wght@300;400&family=Playfair+Display+SC&display=swap");
-
+@import url("https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Lora:ital@0;1&family=Murecho:wght@300;400&family=Playfair+Display+SC&family=Raleway&display=swap");
 /* font-family: 'Libre Caslon Text', serif;
 font-family: 'Lora', serif;
 font-family: 'Murecho', sans-serif;
@@ -13,6 +12,7 @@ font-family: 'Playfair Display SC', serif; */
   --medium-font: 20px;
   --lora: "Lora", serif;
   --simple-font: "Murecho", sans-serif;
+  --body-font: "Raleway", sans-serif;
   --icon: 30px;
   --icon-small: 20px;
   --icon-xsmall: 16px;
@@ -20,7 +20,8 @@ font-family: 'Playfair Display SC', serif; */
   --light-brown: rgb(132, 112, 112);
   --light-brown-opacity: rgba(132, 112, 112, 0.3);
   --light-cream-opacity: rgba(236, 215, 206, 0.25);
-  --light-green-opacity: rgba(40, 167, 69, 0.1);
+  --light-green-opacity: rgba(40, 167, 69, 0.15);
+  --light-red-opacity: rgba(210, 41, 41, 0.15);
   --light-green: rgba(40, 167, 69, 1);
 }
 
@@ -32,9 +33,17 @@ font-family: 'Playfair Display SC', serif; */
   min-height: 100vh;
   max-width: 100vw;
   position: relative;
+  font-family: var(--body-font);
 }
+.body-font {
+  font-family: var(--body-font);
+}
+.architrave-text-nav {
+  font-family: var(--lora);
 
-::-webkit-scrollbar {
+  font-size: 24px;
+}
+project-section-two::-webkit-scrollbar {
   width: 12px;
 }
 
@@ -66,6 +75,13 @@ h5,
 p,
 div {
   color: var(--dark-brown);
+}
+h1 {
+  font-family: var(--lora);
+  font-size: 3.5rem;
+}
+.large-header {
+  font-size: 3.5rem;
 }
 Button:active {
   border-color: none;
@@ -1144,7 +1160,7 @@ Button:active {
   width: 100%;
   padding-inline: 30px;
   justify-content: space-between;
-  font-family: var(--fancy-title);
+  /* font-family: var(--fancy-title); */
   font-size: var(--medium-font);
 }
 .budget-line {
@@ -1267,7 +1283,6 @@ Button:active {
 .delete-product-button-wrapper {
   padding: 10px;
   margin-right: auto;
-
   display: flex;
   align-items: center;
 }
@@ -1362,6 +1377,7 @@ Button:active {
 }
 
 .download-moodboard-wrapper {
+  margin-top: 20px;
   padding: 10px;
   padding-bottom: 0px;
 }
@@ -1407,6 +1423,30 @@ Button:active {
   object-fit: cover;
 }
 
+.budget-number {
+  font-family: var(--simple-font);
+}
+
+#remaining-wrapper-green {
+  border: 1px solid var(--light-brown);
+  padding: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 30px;
+  background-color: var(--light-green-opacity);
+}
+#remaining-wrapper-orange {
+  border: 1px solid var(--light-brown);
+  padding: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 30px;
+  background-color: var(--light-red-opacity);
+}
 /* ----------------------profile-------------------- */
 
 .profile-list-item {
