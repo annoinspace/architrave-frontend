@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { logoutUser, updateUserLocation } from "../redux/actions/userActions"
-import { Link, useLocation, useNavigate } from "react-router-dom"
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom"
 import { getAllUserProjects } from "../redux/actions/moodboardActions"
 
 export default function Navbar() {
@@ -12,14 +12,17 @@ export default function Navbar() {
 
   const [loggedInNav, setLoggedInNav] = useState(false)
   const dispatch = useDispatch()
+
   const logoutHandler = () => {
     console.log("logout clicked")
     dispatch(logoutUser())
     navigate("/")
   }
+
   const signUpHandler = () => {
     console.log("sign up clicked")
   }
+
   useEffect(() => {
     if (currentUser === null) {
       setLoggedInNav(false)
@@ -73,28 +76,38 @@ export default function Navbar() {
       )}
 
       {loggedInNav && (
-        <div className="d-flex w-100 justify-content-between">
-          <div className="d-flex">
-            <div className="nav-link" id="architrave-nav" onClick={homeHandler}>
-              My Architrave
+        <>
+          <div className="d-flex w-100 justify-content-between">
+            <div className="d-flex">
+              <div className="nav-link" id="architrave-nav" onClick={homeHandler}>
+                My Architrave
+              </div>
+
+              <div className="nav-link" onClick={() => navigate("/my-library")}>
+                My Library
+              </div>
             </div>
-
-            {/* <div className="nav-link">Curated</div> */}
-
-            <div className="nav-link" onClick={() => navigate("/my-library")}>
-              My Library
+            <div className="d-flex">
+              <div className="nav-link" onClick={() => navigate("/profile")}>
+                Profile
+              </div>
+              <div className="nav-link" onClick={logoutHandler}>
+                {" "}
+                Logout
+              </div>
             </div>
           </div>
-          <div className="d-flex">
-            <div className="nav-link" onClick={() => navigate("/profile")}>
-              Profile
+          {(userLocation === "/home" || userLocation.includes("/project-details")) && (
+            <div id="curved-background">
+              <div id="gradient-one"></div>
+              <div id="gradient-two"></div>
+              <div id="flare-1"></div>
+              <div id="flare-2"></div>
+              <div id="flare-3"></div>
+              <div id="cutout-background"></div>
             </div>
-            <div className="nav-link" onClick={logoutHandler}>
-              {" "}
-              Logout
-            </div>
-          </div>
-        </div>
+          )}
+        </>
       )}
     </div>
   )

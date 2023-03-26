@@ -1,10 +1,8 @@
-import "../styles/MoodboardOne.css"
 import React, { useState, useRef, useCallback } from "react"
-import { Image, Button, Spinner, Form } from "react-bootstrap"
+import { Image, Button, Spinner } from "react-bootstrap"
 import { useSelector, useDispatch } from "react-redux"
 import { toJpeg } from "html-to-image"
 import { useNavigate } from "react-router-dom"
-import { HiOutlineCheck } from "react-icons/hi"
 import { addMoodboardImage, getAllUserProjects } from "../redux/actions/moodboardActions"
 
 export default function MoodboardTemplateOne() {
@@ -29,17 +27,8 @@ export default function MoodboardTemplateOne() {
   const [draggedProduct11, setDraggedProduct11] = useState(null)
   const [draggedProduct12, setDraggedProduct12] = useState(null)
 
-  const [moodboardTextFieldOne, setmoodboardTextFieldOne] = useState("Aspirational Text")
-  const [editText1, setEditText1] = useState(true)
-  const [moodboardTextFieldTwo, setmoodboardTextFieldTwo] = useState("Edit Me!")
-  const [editText2, setEditText2] = useState(true)
-  const [moodboardTextFieldThree, setmoodboardTextFieldThree] = useState("More Text")
-  const [editText3, setEditText3] = useState(true)
-  const [moodboardTextFieldFour, setmoodboardTextFieldFour] = useState("Happy Days!")
-  const [editText4, setEditText4] = useState(true)
   const [imageShadow, setImageShadow] = useState(false)
   const [backgroundColor, setBackgroundColor] = useState("#ffffff")
-  const [textColor, setTextColor] = useState("#000000")
   const [swatchStyle, setSwatchStyle] = useState("swatch-square")
   const [swatchShadow, setSwatchShadow] = useState(false)
   const [border, setBorder] = useState(true)
@@ -143,9 +132,6 @@ export default function MoodboardTemplateOne() {
   const handleBackgroundColor = (e) => {
     setBackgroundColor(e.target.value)
   }
-  const handleTextColor = (e) => {
-    setTextColor(e.target.value)
-  }
 
   const handleMoodboardSave = useCallback(async () => {
     if (ref.current === null) {
@@ -154,7 +140,7 @@ export default function MoodboardTemplateOne() {
     setShowSpinner(true)
 
     try {
-      const dataUrl = await toJpeg(ref.current, { quality: 1.0, cacheBust: true })
+      const dataUrl = await toJpeg(ref.current, { cacheBust: true })
       console.log("dataUrl", dataUrl)
       const blob = await fetch(dataUrl).then((res) => res.blob())
 
@@ -184,7 +170,7 @@ export default function MoodboardTemplateOne() {
           backgroundColor: `${backgroundColor}`
         }}
       >
-        <div id="moodboard-swatches-2">
+        <div id="moodboard-swatches-1">
           {palette &&
             palette.map((color, index) => (
               <div
@@ -197,105 +183,8 @@ export default function MoodboardTemplateOne() {
               ></div>
             ))}
         </div>
-        <div id="aspirational-text-wrapper">
-          <div className="aspirational-text">
-            {!editText1 && (
-              <div onClick={() => setEditText1(true)} style={{ color: textColor }}>
-                {moodboardTextFieldOne}
-              </div>
-            )}
-            {editText1 && (
-              <div className="aspirational-text-tick">
-                <Form.Group className="aspirational-text-form" controlId="">
-                  <Form.Control
-                    className=""
-                    type="text"
-                    placeholder={moodboardTextFieldOne}
-                    value={moodboardTextFieldOne}
-                    onChange={(e) => {
-                      setmoodboardTextFieldOne(e.target.value)
-                    }}
-                  />
-                </Form.Group>
-                <HiOutlineCheck className="small-icon-inspo tick" onClick={() => setEditText1(false)} />
-              </div>
-            )}
-          </div>
-          <div className="budget-line w-100 mt-0"></div>
-          <div className="aspirational-text">
-            {!editText2 && (
-              <div onClick={() => setEditText2(true)} style={{ color: textColor }}>
-                {moodboardTextFieldTwo}
-              </div>
-            )}
-            {editText2 && (
-              <div className="aspirational-text-tick">
-                <Form.Group className="aspirational-text-form" controlId="">
-                  <Form.Control
-                    className=""
-                    type="text"
-                    placeholder={moodboardTextFieldTwo}
-                    value={moodboardTextFieldTwo}
-                    onChange={(e) => {
-                      setmoodboardTextFieldTwo(e.target.value)
-                    }}
-                  />
-                </Form.Group>
-                <HiOutlineCheck className="small-icon-inspo tick" onClick={() => setEditText2(false)} />
-              </div>
-            )}
-          </div>
-          <div className="budget-line w-100 mt-0"></div>
-          <div className="aspirational-text">
-            {!editText3 && (
-              <div onClick={() => setEditText3(true)} style={{ color: textColor }}>
-                {moodboardTextFieldThree}
-              </div>
-            )}
-            {editText3 && (
-              <div className="aspirational-text-tick">
-                <Form.Group className="aspirational-text-form" controlId="">
-                  <Form.Control
-                    className=""
-                    type="text"
-                    placeholder={moodboardTextFieldThree}
-                    value={moodboardTextFieldThree}
-                    onChange={(e) => {
-                      setmoodboardTextFieldThree(e.target.value)
-                    }}
-                  />
-                </Form.Group>
-                <HiOutlineCheck className="small-icon-inspo tick" onClick={() => setEditText3(false)} />
-              </div>
-            )}
-          </div>
-          <div className="budget-line w-100 mt-0"></div>
-          <div className="aspirational-text">
-            {!editText4 && (
-              <div onClick={() => setEditText4(true)} style={{ color: textColor }}>
-                {moodboardTextFieldFour}
-              </div>
-            )}
-            {editText4 && (
-              <div className="aspirational-text-tick">
-                <Form.Group className="aspirational-text-form" controlId="">
-                  <Form.Control
-                    className=""
-                    type="text"
-                    placeholder={moodboardTextFieldFour}
-                    value={moodboardTextFieldFour}
-                    onChange={(e) => {
-                      setmoodboardTextFieldFour(e.target.value)
-                    }}
-                  />
-                </Form.Group>
-                <HiOutlineCheck className="small-icon-inspo tick" onClick={() => setEditText4(false)} />
-              </div>
-            )}
-          </div>
-        </div>
         <div
-          id="template-2-image-1"
+          id="template-3-image-1"
           style={{
             border: border ? "1px solid black" : "none",
             boxShadow: imageShadow ? "2px 2px 5px rgba(0,0,0,0.40)" : "none"
@@ -303,10 +192,10 @@ export default function MoodboardTemplateOne() {
           onDrop={(e) => handleDrop(e, 1)}
           onDragOver={handleDragOver}
         >
-          {draggedProduct1 && <Image src={draggedProduct1} id="template-2-image-1-image" />}
+          {draggedProduct1 && <Image src={draggedProduct1} id="template-3-image-1-image" />}
         </div>
         <div
-          id="template-2-image-2"
+          id="template-3-image-2"
           style={{
             border: border ? "1px solid black" : "none",
             boxShadow: imageShadow ? "2px 2px 5px rgba(0,0,0,0.40)" : "none"
@@ -314,10 +203,10 @@ export default function MoodboardTemplateOne() {
           onDrop={(e) => handleDrop(e, 2)}
           onDragOver={handleDragOver}
         >
-          {draggedProduct2 && <Image src={draggedProduct2} id="template-2-image-2-image" />}
+          {draggedProduct2 && <Image src={draggedProduct2} id="template-3-image-2-image" />}
         </div>
         <div
-          id="template-2-image-3"
+          id="template-3-image-3"
           style={{
             border: border ? "1px solid black" : "none",
             boxShadow: imageShadow ? "2px 2px 5px rgba(0,0,0,0.40)" : "none"
@@ -325,10 +214,10 @@ export default function MoodboardTemplateOne() {
           onDrop={(e) => handleDrop(e, 3)}
           onDragOver={handleDragOver}
         >
-          {draggedProduct3 && <Image src={draggedProduct3} id="template-2-image-3-image" />}
+          {draggedProduct3 && <Image src={draggedProduct3} id="template-3-image-3-image" />}
         </div>
         <div
-          id="template-2-image-4"
+          id="template-3-image-4"
           style={{
             border: border ? "1px solid black" : "none",
             boxShadow: imageShadow ? "2px 2px 5px rgba(0,0,0,0.40)" : "none"
@@ -336,10 +225,10 @@ export default function MoodboardTemplateOne() {
           onDrop={(e) => handleDrop(e, 4)}
           onDragOver={handleDragOver}
         >
-          {draggedProduct4 && <Image src={draggedProduct4} id="template-2-image-4-image" />}
+          {draggedProduct4 && <Image src={draggedProduct4} id="template-3-image-4-image" />}
         </div>
         <div
-          id="template-2-image-5"
+          id="template-3-image-5"
           style={{
             border: border ? "1px solid black" : "none",
             boxShadow: imageShadow ? "2px 2px 5px rgba(0,0,0,0.40)" : "none"
@@ -347,10 +236,10 @@ export default function MoodboardTemplateOne() {
           onDrop={(e) => handleDrop(e, 5)}
           onDragOver={handleDragOver}
         >
-          {draggedProduct5 && <Image src={draggedProduct5} id="template-2-image-5-image" />}
+          {draggedProduct5 && <Image src={draggedProduct5} id="template-3-image-5-image" />}
         </div>
         <div
-          id="template-2-image-6"
+          id="template-3-image-6"
           style={{
             border: border ? "1px solid black" : "none",
             boxShadow: imageShadow ? "2px 2px 5px rgba(0,0,0,0.40)" : "none"
@@ -358,10 +247,10 @@ export default function MoodboardTemplateOne() {
           onDrop={(e) => handleDrop(e, 6)}
           onDragOver={handleDragOver}
         >
-          {draggedProduct6 && <Image src={draggedProduct6} id="template-2-image-6-image" />}
+          {draggedProduct6 && <Image src={draggedProduct6} id="template-3-image-6-image" />}
         </div>
         <div
-          id="template-2-image-7"
+          id="template-3-image-7"
           style={{
             border: border ? "1px solid black" : "none",
             boxShadow: imageShadow ? "2px 2px 5px rgba(0,0,0,0.40)" : "none"
@@ -369,10 +258,10 @@ export default function MoodboardTemplateOne() {
           onDrop={(e) => handleDrop(e, 7)}
           onDragOver={handleDragOver}
         >
-          {draggedProduct7 && <Image src={draggedProduct7} id="template-2-image-7-image" />}
+          {draggedProduct7 && <Image src={draggedProduct7} id="template-3-image-7-image" />}
         </div>
         <div
-          id="template-2-image-8"
+          id="template-3-image-8"
           style={{
             border: border ? "1px solid black" : "none",
             boxShadow: imageShadow ? "2px 2px 5px rgba(0,0,0,0.40)" : "none"
@@ -380,10 +269,10 @@ export default function MoodboardTemplateOne() {
           onDrop={(e) => handleDrop(e, 8)}
           onDragOver={handleDragOver}
         >
-          {draggedProduct8 && <Image src={draggedProduct8} id="template-2-image-8-image" />}
+          {draggedProduct8 && <Image src={draggedProduct8} id="template-3-image-8-image" />}
         </div>
         <div
-          id="template-2-image-9"
+          id="template-3-image-9"
           style={{
             border: border ? "1px solid black" : "none",
             boxShadow: imageShadow ? "2px 2px 5px rgba(0,0,0,0.40)" : "none"
@@ -391,10 +280,10 @@ export default function MoodboardTemplateOne() {
           onDrop={(e) => handleDrop(e, 9)}
           onDragOver={handleDragOver}
         >
-          {draggedProduct9 && <Image src={draggedProduct9} id="template-2-image-9-image" />}
+          {draggedProduct9 && <Image src={draggedProduct9} id="template-3-image-9-image" />}
         </div>
         <div
-          id="template-2-image-10"
+          id="template-3-image-10"
           style={{
             border: border ? "1px solid black" : "none",
             boxShadow: imageShadow ? "2px 2px 5px rgba(0,0,0,0.40)" : "none"
@@ -402,10 +291,10 @@ export default function MoodboardTemplateOne() {
           onDrop={(e) => handleDrop(e, 10)}
           onDragOver={handleDragOver}
         >
-          {draggedProduct10 && <Image src={draggedProduct10} id="template-2-image-10-image" />}
+          {draggedProduct10 && <Image src={draggedProduct10} id="template-3-image-10-image" />}
         </div>
         <div
-          id="template-2-image-11"
+          id="template-3-image-11"
           style={{
             border: border ? "1px solid black" : "none",
             boxShadow: imageShadow ? "2px 2px 5px rgba(0,0,0,0.40)" : "none"
@@ -413,10 +302,10 @@ export default function MoodboardTemplateOne() {
           onDrop={(e) => handleDrop(e, 11)}
           onDragOver={handleDragOver}
         >
-          {draggedProduct11 && <Image src={draggedProduct11} id="template-2-image-11-image" />}
+          {draggedProduct11 && <Image src={draggedProduct11} id="template-3-image-11-image" />}
         </div>
         <div
-          id="template-2-image-12"
+          id="template-3-image-12"
           style={{
             border: border ? "1px solid black" : "none",
             boxShadow: imageShadow ? "2px 2px 5px rgba(0,0,0,0.40)" : "none"
@@ -424,7 +313,7 @@ export default function MoodboardTemplateOne() {
           onDrop={(e) => handleDrop(e, 12)}
           onDragOver={handleDragOver}
         >
-          {draggedProduct12 && <Image src={draggedProduct12} id="template-2-image-12-image" />}
+          {draggedProduct12 && <Image src={draggedProduct12} id="template-3-image-12-image" />}
         </div>
       </div>
       <div id="available-images-wrapper">
@@ -467,66 +356,19 @@ export default function MoodboardTemplateOne() {
           <div>
             <p>Swatch Style</p>
             <div className="buttons-wrapper">
-              <div className="jump-library mt-0" onClick={squareSwatches}>
-                Square
-              </div>
-              <div className="jump-library mt-0" onClick={circleSwatches}>
-                Circle
-              </div>
-              <div className="jump-library mt-0" onClick={rectangleSwatches}>
-                Rectangle
-              </div>
-              <div className="jump-library mt-0" onClick={strokeSwatches}>
-                Stroke
-              </div>
-              <div className="jump-library mt-0" onClick={archSwatches}>
-                Arch
-              </div>
-              <div className="jump-library mt-0" onClick={pillSwatches}>
-                Pill
-              </div>
+              <Button onClick={squareSwatches}>Square</Button>
+              <Button onClick={circleSwatches}>Circle</Button>
+              <Button onClick={rectangleSwatches}>Rectangle</Button>
+              <Button onClick={strokeSwatches}>Stroke</Button>
+              <Button onClick={archSwatches}>Arch</Button>
+              <Button onClick={pillSwatches}>Pill</Button>
             </div>
 
             <p>Swatch Shadows</p>
             <div className="buttons-wrapper">
-              <div className="jump-library mt-0" onClick={swatchShadowOn}>
-                On
-              </div>
-              <div className="jump-library mt-0" onClick={swatchShadowOff}>
-                Off
-              </div>
+              <Button onClick={swatchShadowOn}>On</Button>
+              <Button onClick={swatchShadowOff}>Off</Button>
             </div>
-          </div>
-          <div>
-            <p>Image Borders</p>
-            <div className="buttons-wrapper">
-              <div className="jump-library mt-0" onClick={borderHandlerOn}>
-                On
-              </div>
-              <div className="jump-library mt-0" onClick={borderHandlerOff}>
-                Off
-              </div>
-            </div>
-            <p>Image Shadows</p>
-            <div className="buttons-wrapper">
-              <div className="jump-library mt-0" onClick={imageBorderHandlerOn}>
-                On
-              </div>
-              <div className="jump-library mt-0" onClick={imageBorderHandlerOff}>
-                Off
-              </div>
-            </div>
-          </div>
-          <div>
-            <p>Text Colour</p>
-            <input
-              type="color"
-              className="form-control form-control-color"
-              id="textColorPicker"
-              value={textColor}
-              title="Choose your color"
-              onChange={(e) => handleTextColor(e)}
-            ></input>
           </div>
           <div>
             <p>Background Colour</p>
@@ -539,8 +381,20 @@ export default function MoodboardTemplateOne() {
               onChange={(e) => handleBackgroundColor(e)}
             ></input>
           </div>
+          <div>
+            <p>Image Borders</p>
+            <div className="buttons-wrapper">
+              <Button onClick={borderHandlerOn}>On</Button>
+              <Button onClick={borderHandlerOff}>Off</Button>
+            </div>
+            <p>Image Shadows</p>
+            <div className="buttons-wrapper">
+              <Button onClick={imageBorderHandlerOn}>On</Button>
+              <Button onClick={imageBorderHandlerOff}>Off</Button>
+            </div>
+          </div>
         </div>
-        <Button onClick={handleMoodboardSave} variant="outline-success" className="mt-2">
+        <Button onClick={handleMoodboardSave} variant="outline-success">
           {showSpinner ? (
             <>
               Saving{" "}

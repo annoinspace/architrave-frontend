@@ -63,68 +63,70 @@ export default function Homepage() {
   }, [clickedBall])
 
   return (
-    <Container className="p-5">
-      <div className="header-top">
-        <h1 className="text-center mb-5">My Projects</h1>
-      </div>
-      <div id="project-preview-wrapper">
-        <Button id="create-project-button" onClick={handleCreateProjectClick}>
-          + Create Project
-        </Button>
+    <>
+      <Container className="p-5 z-2">
+        <div className="header-top">
+          <h1 className="text-center mb-5">My Projects</h1>
+        </div>
+        <div id="project-preview-wrapper">
+          <Button id="create-project-button" onClick={handleCreateProjectClick}>
+            + Create Project
+          </Button>
 
-        <h4>Active Projects</h4>
-        {activeProjects?.length === 0 && <div id="projects-thumbnail-wrapper-empty">no active projects!</div>}
-        {activeProjects?.length > 0 && (
-          <div id="projects-thumbnail-wrapper">
-            {activeProjects.map((project) => (
-              <div
-                key={project._id}
-                className="project-status-thumbnail-wrapper"
-                // onMouseEnter={() => setHoveredProjectHandler(project)}
-              >
-                <div onClick={() => projectClickedHandler(project)} className="thumbnail-wrapper">
-                  <h5 className="mb-3">{project.title}</h5>
-                  <Image src={project.moodboardImage} id="projects-thumbnail-image" />
-                </div>
-                <div className="status-container">
-                  <div className="status-wrapper">
-                    <div
-                      className="status-ball-indicator"
-                      onClick={() => toggleStatusBallHandler(project)}
-                      style={{
-                        left: clickedBall === project._id ? "87%" : "0%",
-                        transition: "left 3s"
-                      }}
-                    ></div>
+          <h4>Active Projects</h4>
+          {activeProjects?.length === 0 && <div id="projects-thumbnail-wrapper-empty">no active projects!</div>}
+          {activeProjects?.length > 0 && (
+            <div id="projects-thumbnail-wrapper">
+              {activeProjects.map((project) => (
+                <div
+                  key={project._id}
+                  className="project-status-thumbnail-wrapper"
+                  // onMouseEnter={() => setHoveredProjectHandler(project)}
+                >
+                  <div onClick={() => projectClickedHandler(project)} className="thumbnail-wrapper">
+                    <h5 className="mb-3">{project.title}</h5>
+                    <Image src={project.moodboardImage} id="projects-thumbnail-image" />
                   </div>
-                  <div className="active-archive">
-                    <div>Active</div>
-                    <div>Archived</div>
+                  <div className="status-container">
+                    <div className="status-wrapper">
+                      <div
+                        className="status-ball-indicator"
+                        onClick={() => toggleStatusBallHandler(project)}
+                        style={{
+                          left: clickedBall === project._id ? "87%" : "0%",
+                          transition: "left 3s"
+                        }}
+                      ></div>
+                    </div>
+                    <div className="active-archive">
+                      <div>Active</div>
+                      <div>Archived</div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
-        )}
-        <h4>Archived Projects</h4>
-        {archivedProjects?.length === 0 && <div>your archived projects will appear here</div>}
-        {archivedProjects?.length > 0 && (
-          <div id="archived-projects-thumbnail-wrapper">
-            {archivedProjects.map((project) => (
-              <div
-                key={project._id}
-                onClick={() => archivedProjectClickedHandler(project)}
-                className="project-status-thumbnail-wrapper"
-              >
-                <div className="thumbnail-wrapper">
-                  <h5 className="mb-3">{project.title}</h5>
-                  <Image src={project.moodboardImage} id="projects-thumbnail-image" />
+              ))}
+            </div>
+          )}
+          <h4>Archived Projects</h4>
+          {archivedProjects?.length === 0 && <div>your archived projects will appear here</div>}
+          {archivedProjects?.length > 0 && (
+            <div id="archived-projects-thumbnail-wrapper">
+              {archivedProjects.map((project) => (
+                <div
+                  key={project._id}
+                  onClick={() => archivedProjectClickedHandler(project)}
+                  className="project-status-thumbnail-wrapper"
+                >
+                  <div className="thumbnail-wrapper">
+                    <h5 className="mb-3">{project.title}</h5>
+                    <Image src={project.moodboardImage} id="projects-thumbnail-image" />
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
-    </Container>
+              ))}
+            </div>
+          )}
+        </div>
+      </Container>
+    </>
   )
 }
