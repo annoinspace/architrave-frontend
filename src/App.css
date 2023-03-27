@@ -386,6 +386,10 @@ Button:active {
   gap: 10px;
 }
 
+.shuffled-swatch-display:hover {
+  box-shadow: rgba(117, 101, 104, 0.5) 0px 5px 10px -5px, rgba(87, 65, 65, 0.5) 0px 5px 10px -5px;
+}
+
 .selected-swatches-in-modal {
   display: flex;
   justify-content: center;
@@ -394,7 +398,6 @@ Button:active {
   border-radius: 30px;
   padding: 10px;
   gap: 10px;
-  background-color: var(--light-cream-opacity);
 }
 
 .individual-selected-swatches-in-modal {

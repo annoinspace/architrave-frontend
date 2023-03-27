@@ -26,6 +26,7 @@ export default function MoodboardTemplateFour() {
   const [draggedProduct10, setDraggedProduct10] = useState(null)
   const [draggedProduct11, setDraggedProduct11] = useState(null)
   const [draggedProduct12, setDraggedProduct12] = useState(null)
+  const [draggedProduct13, setDraggedProduct13] = useState(null)
 
   const [imageShadow, setImageShadow] = useState(false)
   const [backgroundColor, setBackgroundColor] = useState("#ffffff")
@@ -101,6 +102,9 @@ export default function MoodboardTemplateFour() {
       case 12:
         setDraggedProduct12(productImage)
         break
+      case 13:
+        setDraggedProduct13(productImage)
+        break
       default:
         break
     }
@@ -170,7 +174,7 @@ export default function MoodboardTemplateFour() {
           backgroundColor: `${backgroundColor}`
         }}
       >
-        <div id="moodboard-swatches-1">
+        {/* <div id="moodboard-swatches-4">
           {palette &&
             palette.map((color, index) => (
               <div
@@ -182,9 +186,9 @@ export default function MoodboardTemplateFour() {
                 }}
               ></div>
             ))}
-        </div>
+        </div> */}
         <div
-          id="image-1"
+          id="template-4-image-1"
           style={{
             border: border ? "1px solid black" : "none",
             boxShadow: imageShadow ? "2px 2px 5px rgba(0,0,0,0.40)" : "none"
@@ -192,10 +196,10 @@ export default function MoodboardTemplateFour() {
           onDrop={(e) => handleDrop(e, 1)}
           onDragOver={handleDragOver}
         >
-          {draggedProduct1 && <Image src={draggedProduct1} id="image-1-image" />}
+          {draggedProduct1 && <Image src={draggedProduct1} id="template-4-image-1-image" />}
         </div>
         <div
-          id="image-2"
+          id="template-4-image-2"
           style={{
             border: border ? "1px solid black" : "none",
             boxShadow: imageShadow ? "2px 2px 5px rgba(0,0,0,0.40)" : "none"
@@ -203,10 +207,10 @@ export default function MoodboardTemplateFour() {
           onDrop={(e) => handleDrop(e, 2)}
           onDragOver={handleDragOver}
         >
-          {draggedProduct2 && <Image src={draggedProduct2} id="image-2-image" />}
+          {draggedProduct2 && <Image src={draggedProduct2} id="template-4-image-2-image" />}
         </div>
         <div
-          id="image-3"
+          id="template-4-image-3"
           style={{
             border: border ? "1px solid black" : "none",
             boxShadow: imageShadow ? "2px 2px 5px rgba(0,0,0,0.40)" : "none"
@@ -214,10 +218,10 @@ export default function MoodboardTemplateFour() {
           onDrop={(e) => handleDrop(e, 3)}
           onDragOver={handleDragOver}
         >
-          {draggedProduct3 && <Image src={draggedProduct3} id="image-3-image" />}
+          {draggedProduct3 && <Image src={draggedProduct3} id="template-4-image-3-image" />}
         </div>
         <div
-          id="image-4"
+          id="template-4-image-4"
           style={{
             border: border ? "1px solid black" : "none",
             boxShadow: imageShadow ? "2px 2px 5px rgba(0,0,0,0.40)" : "none"
@@ -225,10 +229,10 @@ export default function MoodboardTemplateFour() {
           onDrop={(e) => handleDrop(e, 4)}
           onDragOver={handleDragOver}
         >
-          {draggedProduct4 && <Image src={draggedProduct4} id="image-4-image" />}
+          {draggedProduct4 && <Image src={draggedProduct4} id="template-4-image-4-image" />}
         </div>
         <div
-          id="image-5"
+          id="template-4-image-5"
           style={{
             border: border ? "1px solid black" : "none",
             boxShadow: imageShadow ? "2px 2px 5px rgba(0,0,0,0.40)" : "none"
@@ -236,10 +240,10 @@ export default function MoodboardTemplateFour() {
           onDrop={(e) => handleDrop(e, 5)}
           onDragOver={handleDragOver}
         >
-          {draggedProduct5 && <Image src={draggedProduct5} id="image-5-image" />}
+          {draggedProduct5 && <Image src={draggedProduct5} id="template-4-image-5-image" />}
         </div>
         <div
-          id="image-6"
+          id="template-4-image-6"
           style={{
             border: border ? "1px solid black" : "none",
             boxShadow: imageShadow ? "2px 2px 5px rgba(0,0,0,0.40)" : "none"
@@ -247,10 +251,10 @@ export default function MoodboardTemplateFour() {
           onDrop={(e) => handleDrop(e, 6)}
           onDragOver={handleDragOver}
         >
-          {draggedProduct6 && <Image src={draggedProduct6} id="image-6-image" />}
+          {draggedProduct6 && <Image src={draggedProduct6} id="template-4-image-6-image" />}
         </div>
         <div
-          id="image-7"
+          id="template-4-image-7"
           style={{
             border: border ? "1px solid black" : "none",
             boxShadow: imageShadow ? "2px 2px 5px rgba(0,0,0,0.40)" : "none"
@@ -258,10 +262,10 @@ export default function MoodboardTemplateFour() {
           onDrop={(e) => handleDrop(e, 7)}
           onDragOver={handleDragOver}
         >
-          {draggedProduct7 && <Image src={draggedProduct7} id="image-7-image" />}
+          {draggedProduct7 && <Image src={draggedProduct7} id="template-4-image-7-image" />}
         </div>
         <div
-          id="image-8"
+          id="template-4-image-8"
           style={{
             border: border ? "1px solid black" : "none",
             boxShadow: imageShadow ? "2px 2px 5px rgba(0,0,0,0.40)" : "none"
@@ -269,10 +273,10 @@ export default function MoodboardTemplateFour() {
           onDrop={(e) => handleDrop(e, 8)}
           onDragOver={handleDragOver}
         >
-          {draggedProduct8 && <Image src={draggedProduct8} id="image-8-image" />}
+          {draggedProduct8 && <Image src={draggedProduct8} id="template-4-image-8-image" />}
         </div>
         <div
-          id="image-9"
+          id="template-4-image-9"
           style={{
             border: border ? "1px solid black" : "none",
             boxShadow: imageShadow ? "2px 2px 5px rgba(0,0,0,0.40)" : "none"
@@ -280,10 +284,10 @@ export default function MoodboardTemplateFour() {
           onDrop={(e) => handleDrop(e, 9)}
           onDragOver={handleDragOver}
         >
-          {draggedProduct9 && <Image src={draggedProduct9} id="image-9-image" />}
+          {draggedProduct9 && <Image src={draggedProduct9} id="template-4-image-9-image" />}
         </div>
         <div
-          id="image-10"
+          id="template-4-image-10"
           style={{
             border: border ? "1px solid black" : "none",
             boxShadow: imageShadow ? "2px 2px 5px rgba(0,0,0,0.40)" : "none"
@@ -291,10 +295,10 @@ export default function MoodboardTemplateFour() {
           onDrop={(e) => handleDrop(e, 10)}
           onDragOver={handleDragOver}
         >
-          {draggedProduct10 && <Image src={draggedProduct10} id="image-10-image" />}
+          {draggedProduct10 && <Image src={draggedProduct10} id="template-4-image-10-image" />}
         </div>
         <div
-          id="image-11"
+          id="template-4-image-11"
           style={{
             border: border ? "1px solid black" : "none",
             boxShadow: imageShadow ? "2px 2px 5px rgba(0,0,0,0.40)" : "none"
@@ -302,10 +306,10 @@ export default function MoodboardTemplateFour() {
           onDrop={(e) => handleDrop(e, 11)}
           onDragOver={handleDragOver}
         >
-          {draggedProduct11 && <Image src={draggedProduct11} id="image-11-image" />}
+          {draggedProduct11 && <Image src={draggedProduct11} id="template-4-image-11-image" />}
         </div>
         <div
-          id="image-12"
+          id="template-4-image-12"
           style={{
             border: border ? "1px solid black" : "none",
             boxShadow: imageShadow ? "2px 2px 5px rgba(0,0,0,0.40)" : "none"
@@ -313,7 +317,18 @@ export default function MoodboardTemplateFour() {
           onDrop={(e) => handleDrop(e, 12)}
           onDragOver={handleDragOver}
         >
-          {draggedProduct12 && <Image src={draggedProduct12} id="image-12-image" />}
+          {draggedProduct12 && <Image src={draggedProduct12} id="template-4-image-12-image" />}
+        </div>
+        <div
+          id="template-4-image-13"
+          style={{
+            border: border ? "1px solid black" : "none",
+            boxShadow: imageShadow ? "2px 2px 5px rgba(0,0,0,0.40)" : "none"
+          }}
+          onDrop={(e) => handleDrop(e, 13)}
+          onDragOver={handleDragOver}
+        >
+          {draggedProduct13 && <Image src={draggedProduct13} id="template-4-image-13-image" />}
         </div>
       </div>
       <div id="available-images-wrapper">

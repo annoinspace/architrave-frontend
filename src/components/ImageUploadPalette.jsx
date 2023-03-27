@@ -180,6 +180,7 @@ const ImageUploadPalette = ({ numberOfColors = 100 }) => {
                     onClick={() => addToMySwatches(color)}
                     key={color}
                     value={color + "swatch"}
+                    className="shuffled-swatch-display"
                     style={{
                       backgroundColor: color,
                       width: "60px",

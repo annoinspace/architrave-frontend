@@ -71,9 +71,9 @@ export default function ArchivedProject() {
         ))}
       </div>
 
-      <div id="project-section-four">
+      {/* <div id="project-section-four">
         <h5>Contractors & Services</h5>
-      </div>
+      </div> */}
       <div id="edit-button">
         {deleteProject ? (
           <>

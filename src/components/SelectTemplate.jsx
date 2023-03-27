@@ -3,6 +3,7 @@ import { Container, Image } from "react-bootstrap"
 import templateOne from "../assets/template-one.jpeg"
 import templateTwo from "../assets/template-two.jpeg"
 import templateThree from "../assets/template-three.jpeg"
+import templateFour from "../assets/template-four.jpeg"
 import { useNavigate } from "react-router-dom"
 
 export default function SelectTemplate() {
@@ -16,6 +17,9 @@ export default function SelectTemplate() {
   const handleTemplateThreeClicked = () => {
     navigate("/template-three")
   }
+  const handleTemplateFourClicked = () => {
+    navigate("/template-four")
+  }
 
   return (
     <Container className="p-5">
@@ -25,6 +29,7 @@ export default function SelectTemplate() {
         <Image src={templateOne} className="template-jpeg" onClick={handleTemplateOneClicked} />
         <Image src={templateTwo} className="template-jpeg" onClick={handleTemplateTwoClicked} />
         <Image src={templateThree} className="template-jpeg" onClick={handleTemplateThreeClicked} />
+        <Image src={templateFour} className="template-jpeg" onClick={handleTemplateFourClicked} />
       </div>
     </Container>
   )

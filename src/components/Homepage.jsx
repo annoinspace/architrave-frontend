@@ -78,7 +78,7 @@ export default function Homepage() {
             <h1 className="w-50 h-50 text-right large-header mb-4">
               {greetingMessage} {userName}!
             </h1>
-            <h4 id="header-tagline">It's a great day to bring ideas to life.</h4>
+            <h4 id="header-tagline">It's the perfect time bring ideas to life.</h4>
             <div id="header-border"></div>
           </div>
         </div>

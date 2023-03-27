@@ -2,6 +2,7 @@ import "./App.css"
 import "../src/styles/MoodboardOne.css"
 import "../src/styles/MoodboardTwo.css"
 import "../src/styles/MoodboardThree.css"
+import "../src/styles/MoodboardFour.css"
 import "bootstrap/dist/css/bootstrap.min.css"
 
 import Navbar from "./components/Navbar.jsx"

@@ -51,8 +51,8 @@ export default function Navbar() {
     <div id="navbar">
       {currentUser === null && userLocation === "/signup" && (
         <>
-          <div className="nav-link" id="architrave-nav">
-            Architrave
+          <div className="nav-link architrave-text-nav ml-3" id="architrave-nav">
+            architrave
           </div>
 
           <Link to="/">
@@ -64,8 +64,8 @@ export default function Navbar() {
       )}
       {currentUser === null && userLocation === "/" && (
         <>
-          <div className="nav-link" id="architrave-nav">
-            Architrave
+          <div className="nav-link architrave-text-nav ml-3" id="architrave-nav">
+            architrave
           </div>
           <Link to="/signup">
             <div className="nav-link" id="sign-up-nav">
@@ -82,6 +82,7 @@ export default function Navbar() {
               {userLocation === "/my-library" ||
               userLocation === "/new-project" ||
               userLocation.includes("/archive") ||
+              userLocation.includes("/template") ||
               userLocation.includes("/select-template") ? (
                 <div className="nav-link architrave-text-nav ml-3" id="architrave-nav" onClick={homeHandler}>
                   architrave
