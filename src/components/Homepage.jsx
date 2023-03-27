@@ -87,7 +87,7 @@ export default function Homepage() {
             + Create Project
           </Button>
 
-          <h4 className="mt-3">Active Projects</h4>
+          <h4 className="mt-3 brown-underline">Active Projects</h4>
           {activeProjects?.length === 0 && <div id="projects-thumbnail-wrapper-empty">no active projects!</div>}
           {activeProjects?.length > 0 && (
             <div id="projects-thumbnail-wrapper">
@@ -121,7 +121,7 @@ export default function Homepage() {
               ))}
             </div>
           )}
-          <h4 className="mt-3">Archived Projects</h4>
+          <h4 className="mt-3 brown-underline">Archived Projects</h4>
           {archivedProjects?.length === 0 && <div>your archived projects will appear here</div>}
           {archivedProjects?.length > 0 && (
             <div id="archived-projects-thumbnail-wrapper">

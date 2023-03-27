@@ -111,12 +111,12 @@ export default function MyLibrary() {
         </div>
       </div>
       <div className="header-top">
-        <h1 className="text-center">My Library</h1>
+        <h1 className="text-center large-header mt-5 mb-5">My Library</h1>
       </div>
       <div ref={paletteWrapperRef}>
         <div>
           <div className="d-flex justify-content-between mt-5">
-            <h3>colour palettes</h3>
+            <h3 className="brown-underline">colour palettes</h3>
             <ImageUploadPalette />
           </div>
           {colorPalettes?.length === 0 && <div>What are you waiting for? Create your palettes!</div>}
@@ -155,7 +155,7 @@ export default function MyLibrary() {
 
       <div ref={productsWrapperRef}>
         <div className="d-flex justify-content-between mt-5">
-          <h3>saved products</h3>
+          <h3 className="brown-underline">saved products</h3>
           <UploadProducts />
         </div>
         {userProducts.length === 0 && <div>No saved products</div>}
@@ -200,7 +200,7 @@ export default function MyLibrary() {
       </div>
       <div className="mt-5" ref={inspoImagesWrapperRef}>
         <div className="d-flex justify-content-between">
-          <h3>inspo wall</h3>
+          <h3 className="brown-underline">inspo wall</h3>
           <UploadInspoImages />
         </div>
         {userInspo.length === 0 && <div>Your inspo wall is currently empty!</div>}

@@ -333,7 +333,7 @@ export default function ProjectDetails() {
         </div>
       </div>
       <div id="project-section-three">
-        <h5>Specified Products</h5>
+        <h5 className="brown-underline">Specified Products</h5>
         {selectedProduct !== null && (
           <>
             <div id="selected-budget-item">

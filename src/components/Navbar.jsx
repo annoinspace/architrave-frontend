@@ -79,7 +79,10 @@ export default function Navbar() {
         <>
           <div className="d-flex w-100 justify-content-between align-items-center nav-background">
             <div className="d-flex">
-              {userLocation === "/my-library" || userLocation === "/new-project" ? (
+              {userLocation === "/my-library" ||
+              userLocation === "/new-project" ||
+              userLocation.includes("/archive") ||
+              userLocation.includes("/select-template") ? (
                 <div className="nav-link architrave-text-nav ml-3" id="architrave-nav" onClick={homeHandler}>
                   architrave
                 </div>

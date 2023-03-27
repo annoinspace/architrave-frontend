@@ -715,6 +715,9 @@ Button:active {
   border: none;
   align-self: end;
 }
+.brown-underline {
+  text-decoration: underline;
+}
 
 .project-status-thumbnail-wrapper {
   position: relative;
@@ -724,7 +727,7 @@ Button:active {
   flex-direction: row-reverse;
   flex-wrap: wrap;
   gap: 50px;
-  justify-content: center;
+  justify-content: flex-end;
   padding: 30px;
   align-items: center;
   margin-bottom: 100px;
@@ -758,7 +761,7 @@ Button:active {
   flex-direction: row-reverse;
   flex-wrap: wrap;
   gap: 50px;
-  justify-content: center;
+  justify-content: flex-end;
   padding: 30px;
   align-items: center;
   margin-bottom: 100px;
@@ -845,7 +848,8 @@ Button:active {
   border-radius: 30px;
   padding: 20px;
   border: 1px solid var(--light-brown-opacity);
-  background-color: white;
+  backdrop-filter: blur(10px);
+  background: hsla(0, 0%, 100%, 0.3);
 }
 .thumbnail-wrapper:hover {
   box-shadow: rgba(117, 101, 104, 0.25) 0px 20px 50px -20px, rgba(87, 65, 65, 0.3) 0px 20px 50px -20px;

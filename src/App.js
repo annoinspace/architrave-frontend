@@ -3,12 +3,12 @@ import "../src/styles/MoodboardOne.css"
 import "../src/styles/MoodboardTwo.css"
 import "../src/styles/MoodboardThree.css"
 import "bootstrap/dist/css/bootstrap.min.css"
-import Curated from "./components/Curated.jsx"
+
 import Navbar from "./components/Navbar.jsx"
 import Login from "./components/Login"
-import { useDispatch, useSelector } from "react-redux"
+import { useSelector } from "react-redux"
 import { useEffect } from "react"
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom"
+import { BrowserRouter, Routes, Route } from "react-router-dom"
 import SignUp from "./components/SignUp"
 import Homepage from "./components/Homepage"
 import MyLibrary from "./components/MyLibrary"
@@ -20,15 +20,11 @@ import ProjectDetails from "./components/ProjectDetails"
 import Profile from "./components/Profile"
 import ArchivedProject from "./components/ArchivedProject"
 import SelectTemplate from "./components/SelectTemplate"
-// import { updateUserLocation } from "./redux/actions/userActions"
+import MoodboardTemplateFour from "./components/MoodboardTemplateFour"
+
 function App() {
   const currentUser = useSelector((state) => state.currentUser.currentUser)
   const loginStatus = useSelector((state) => state.currentUser.loginStatus)
-  // const userLocation = useSelector((state) => state.currentUser.userLocation)
-  // const loginStatusMessage = loginStatus?.status
-
-  // const location = useLocation()
-  // const dispatch = useDispatch()
 
   useEffect(() => {
     if (currentUser) {
@@ -37,12 +33,6 @@ function App() {
       console.log("User has logged out.")
     }
   }, [currentUser, loginStatus])
-
-  // useEffect(() => {
-  //   console.log("location from useLocation() in app", location.pathname)
-  //   console.log("current location from state in app", userLocation)
-  //   dispatch(updateUserLocation(location.pathname))
-  // }, [userLocation, location])
 
   return (
     <>
@@ -63,6 +53,7 @@ function App() {
                 <Route path="/template-one" element={<MoodboardTemplateOne />} />
                 <Route path="/template-two" element={<MoodboardTemplateTwo />} />
                 <Route path="/template-three" element={<MoodboardTemplateThree />} />
+                <Route path="/template-four" element={<MoodboardTemplateFour />} />
                 <Route path="/project-details/:projectId" element={<ProjectDetails />} />
                 <Route path="/archive/:projectId" element={<ArchivedProject />} />
                 <Route path="/profile" element={<Profile />} />
