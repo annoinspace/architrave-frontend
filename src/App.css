@@ -110,6 +110,23 @@ Button:active {
   padding-inline: 30px;
   color: var(--dark-brown);
 }
+
+#footer {
+  height: 80px;
+  border-top: 1px solid var(--light-brown-opacity);
+  backdrop-filter: blur(10px);
+  background: hsla(0, 0%, 100%, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+#footer-icon {
+  margin-right: 30px;
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+}
 .nav-link {
   cursor: pointer;
   color: var(--dark-brown);
@@ -761,12 +778,10 @@ Button:active {
 
 #archived-projects-thumbnail-wrapper {
   display: flex;
-  flex-direction: row-reverse;
   flex-wrap: wrap;
+
   gap: 50px;
-  justify-content: flex-end;
   padding: 30px;
-  align-items: center;
   margin-bottom: 100px;
 }
 
@@ -941,7 +956,7 @@ Button:active {
 }
 
 #swatches-wrapper-scroll {
-  height: 300px;
+  height: 350px;
   overflow: hidden;
   overflow-y: scroll;
   display: flex;

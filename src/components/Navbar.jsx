@@ -83,6 +83,7 @@ export default function Navbar() {
               userLocation === "/new-project" ||
               userLocation.includes("/archive") ||
               userLocation.includes("/template") ||
+              userLocation.includes("/profile") ||
               userLocation.includes("/select-template") ? (
                 <div className="nav-link architrave-text-nav ml-3" id="architrave-nav" onClick={homeHandler}>
                   architrave

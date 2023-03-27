@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { Container, Button, Image } from "react-bootstrap"
 import { useNavigate } from "react-router-dom"
+import logo from "../assets/logo.png"
 import {
   moveProjectToArchive,
   saveSelectedProject,
@@ -72,7 +73,7 @@ export default function Homepage() {
 
   return (
     <>
-      <Container className="p-5 z-2">
+      <Container className="pt-5 pl-5 pr-5 z-2">
         <div className="header-top">
           <div id="greeting-wrapper" className="text-center mb-5 mt-5  ">
             <h1 className="w-50 h-50 text-right large-header mb-4">
@@ -141,6 +142,10 @@ export default function Homepage() {
           )}
         </div>
       </Container>
+      <div id="footer">
+        <Image id="footer-icon" src={logo} />
+        <div></div>
+      </div>
     </>
   )
 }

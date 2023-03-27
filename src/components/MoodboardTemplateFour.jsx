@@ -174,7 +174,7 @@ export default function MoodboardTemplateFour() {
           backgroundColor: `${backgroundColor}`
         }}
       >
-        {/* <div id="moodboard-swatches-4">
+        <div id="moodboard-swatches-4">
           {palette &&
             palette.map((color, index) => (
               <div
@@ -186,7 +186,7 @@ export default function MoodboardTemplateFour() {
                 }}
               ></div>
             ))}
-        </div> */}
+        </div>
         <div
           id="template-4-image-1"
           style={{

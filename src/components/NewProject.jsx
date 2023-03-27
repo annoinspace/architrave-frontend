@@ -112,7 +112,7 @@ export default function NewProject() {
   }
 
   return (
-    <Container className="p-5">
+    <Container className="p-5 dark-background">
       <div id="create-project-section-one">
         <div className="header-top">
           {editTitle ? (
@@ -194,7 +194,7 @@ export default function NewProject() {
       <div id="initialise-moodboard">
         <div id="new-project-images-wrapper">
           <h6>Select up to 12 products to create your moodboard</h6>
-          <p>(you can add more products to your shopping list later)</p>
+          <p>(you can add more products to your specification later)</p>
           <div className="all-products-new-project">
             {productLibrary.map((product) => (
               <div
