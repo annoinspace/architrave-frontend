@@ -11,10 +11,12 @@ import {
 export default function Homepage() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
-
+  const currentUser = useSelector((state) => state.currentUser.currentUser)
+  const userName = currentUser.displayName
   const allProjects = useSelector((state) => state.moodboard.currentUserProjects)
 
-  // const [hoveredProject, setHoveredProject] = useState(null)
+  const [greetingMessage, setGreetingMessage] = useState("Good Morning,")
+
   const [clickedBall, setClickedBall] = useState(null)
   const [activeProjects, setActiveProjects] = useState(allProjects?.filter((project) => project.status === "Active"))
   const [archivedProjects, setArchivedProjects] = useState(
@@ -32,11 +34,6 @@ export default function Homepage() {
     }, 3000)
   }
 
-  // const setHoveredProjectHandler = (project) => {
-  //   console.log(project)
-  //   setHoveredProject(project)
-  // }
-
   const handleCreateProjectClick = () => {
     navigate("/new-project")
   }
@@ -50,12 +47,23 @@ export default function Homepage() {
     navigate(`/archive/${project._id}`)
   }
 
+  const renderCurrentTime = () => {
+    const currentTime = new Date().getHours()
+
+    if (currentTime >= 12 && currentTime < 17) {
+      setGreetingMessage("Good Afternoon,")
+    } else if (currentTime >= 16 && currentTime < 22) {
+      setGreetingMessage("Good Evening,")
+    }
+  }
+
   useEffect(() => {
     console.log("allProjects", allProjects)
     const active = allProjects?.filter((project) => project.status === "Active")
     setActiveProjects(active)
     const archived = allProjects?.filter((project) => project.status === "Archived")
     setArchivedProjects(archived)
+    renderCurrentTime()
   }, [allProjects])
 
   useEffect(() => {
@@ -66,14 +74,20 @@ export default function Homepage() {
     <>
       <Container className="p-5 z-2">
         <div className="header-top">
-          <h1 className="text-center mb-5 mt-5 large-header">My Projects</h1>
+          <div id="greeting-wrapper" className="text-center mb-5 mt-5  ">
+            <h1 className="w-50 h-50 text-right large-header mb-4">
+              {greetingMessage} {userName}!
+            </h1>
+            <h4 id="header-tagline">It's a great day to bring ideas to life.</h4>
+            <div id="header-border"></div>
+          </div>
         </div>
         <div id="project-preview-wrapper">
           <Button id="create-project-button" onClick={handleCreateProjectClick}>
             + Create Project
           </Button>
 
-          <h4>Active Projects</h4>
+          <h4 className="mt-3">Active Projects</h4>
           {activeProjects?.length === 0 && <div id="projects-thumbnail-wrapper-empty">no active projects!</div>}
           {activeProjects?.length > 0 && (
             <div id="projects-thumbnail-wrapper">
@@ -107,7 +121,7 @@ export default function Homepage() {
               ))}
             </div>
           )}
-          <h4>Archived Projects</h4>
+          <h4 className="mt-3">Archived Projects</h4>
           {archivedProjects?.length === 0 && <div>your archived projects will appear here</div>}
           {archivedProjects?.length > 0 && (
             <div id="archived-projects-thumbnail-wrapper">

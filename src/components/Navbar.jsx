@@ -77,11 +77,17 @@ export default function Navbar() {
 
       {loggedInNav && (
         <>
-          <div className="d-flex w-100 justify-content-between align-items-center">
+          <div className="d-flex w-100 justify-content-between align-items-center nav-background">
             <div className="d-flex">
-              <div className="nav-link text-white architrave-text-nav " id="architrave-nav" onClick={homeHandler}>
-                architrave
-              </div>
+              {userLocation === "/my-library" || userLocation === "/new-project" ? (
+                <div className="nav-link architrave-text-nav ml-3" id="architrave-nav" onClick={homeHandler}>
+                  architrave
+                </div>
+              ) : (
+                <div className="nav-link text-white architrave-text-nav ml-3" id="architrave-nav" onClick={homeHandler}>
+                  architrave
+                </div>
+              )}
             </div>
             <div className="d-flex">
               <div className="nav-link " onClick={() => navigate("/my-library")}>
@@ -90,7 +96,7 @@ export default function Navbar() {
               <div className="nav-link" onClick={() => navigate("/profile")}>
                 Profile
               </div>
-              <div className="nav-link" onClick={logoutHandler}>
+              <div className="nav-link mr-3" onClick={logoutHandler}>
                 {" "}
                 Logout
               </div>

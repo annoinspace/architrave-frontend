@@ -102,15 +102,13 @@ Button:active {
 
 /*  ------------navbar------------- */
 #navbar {
-  border-bottom: 1.5px solid var(--accent);
+  border-bottom: 1px solid var(--light-brown-opacity);
   max-width: 100vw;
   height: 50px;
   display: flex;
   align-items: center;
   padding-inline: 30px;
   color: var(--dark-brown);
-
-  z-index: 2;
 }
 .nav-link {
   cursor: pointer;
@@ -120,7 +118,14 @@ Button:active {
 .nav-link:hover {
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 }
-
+.nav-background {
+  backdrop-filter: blur(10px);
+  background: hsla(0, 0%, 100%, 0.3);
+  left: 0;
+  position: fixed;
+  top: 0;
+  z-index: 200;
+}
 #architrave-nav {
 }
 
@@ -197,7 +202,7 @@ Button:active {
   width: 200%;
   top: -5%;
   bottom: 0;
-  right: -130%;
+  right: -120%;
   border-radius: 50%;
   background-color: rgb(255, 255, 255);
   z-index: 5;
@@ -667,7 +672,37 @@ Button:active {
   margin: 10px;
 }
 
-/* -------------- my projects-------------- */
+/* --------------homepage-------------- */
+
+#greeting-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-bottom: 30px;
+  width: 900px;
+}
+
+#header-tagline {
+  height: 45px;
+  width: 450px;
+  text-align: right;
+  font-style: italic;
+}
+
+#header-border {
+  height: 10px;
+  width: 100%;
+  background: rgb(254, 244, 235);
+  background: linear-gradient(
+    90deg,
+    rgba(254, 244, 235, 1) 0%,
+    rgba(178, 227, 177, 1) 21%,
+    rgba(235, 254, 251, 1) 49%,
+    rgba(222, 201, 245, 1) 59%,
+    rgba(238, 200, 177, 1) 100%
+  );
+  margin-bottom: 50px;
+}
 
 #project-preview-wrapper {
   display: flex;
@@ -1204,6 +1239,7 @@ Button:active {
   cursor: pointer;
   border-radius: 35px;
   width: 400px;
+  background-color: white;
 }
 .budget-list-item-selected {
   border: 1px solid var(--light-brown-opacity);
@@ -1286,7 +1322,10 @@ Button:active {
   display: flex;
   align-items: center;
 }
-
+.header-top-home {
+  display: flex;
+  justify-content: flex-end;
+}
 .header-top {
   display: flex;
   flex-direction: column;

@@ -19,7 +19,7 @@ export default function SelectTemplate() {
 
   return (
     <Container className="p-5">
-      <h1 className="text-center mb-5">Select a template</h1>
+      <h1 className="text-center mb-5 mt-5">Select a template</h1>
       <div className="template-wrapper">
         <Image src={templateOne} className="template-jpeg" onClick={handleTemplateOneClicked} />
         <Image src={templateTwo} className="template-jpeg" onClick={handleTemplateTwoClicked} />
