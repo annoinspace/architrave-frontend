@@ -328,8 +328,8 @@ Button:active {
 
 #library-navigation {
   position: fixed;
-  bottom: 60px;
-  right: 20px;
+  bottom: 85px;
+  right: 30px;
   display: flex;
   flex-direction: column;
   text-align: center;
@@ -747,7 +747,7 @@ Button:active {
   flex-direction: row-reverse;
   flex-wrap: wrap;
   gap: 50px;
-  justify-content: flex-end;
+  justify-content: center;
   padding: 30px;
   align-items: center;
   margin-bottom: 100px;
@@ -779,7 +779,7 @@ Button:active {
 #archived-projects-thumbnail-wrapper {
   display: flex;
   flex-wrap: wrap;
-
+  justify-content: center;
   gap: 50px;
   padding: 30px;
   margin-bottom: 100px;
@@ -1497,6 +1497,9 @@ Button:active {
   padding-right: 10px;
   border-radius: 30px;
   background-color: var(--light-green-opacity);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 #remaining-wrapper-orange {
   border: 1px solid var(--light-brown);
@@ -1507,6 +1510,9 @@ Button:active {
   padding-right: 10px;
   border-radius: 30px;
   background-color: var(--light-red-opacity);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 /* ----------------------profile-------------------- */
 

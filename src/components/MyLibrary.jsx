@@ -3,12 +3,12 @@ import { useDispatch, useSelector } from "react-redux"
 import { Button, Container, Image, Modal } from "react-bootstrap"
 import { FaTrashAlt } from "react-icons/fa"
 import { AiOutlineCloseCircle } from "react-icons/ai"
-import { FiEdit2 } from "react-icons/fi"
 import { HiExternalLink } from "react-icons/hi"
 import ImageUploadPalette from "./ImageUploadPalette"
 import { deleteColorPalette, deleteInspo, deleteProduct } from "../redux/actions/userActions"
 import UploadProducts from "./UploadProducts"
 import UploadInspoImages from "./UploadInspoImages"
+import Footer from "./Footer"
 
 export default function MyLibrary() {
   const dispatch = useDispatch()
@@ -97,130 +97,137 @@ export default function MyLibrary() {
   }, [hexValueOfSwatch])
 
   return (
-    <Container className="p-5">
-      <div id="library-navigation">
-        Jump To
-        <div className="jump-library" onClick={handlePaletteWallClick}>
-          Palettes
+    <>
+      <Container className="p-5">
+        <div id="library-navigation">
+          Jump To
+          <div className="jump-library" onClick={handlePaletteWallClick}>
+            Palettes
+          </div>
+          <div className="jump-library" onClick={handleProductsWallClick}>
+            Products
+          </div>
+          <div className="jump-library" onClick={handleInspoWallClick}>
+            Inspo Wall
+          </div>
         </div>
-        <div className="jump-library" onClick={handleProductsWallClick}>
-          Products
+        <div className="header-top" ref={paletteWrapperRef}>
+          <h1 className="text-center large-header mt-5 mb-5">My Library</h1>
         </div>
-        <div className="jump-library" onClick={handleInspoWallClick}>
-          Inspo Wall
+        <div>
+          <div>
+            <div className="d-flex justify-content-between mt-5">
+              <h3 className="brown-underline">colour palettes</h3>
+              <ImageUploadPalette />
+            </div>
+            {colorPalettes?.length === 0 && <div>What are you waiting for? Create your palettes!</div>}
+          </div>
+          <br />
+          <div id="palette-section">
+            {colorPalettes &&
+              colorPalettes.map((palette) => (
+                <div key={palette._id} className="user-palette-wrapper">
+                  <div className="palette-header">
+                    <h5>{palette.paletteName}</h5>
+                    <div>{/* <FiEdit2 className="small-icon" onClick={() => editClickHandler(palette)} /> */}</div>{" "}
+                    <FaTrashAlt className="small-icon" onClick={() => trashClickHandler(palette._id)} />
+                  </div>
+                  <div className="user-palette-wrapper-swatch">
+                    {palette.colors.map((color) => (
+                      <div
+                        onMouseEnter={() => handleColourToHex(color)}
+                        className="swatch"
+                        key={color}
+                        style={{
+                          backgroundColor: color
+                        }}
+                      >
+                        <p className="swatch-hex" style={{ color: hexTextColor }}>
+                          {hexValueOfSwatch}
+                        </p>
+                      </div>
+                    ))}{" "}
+                  </div>
+                </div>
+              ))}
+          </div>
+          <hr className="library-divider" ref={productsWrapperRef} />
         </div>
-      </div>
-      <div className="header-top">
-        <h1 className="text-center large-header mt-5 mb-5">My Library</h1>
-      </div>
-      <div ref={paletteWrapperRef}>
+
         <div>
           <div className="d-flex justify-content-between mt-5">
-            <h3 className="brown-underline">colour palettes</h3>
-            <ImageUploadPalette />
+            <h3 className="brown-underline">saved products</h3>
+            <UploadProducts />
           </div>
-          {colorPalettes?.length === 0 && <div>What are you waiting for? Create your palettes!</div>}
-        </div>
-        <br />
-        <div id="palette-section">
-          {colorPalettes &&
-            colorPalettes.map((palette) => (
-              <div key={palette._id} className="user-palette-wrapper">
-                <div className="palette-header">
-                  <h5>{palette.paletteName}</h5>
-                  <div>{/* <FiEdit2 className="small-icon" onClick={() => editClickHandler(palette)} /> */}</div>{" "}
-                  <FaTrashAlt className="small-icon" onClick={() => trashClickHandler(palette._id)} />
-                </div>
-                <div className="user-palette-wrapper-swatch">
-                  {palette.colors.map((color) => (
-                    <div
-                      onMouseEnter={() => handleColourToHex(color)}
-                      className="swatch"
-                      key={color}
-                      style={{
-                        backgroundColor: color
-                      }}
-                    >
-                      <p className="swatch-hex" style={{ color: hexTextColor }}>
-                        {hexValueOfSwatch}
-                      </p>
-                    </div>
-                  ))}{" "}
+          {userProducts.length === 0 && <div>No saved products</div>}
+          <div id="all-products-wrapper">
+            {userProducts.map((product) => (
+              <div
+                key={product._id}
+                className="product-display-list-item"
+                onClick={() => productClickedHandler(product)}
+              >
+                <Image src={product.image} className="product-display-list-image" />
+                <div className="product-details-wrapper">
+                  <a href={product.link} target="_blank" rel="noopener noreferrer">
+                    <HiExternalLink className="product-link-icon" />
+                  </a>
+                  <div className="product-name">{product.name} </div>
                 </div>
               </div>
             ))}
-        </div>
-        <hr className="library-divider" />
-      </div>
-
-      <div ref={productsWrapperRef}>
-        <div className="d-flex justify-content-between mt-5">
-          <h3 className="brown-underline">saved products</h3>
-          <UploadProducts />
-        </div>
-        {userProducts.length === 0 && <div>No saved products</div>}
-        <div id="all-products-wrapper">
-          {userProducts.map((product) => (
-            <div key={product._id} className="product-display-list-item" onClick={() => productClickedHandler(product)}>
-              <Image src={product.image} className="product-display-list-image" />
-              <div className="product-details-wrapper">
-                <a href={product.link} target="_blank" rel="noopener noreferrer">
-                  <HiExternalLink className="product-link-icon" />
-                </a>
-                <div className="product-name">{product.name} </div>
+          </div>
+          {selectedProduct && (
+            <Modal show={modalIsOpen} onHide={closeModal} id="">
+              <div className="modal-display-list-header m-3">
+                <AiOutlineCloseCircle onClick={closeModal} className="icon-button close-position" />
               </div>
-            </div>
-          ))}
-        </div>
-        {selectedProduct && (
-          <Modal show={modalIsOpen} onHide={closeModal} id="">
-            <div className="modal-display-list-header m-3">
-              <AiOutlineCloseCircle onClick={closeModal} className="icon-button close-position" />
-            </div>
-            <div className="modal-display-list-image-wrapper mt-5">
-              <Image src={selectedProduct.image} className="modal-display-list-image mb-5" />
-              <h5 style={{ flexGrow: 1, marginLeft: "30px", marginRight: "30px" }}>{selectedProduct.name}</h5>
-              <h6>
-                Price: {currentUser.currency}
-                {selectedProduct.price}
-              </h6>
-              <h6>Category: {selectedProduct.category}</h6>
-              <a href={selectedProduct.link} target="_blank" rel="noopener noreferrer" className="no-style">
+              <div className="modal-display-list-image-wrapper mt-5">
+                <Image src={selectedProduct.image} className="modal-display-list-image mb-5" />
+                <h5 style={{ flexGrow: 1, marginLeft: "30px", marginRight: "30px" }}>{selectedProduct.name}</h5>
                 <h6>
-                  Product Link <HiExternalLink className="product-link-icon-modal" />
-                </h6>{" "}
-              </a>
-            </div>
-            <div className="m-3 mr-4 d-flex justify-content-end">
-              <Button variant="outline-danger" onClick={() => deleteProductHandler(selectedProduct._id)}>
-                Delete From Saved Products
-              </Button>
-            </div>
-          </Modal>
-        )}
-        <hr className="library-divider" />
-      </div>
-      <div className="mt-5" ref={inspoImagesWrapperRef}>
-        <div className="d-flex justify-content-between">
-          <h3 className="brown-underline">inspo wall</h3>
-          <UploadInspoImages />
-        </div>
-        {userInspo.length === 0 && <div>Your inspo wall is currently empty!</div>}
-        <div id="inspo-images-wrapper">
-          {userInspo.length > 0 &&
-            userInspo.map((image) => (
-              <div key={image._id} className="inspo-display-list-item">
-                <Image src={image.url} className="inspo-display-list-image" />
-                <div className="trash-wrapper">
-                  <FaTrashAlt
-                    className="small-icon-inspo inspo-trash"
-                    onClick={() => trashInspoClickHandler(image._id)}
-                  />
-                </div>
+                  Price: {currentUser.currency}
+                  {selectedProduct.price}
+                </h6>
+                <h6>Category: {selectedProduct.category}</h6>
+                <a href={selectedProduct.link} target="_blank" rel="noopener noreferrer" className="no-style">
+                  <h6>
+                    Product Link <HiExternalLink className="product-link-icon-modal" />
+                  </h6>{" "}
+                </a>
               </div>
-            ))}
+              <div className="m-3 mr-4 d-flex justify-content-end">
+                <Button variant="outline-danger" onClick={() => deleteProductHandler(selectedProduct._id)}>
+                  Delete From Saved Products
+                </Button>
+              </div>
+            </Modal>
+          )}
+          <hr className="library-divider" ref={inspoImagesWrapperRef} />
         </div>
-      </div>
-    </Container>
+        <div className="mt-5">
+          <div className="d-flex justify-content-between">
+            <h3 className="brown-underline">inspo wall</h3>
+            <UploadInspoImages />
+          </div>
+          {userInspo.length === 0 && <div>Your inspo wall is currently empty!</div>}
+          <div id="inspo-images-wrapper">
+            {userInspo.length > 0 &&
+              userInspo.map((image) => (
+                <div key={image._id} className="inspo-display-list-item">
+                  <Image src={image.url} className="inspo-display-list-image" />
+                  <div className="trash-wrapper">
+                    <FaTrashAlt
+                      className="small-icon-inspo inspo-trash"
+                      onClick={() => trashInspoClickHandler(image._id)}
+                    />
+                  </div>
+                </div>
+              ))}
+          </div>
+        </div>
+      </Container>
+      <Footer />
+    </>
   )
 }
