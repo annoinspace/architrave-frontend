@@ -326,7 +326,7 @@ export default function ProjectDetails() {
               </div>
               <div
                 id={remaining >= 0 ? "remaining-wrapper-green" : "remaining-wrapper-orange"}
-                className="d-flex align-items-center justify-content-end m-1"
+                className="d-flex align-items-center justify-content-center m-1"
               >
                 Remaining {currency}
                 {remaining && remaining}
