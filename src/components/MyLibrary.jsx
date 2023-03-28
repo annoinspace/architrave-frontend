@@ -174,26 +174,28 @@ export default function MyLibrary() {
         </div>
         {selectedProduct && (
           <Modal show={modalIsOpen} onHide={closeModal} id="">
-            <div className="modal-display-list-header">
+            <div className="modal-display-list-header m-3">
               <AiOutlineCloseCircle onClick={closeModal} className="icon-button close-position" />
             </div>
-            <div className="modal-display-list-image-wrapper">
-              <Image src={selectedProduct.image} className="modal-display-list-image" />
-              <h4 style={{ flexGrow: 1, marginLeft: "30px", marginRight: "30px" }}>{selectedProduct.name}</h4>
-              <div>
+            <div className="modal-display-list-image-wrapper mt-5">
+              <Image src={selectedProduct.image} className="modal-display-list-image mb-5" />
+              <h5 style={{ flexGrow: 1, marginLeft: "30px", marginRight: "30px" }}>{selectedProduct.name}</h5>
+              <h6>
                 Price: {currentUser.currency}
                 {selectedProduct.price}
-              </div>
-              <div>Category: {selectedProduct.category}</div>
+              </h6>
+              <h6>Category: {selectedProduct.category}</h6>
               <a href={selectedProduct.link} target="_blank" rel="noopener noreferrer" className="no-style">
-                <div>
+                <h6>
                   Product Link <HiExternalLink className="product-link-icon-modal" />
-                </div>{" "}
+                </h6>{" "}
               </a>
             </div>
-            <Button variant="danger" onClick={() => deleteProductHandler(selectedProduct._id)}>
-              Delete From Saved Products
-            </Button>
+            <div className="m-3 mr-4 d-flex justify-content-end">
+              <Button variant="outline-danger" onClick={() => deleteProductHandler(selectedProduct._id)}>
+                Delete From Saved Products
+              </Button>
+            </div>
           </Modal>
         )}
         <hr className="library-divider" />
