@@ -154,7 +154,7 @@ export default function MoodboardTemplateOne() {
           setShowSpinner(false)
           dispatch(getAllUserProjects())
           navigate(`/home`)
-        }, 3000)
+        }, 3500)
       }
     } catch (error) {
       console.log(error)
