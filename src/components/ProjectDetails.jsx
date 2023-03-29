@@ -37,6 +37,7 @@ export default function ProjectDetails() {
   const [totalAllocated, setTotalAllocated] = useState(0)
 
   const [remaining, setRemaining] = useState(0)
+  // const [remainingNumber, setRemainingNumber] = useState(0)
 
   const [deleteProject, setDeleteProject] = useState(false)
   const [loadingSpinner, setLoadingSpinner] = useState(false)
@@ -167,15 +168,21 @@ export default function ProjectDetails() {
   const selectedTotal = selectedProductPrice * selectedProductQuantity
 
   const updateBudgetInfo = () => {
-    console.log("project updated", selectedProject)
-    console.log("all products", allProducts)
+    // console.log("project updated", selectedProject)
+    // console.log("all products", allProducts)
     const totalCost = totalAllocatedCalculator()
-    setTotalAllocated(parseFloat(totalCost.toFixed(2)))
+    setTotalAllocated(parseFloat(totalCost))
     setTotalBudget(parseInt(parseFloat(budget) + cushion))
-    console.log("remaining before update:", remaining)
-    setRemaining(parseFloat(totalBudget - totalAllocated))
-    console.log("remaining after update:", remaining)
+    // console.log("remaining before update:", remaining)
+    const remainingCalculated = (totalBudget - totalAllocated).toFixed(2)
+    console.log("---------------type of remainingCalculated", typeof remainingCalculated, remainingCalculated)
+    setRemaining(parseInt(totalBudget - totalAllocated))
+    setRemaining(remainingCalculated)
+    // console.log("remaining after update:", remaining)
     console.log("type of remaining", typeof remaining)
+    // const numberRemaining = parseInt(remaining)
+    // console.log("type of numberRemaining", typeof numberRemaining, numberRemaining)
+    // setRemainingNumber(remaining.toFixed)
   }
 
   const deleteProjecthandler = () => {
@@ -210,7 +217,7 @@ export default function ProjectDetails() {
   useEffect(() => {
     if (totalBudget !== 0) {
       updateBudgetInfo()
-      setRemaining((totalBudget - totalAllocated).toFixed(2))
+      // setRemaining((totalBudget - totalAllocated).toFixed(2))
     }
   }, [totalBudget])
 
