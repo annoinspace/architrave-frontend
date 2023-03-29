@@ -356,18 +356,34 @@ export default function MoodboardTemplateOne() {
           <div>
             <p>Swatch Style</p>
             <div className="buttons-wrapper">
-              <Button onClick={squareSwatches}>Square</Button>
-              <Button onClick={circleSwatches}>Circle</Button>
-              <Button onClick={rectangleSwatches}>Rectangle</Button>
-              <Button onClick={strokeSwatches}>Stroke</Button>
-              <Button onClick={archSwatches}>Arch</Button>
-              <Button onClick={pillSwatches}>Pill</Button>
+              <div className="jump-library mt-0" onClick={squareSwatches}>
+                Square
+              </div>
+              <div className="jump-library mt-0" onClick={circleSwatches}>
+                Circle
+              </div>
+              <div className="jump-library mt-0" onClick={rectangleSwatches}>
+                Rectangle
+              </div>
+              <div className="jump-library mt-0" onClick={strokeSwatches}>
+                Stroke
+              </div>
+              <div className="jump-library mt-0" onClick={archSwatches}>
+                Arch
+              </div>
+              <div className="jump-library mt-0" onClick={pillSwatches}>
+                Pill
+              </div>
             </div>
 
             <p>Swatch Shadows</p>
             <div className="buttons-wrapper">
-              <Button onClick={swatchShadowOn}>On</Button>
-              <Button onClick={swatchShadowOff}>Off</Button>
+              <div className="jump-library mt-0" onClick={swatchShadowOn}>
+                On
+              </div>
+              <div className="jump-library mt-0" onClick={swatchShadowOff}>
+                Off
+              </div>
             </div>
           </div>
           <div>
@@ -384,13 +400,21 @@ export default function MoodboardTemplateOne() {
           <div>
             <p>Image Borders</p>
             <div className="buttons-wrapper">
-              <Button onClick={borderHandlerOn}>On</Button>
-              <Button onClick={borderHandlerOff}>Off</Button>
+              <div className="jump-library mt-0" onClick={borderHandlerOff}>
+                Off
+              </div>
+              <div className="jump-library mt-0" onClick={borderHandlerOn}>
+                On
+              </div>
             </div>
             <p>Image Shadows</p>
-            <div className="buttons-wrapper">
-              <Button onClick={imageBorderHandlerOn}>On</Button>
-              <Button onClick={imageBorderHandlerOff}>Off</Button>
+            <div className="buttons-wrapper mb-3">
+              <div className="jump-library mt-0" onClick={imageBorderHandlerOn}>
+                On
+              </div>
+              <div className="jump-library mt-0" onClick={imageBorderHandlerOff}>
+                Off
+              </div>
             </div>
           </div>
         </div>

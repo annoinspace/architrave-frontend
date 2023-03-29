@@ -197,7 +197,7 @@ export default function MoodboardTemplateOne() {
               ></div>
             ))}
         </div>
-        <div id="aspirational-text-wrapper">
+        <div id="aspirational-wrapper">
           <div className="aspirational-text">
             {!editText1 && (
               <div onClick={() => setEditText1(true)} style={{ color: textColor }}>

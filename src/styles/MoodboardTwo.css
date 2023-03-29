@@ -259,7 +259,8 @@
   left: 145px;
   z-index: 20;
 }
-#aspirational-text-wrapper {
+
+#aspirational-wrapper {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -273,7 +274,8 @@
 .aspirational-text {
   cursor: pointer;
   font-family: var(--lora);
-  font-size: 18px;
+  font-size: 24px;
+  font-weight: bold;
 }
 .aspirational-text-form {
   border: transparent !important;
