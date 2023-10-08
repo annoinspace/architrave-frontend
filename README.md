@@ -18,16 +18,10 @@ With Architrave, users can create and manage multiple projects, upload images, a
 
 ### v2 Key Feature Releases
 
-- Export moodboards and budget sheets for sharing
-- Find other user's moodboards by category
-- Privacy Settings For Moodboards & Budget Sheets
-- User connections/following
-
-### v3 Key Feature Releases
-
-- Product Suggestions
-- Moodboard generation based off color and theme/category prompt
-- Custom moodboard template design
+- Export budget sheets for sharing
+- Add collaborators with editing capabilities
+- Edit moodboard after saving
+- Moodbaord templates have advanced customisation
 
 ### Technologies Used
 
