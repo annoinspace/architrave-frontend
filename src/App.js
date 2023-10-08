@@ -22,19 +22,20 @@ import Profile from "./components/Profile"
 import ArchivedProject from "./components/ArchivedProject"
 import SelectTemplate from "./components/SelectTemplate"
 import MoodboardTemplateFour from "./components/MoodboardTemplateFour"
+import { isMobile } from "react-device-detect"
 
 function App() {
   const currentUser = useSelector((state) => state.currentUser.currentUser)
   const loginStatus = useSelector((state) => state.currentUser.loginStatus)
-  const [isMobile, setIsMobile] = useState(false)
+  const [isDeviceMobile, setIsDeviceMobile] = useState(false)
 
   //choose the screen size
   const checkWindowSize = () => {
-    if (window.innerWidth < 850) {
-      setIsMobile(true)
+    if (isMobile) {
+      setIsDeviceMobile(true)
       console.log("screen is too small")
     } else {
-      setIsMobile(false)
+      setIsDeviceMobile(false)
     }
   }
 
@@ -56,7 +57,7 @@ function App() {
         <BrowserRouter>
           <Navbar />
 
-          {isMobile ? (
+          {isDeviceMobile ? (
             <div id="incompatible">Architrave is currently not compatible with small screens.</div>
           ) : (
             <Routes>
