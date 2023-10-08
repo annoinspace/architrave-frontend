@@ -49,7 +49,7 @@ font-family: 'Playfair Display SC', serif; */
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: calc(100vh - 50px);
   padding-inline: 20px;
   text-align: center;
 }
