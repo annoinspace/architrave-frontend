@@ -40,8 +40,8 @@ function App() {
   }
 
   useEffect(() => {
-    window.addEventListener("resize", checkWindowSize)
-  })
+    checkWindowSize() // Call once immediately on mount
+  }, [])
 
   useEffect(() => {
     if (currentUser) {
