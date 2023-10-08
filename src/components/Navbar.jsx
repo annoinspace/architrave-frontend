@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { logoutUser, updateUserLocation } from "../redux/actions/userActions"
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom"
 import { getAllUserProjects } from "../redux/actions/moodboardActions"
+import { isMobile } from "react-device-detect"
 
 export default function Navbar() {
   const location = useLocation()
@@ -11,6 +12,22 @@ export default function Navbar() {
   const userLocation = useSelector((state) => state.currentUser.userLocation)
 
   const [loggedInNav, setLoggedInNav] = useState(false)
+
+  const [isDeviceMobile, setIsDeviceMobile] = useState(false)
+
+  //choose the screen size
+  const checkWindowSize = () => {
+    if (isMobile) {
+      setIsDeviceMobile(true)
+      console.log("screen is too small")
+    } else {
+      setIsDeviceMobile(false)
+    }
+  }
+
+  useEffect(() => {
+    checkWindowSize() // Call once immediately on mount
+  }, [])
   const dispatch = useDispatch()
 
   const logoutHandler = () => {
@@ -64,9 +81,15 @@ export default function Navbar() {
       )}
       {currentUser === null && userLocation === "/" && (
         <>
-          <div className="nav-link architrave-text-nav ml-3" id="architrave-nav">
-            architrave
-          </div>
+          {isDeviceMobile ? (
+            <div className="nav-link architrave-text-nav" id="architrave-nav">
+              architrave
+            </div>
+          ) : (
+            <div className="nav-link architrave-text-nav ml-3" id="architrave-nav">
+              architrave
+            </div>
+          )}
           <Link to="/signup">
             <div className="nav-link" id="sign-up-nav">
               Signup
