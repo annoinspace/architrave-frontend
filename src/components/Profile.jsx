@@ -59,6 +59,7 @@ export default function Profile() {
           <h1 className="text-center mb-5">Profile Settings</h1>
         </div>
         <div>
+          <div className="profile-list-item-container">{username === "guestuser" ? <>guest</> : <>not guest</>}</div>
           <div className="profile-list-item-container">
             {editUsername ? (
               <>
@@ -73,19 +74,29 @@ export default function Profile() {
                     }}
                   />
                 </Form.Group>{" "}
-                <Button variant="success" onClick={saveNameChangeHandler}>
-                  Confirm Changes
-                </Button>
-                <Button variant="outline-secondary" className="ml-1" onClick={() => setEditUsername(false)}>
-                  Cancel
-                </Button>
+                {username === "guestuser" ? (
+                  <Button variant="alert">Changes locked for Guest</Button>
+                ) : (
+                  <>
+                    <Button variant="success" onClick={saveNameChangeHandler}>
+                      Confirm Changes
+                    </Button>
+                    <Button variant="outline-secondary" className="ml-1" onClick={() => setEditUsername(false)}>
+                      Cancel
+                    </Button>
+                  </>
+                )}
               </>
             ) : (
               <>
                 <div className="profile-list-item">Username: {username}</div>
-                <Button variant="outline-success" onClick={() => setEditUsername(true)}>
-                  Change Username
-                </Button>
+                {username === "guestuser" ? (
+                  <Button variant="outline-warning">Changes locked for Guest</Button>
+                ) : (
+                  <Button variant="outline-success" onClick={() => setEditUsername(true)}>
+                    Change Username
+                  </Button>
+                )}
               </>
             )}
           </div>
@@ -113,9 +124,13 @@ export default function Profile() {
             ) : (
               <>
                 <div className="profile-list-item">Email: {email}</div>
-                <Button variant="outline-success" onClick={() => setEditEmail(true)}>
-                  Change Email
-                </Button>
+                {username === "guestuser" ? (
+                  <Button variant="outline-warning">Changes locked for Guest</Button>
+                ) : (
+                  <Button variant="outline-success" onClick={() => setEditEmail(true)}>
+                    Change Email
+                  </Button>
+                )}
               </>
             )}
           </div>
@@ -143,9 +158,13 @@ export default function Profile() {
             ) : (
               <>
                 <div className="profile-list-item">Currency: {currency}</div>
-                <Button variant="outline-success" onClick={() => setEditCurrency(true)}>
-                  Change Currency
-                </Button>
+                {username === "guestuser" ? (
+                  <Button variant="outline-warning">Changes locked for Guest</Button>
+                ) : (
+                  <Button variant="outline-success" onClick={() => setEditCurrency(true)}>
+                    Change Currency
+                  </Button>
+                )}
               </>
             )}
           </div>
@@ -198,9 +217,13 @@ export default function Profile() {
                       <TbLineDotted style={{ fontSize: "50px" }} />
                     </div>
                   </div>
-                  <Button variant="outline-success" onClick={() => setEditPassword(true)}>
-                    Change Password
-                  </Button>
+                  {username === "guestuser" ? (
+                    <Button variant="outline-warning">Changes locked for Guest</Button>
+                  ) : (
+                    <Button variant="outline-success" onClick={() => setEditPassword(true)}>
+                      Change Password
+                    </Button>
+                  )}
                 </>
               )}
             </div>{" "}
