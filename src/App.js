@@ -58,7 +58,7 @@ function App() {
           <Navbar />
 
           {isDeviceMobile ? (
-            <div id="incompatible">Architrave is currently not compatible with small screens.</div>
+            <div id="incompatible">Architrave is currently not available on mobile devices.</div>
           ) : (
             <Routes>
               <>
