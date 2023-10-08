@@ -8,7 +8,7 @@ import "bootstrap/dist/css/bootstrap.min.css"
 import Navbar from "./components/Navbar.jsx"
 import Login from "./components/Login"
 import { useSelector } from "react-redux"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import SignUp from "./components/SignUp"
 import Homepage from "./components/Homepage"
@@ -26,6 +26,21 @@ import MoodboardTemplateFour from "./components/MoodboardTemplateFour"
 function App() {
   const currentUser = useSelector((state) => state.currentUser.currentUser)
   const loginStatus = useSelector((state) => state.currentUser.loginStatus)
+  const [isMobile, setIsMobile] = useState(false)
+
+  //choose the screen size
+  const checkWindowSize = () => {
+    if (window.innerWidth < 850) {
+      setIsMobile(true)
+      console.log("screen is too small")
+    } else {
+      setIsMobile(false)
+    }
+  }
+
+  useEffect(() => {
+    window.addEventListener("resize", checkWindowSize)
+  })
 
   useEffect(() => {
     if (currentUser) {
@@ -41,26 +56,32 @@ function App() {
         <BrowserRouter>
           <Navbar />
 
-          <Routes>
-            <Route path="/" element={<Login />} />
-            <Route path="/signup" element={<SignUp />} />
-
-            {currentUser && (
+          {isMobile ? (
+            <div id="incompatible">Architrave is currently not compatible with small screens.</div>
+          ) : (
+            <Routes>
               <>
-                <Route path="/home" element={<Homepage />} />
-                <Route path="/my-library" element={<MyLibrary />} />
-                <Route path="/new-project" element={<NewProject />} />
-                <Route path="/select-template" element={<SelectTemplate />} />
-                <Route path="/template-one" element={<MoodboardTemplateOne />} />
-                <Route path="/template-two" element={<MoodboardTemplateTwo />} />
-                <Route path="/template-three" element={<MoodboardTemplateThree />} />
-                <Route path="/template-four" element={<MoodboardTemplateFour />} />
-                <Route path="/project-details/:projectId" element={<ProjectDetails />} />
-                <Route path="/archive/:projectId" element={<ArchivedProject />} />
-                <Route path="/profile" element={<Profile />} />
+                <Route path="/" element={<Login />} />
+                <Route path="/signup" element={<SignUp />} />
               </>
-            )}
-          </Routes>
+
+              {currentUser && (
+                <>
+                  <Route path="/home" element={<Homepage />} />
+                  <Route path="/my-library" element={<MyLibrary />} />
+                  <Route path="/new-project" element={<NewProject />} />
+                  <Route path="/select-template" element={<SelectTemplate />} />
+                  <Route path="/template-one" element={<MoodboardTemplateOne />} />
+                  <Route path="/template-two" element={<MoodboardTemplateTwo />} />
+                  <Route path="/template-three" element={<MoodboardTemplateThree />} />
+                  <Route path="/template-four" element={<MoodboardTemplateFour />} />
+                  <Route path="/project-details/:projectId" element={<ProjectDetails />} />
+                  <Route path="/archive/:projectId" element={<ArchivedProject />} />
+                  <Route path="/profile" element={<Profile />} />
+                </>
+              )}
+            </Routes>
+          )}
         </BrowserRouter>
       </div>
     </>

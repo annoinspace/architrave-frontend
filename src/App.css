@@ -43,6 +43,13 @@ font-family: 'Playfair Display SC', serif; */
 
   font-size: 24px;
 }
+
+#incompatible {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50%;
+}
 project-section-two::-webkit-scrollbar {
   width: 12px;
 }
