@@ -323,7 +323,9 @@ Button:active {
 } */
 
 .login-option {
-  border: 1px solid rgba(132, 112, 112, 0.25);
+  border: 1px solid rgba(132, 112, 112, 0.75);
+  background-color: rgba(132, 112, 112, 0.75);
+  color: white;
   padding-inline: 4px;
   border-radius: 5px;
   cursor: pointer;
@@ -332,8 +334,8 @@ Button:active {
   cursor: pointer;
 }
 .login-option:hover {
-  background: #f2eeee;
-  box-shadow: inset 10px 10px 30px rgba(223, 221, 221, 0.35), inset -10px -10px 30px #ffffff;
+  background: #3f3333;
+  box-shadow: inset 10px 10px 30px rgba(68, 61, 61, 0.35), inset -10px -10px 30px rgba(132, 112, 112, 1);
 }
 /*  ------------my library page------------- */
 
