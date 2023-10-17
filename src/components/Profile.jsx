@@ -59,7 +59,6 @@ export default function Profile() {
           <h1 className="text-center mb-5">Profile Settings</h1>
         </div>
         <div>
-          <div className="profile-list-item-container">{username === "guestuser" ? <>guest</> : <>not guest</>}</div>
           <div className="profile-list-item-container">
             {editUsername ? (
               <>

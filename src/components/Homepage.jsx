@@ -116,7 +116,7 @@ export default function Homepage() {
                     </div>
                     <div className="active-archive">
                       <div>Active</div>
-                      <div>Archived</div>
+                      <div>Archive</div>
                     </div>
                   </div>
                 </div>
