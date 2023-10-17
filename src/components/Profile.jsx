@@ -168,11 +168,13 @@ export default function Profile() {
             )}
           </div>
           <div>
-            {passwordChangeError !== null && (
-              <Alert variant="danger" id="password-change-fail" className="mt-4">
-                Password change fail: {passwordChangeError}
-              </Alert>
-            )}
+            {username === "guestuser"
+              ? null
+              : passwordChangeError !== null && (
+                  <Alert variant="danger" id="password-change-fail" className="mt-4">
+                    Password change fail: {passwordChangeError}
+                  </Alert>
+                )}
             <div className="profile-list-item-container">
               {editPassword ? (
                 <div className="">
