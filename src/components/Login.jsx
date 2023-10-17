@@ -15,6 +15,7 @@ export default function Login() {
   const [password, setPassword] = useState("")
   const [username, setUsername] = useState("")
   const [usernameForm, setUsernameForm] = useState(true)
+  const [submit, setSubmit] = useState("submit")
 
   // const handleSubmit = (e) => {
   //   e.preventDefault()
@@ -30,6 +31,7 @@ export default function Login() {
     }
     console.log("logging in")
     dispatch(getAccessToken(credentialEmail))
+    setSubmit("please wait")
   }
   const loginWithUsernameHandler = (e) => {
     e.preventDefault()
@@ -39,6 +41,7 @@ export default function Login() {
     }
     console.log("logging in")
     dispatch(getAccessToken(credentialUsername))
+    setSubmit("please wait")
   }
 
   const usernameClickedHandler = () => {
@@ -52,6 +55,9 @@ export default function Login() {
     console.log("-------checking the login status", loginStatus)
     if (loginStatusMessage === "success") {
       navigate("/home")
+      setSubmit("submit")
+    } else {
+      setSubmit("submit")
     }
   }, [loginStatus])
 
@@ -135,11 +141,11 @@ export default function Login() {
                 style={{ backgroundColor: "rgb(132, 112, 112)", border: "none" }}
                 onClick={loginWithUsernameHandler}
               >
-                Submit
+                {submit}
               </Button>
             ) : (
               <Button style={{ backgroundColor: "rgb(132, 112, 112)", border: "none" }} onClick={loginWithEmailHandler}>
-                Submit
+                {submit}
               </Button>
             )}
           </Form>{" "}
